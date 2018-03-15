@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <DatePicker
+        android:id="@+id/dpPicker"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false" />
+
+    <TimePicker
+        android:id="@+id/tpPicker"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/picker_btn_sure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@drawable/click_btn_bg_skyblue"
+        android:paddingBottom="@dimen/space_10"
+        android:paddingLeft="@dimen/space_30"
+        android:paddingRight="@dimen/space_30"
+        android:paddingTop="@dimen/space_10"
+        android:text="@string/sure"
+        android:textColor="@color/white" />
+</LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="titlebar_color">#ddffaf60</color>
+    
+    <color name="list_item_background_normal">#ffff</color>
+    <color name="list_item_background_pressed">#efefef</color>
+    
+    <color name="list_item_id_text">#ff008000</color>
+    
+    <!-- 下拉刷新时，颜色值 -->
+    <color name="swiperefresh_color1">#ff00ddff</color>
+    <color name="swiperefresh_color2">#ffffbb33</color>
+    <color name="swiperefresh_color3">#ffff4444</color>
+    <color name="swiperefresh_color4">#ffaa66cc</color>
+
+    <color name="more_style_bg">#eafdfdfd</color>
+    
+    <color name="window_background">#EBEBEB</color>
+    <color name="main_gray">#9A9A9A</color>
+    <color name="gray">#808080</color>
+    <color name="gray_2">#cccccc</color>
+    <color name="gray_3">#e2e7ea</color>
+    <color name="black">#000000</color>
+
+    <color name="main_translucent_gray">#77808080</color>
+    <color name="main_translucent_black_3">#7555</color>
+    <color name="black_3">#555</color>
+    <color name="black_4">#333</color>
+    <color name="black_5">#999999</color>
+
+    <color name="main_translucent_white">#77ffffff</color>
+    <color name="white">#ffffffff</color>
+
+    <color name="transparent">#00ffffff</color>
+
+    <color name="text_1">#ffe5c59c</color>
+    <color name="text_2">#ffc5aa59</color>
+    <color name="orange_1">#ffe6c59a</color>
+    <color name="orange_2">#ffcfae83</color>
+    <color name="orange_3">#eca271</color>
+    <color name="orange_4">#c67f51</color>
+    <color name="orange_5">#eb5b36</color>
+    <color name="orange_6">#ea8131</color>
+    <color name="orange_7">#ff6600</color>
+    <color name="skyblue_1">#ff57afd5</color>
+    <color name="skyblue_2">#ff4394b7</color>
+    <color name="red">#ff0000</color>
+    <color name="color_1">#e883bc</color>
+    <color name="color_10">#cbb225</color>
+    <color name="color_2">#a083e8</color>
+    <color name="color_3">#7e7e7e</color>
+    <color name="color_4">#1e9273</color>
+    <color name="color_5">#6acfb6</color>
+    <color name="color_6">#cdc437</color>
+    <color name="color_7">#d28b01</color>
+    <color name="color_8">#06bfab</color>
+    <color name="color_9">#76a7df</color>
+    <color name="yellow">#f0cf0e</color>
+    <color name="green_1">#c6c575</color>
+    <color name="green_2">#97964a</color>
+    <color name="purple_1">#babade</color>
+</resources>

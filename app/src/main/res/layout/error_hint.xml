@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_24"
+        android:src="@drawable/error_hint"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dip"
+        android:gravity="center_horizontal"
+        android:text="抱歉!\n数据发生了错误!"
+        android:textColor="#d36014"
+        android:textSize="@dimen/text_size_23" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:gravity="center_horizontal"
+        android:text="请检查网络设置"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_size_15" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_25"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/error_hint_lay_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_15"
+            android:background="@drawable/click_transparent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="36dip"
+                android:layout_height="36dip"
+                android:src="@drawable/back_orange" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回上层"
+                android:textColor="#d34014"
+                android:textSize="@dimen/text_size_20" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
