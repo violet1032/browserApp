@@ -1,5 +1,7 @@
 package com.zp.browser.ui.common;
 
+import android.view.WindowManager;
+
 import org.kymjs.kjframe.KJActivity;
 
 /**
@@ -16,5 +18,13 @@ public class BaseActivity extends KJActivity{
     @Override
     public void setRootView() {
 
+    }
+
+    @Override
+    public void initWidget() {
+        super.initWidget();
+
+        //透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 }

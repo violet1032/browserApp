@@ -647,4 +647,13 @@ public class StringUtils extends org.kymjs.kjframe.utils.StringUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm",Locale.getDefault());
         return sdf.format(new Date(l));
     }
+    public static String getDateMD(long l){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日",Locale.getDefault());
+        return sdf.format(new Date(l));
+    }
+
+    public static String getDateHM(long l){
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm",Locale.getDefault());
+        return sdf.format(new Date(l));
+    }
 }

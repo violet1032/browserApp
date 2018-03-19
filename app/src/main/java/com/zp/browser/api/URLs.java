@@ -17,8 +17,9 @@ public class URLs {
     public final static String otherLogin = APP_STORE_HOST + "user/otherLogin"; // 微信qq登录
     public final static String login = APP_STORE_HOST + "user/login"; // 手机登录
     public final static String getAdvertList = APP_STORE_HOST + "advert/list"; // 获取首页外链列表
+    public final static String getNewsList = APP_STORE_HOST + "news/list"; // 获取快讯列表
 
-    public final static String LOGOUT = APP_STORE_HOST + "api/user/logout"; // 退出登录
+    public final static String LOGOUT = APP_STORE_HOST + "user/logout"; // 退出登录
     public final static String IMG_UPLOAD = APP_STORE_HOST + "file/upload/avatarUploa";// 图片上传
 
 
