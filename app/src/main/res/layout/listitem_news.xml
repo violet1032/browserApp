@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/gray_3"
-        android:visibility="gone"
-        android:padding="@dimen/space_10">
+        android:padding="@dimen/space_10"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/listitem_news_tv_time_tile"
@@ -26,7 +26,6 @@
         android:id="@+id/listitem_news_lay_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/click_transparent"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -59,9 +58,9 @@
                 android:id="@+id/listitem_news_tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/time_bg"
+                android:background="@drawable/arrow_box_gray"
                 android:gravity="center"
-                android:text="11:18"
+                android:text="@string/text_default"
                 android:textColor="@color/black_3"
                 android:textSize="@dimen/text_size_12" />
 
@@ -71,7 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_5"
                 android:layout_marginTop="@dimen/space_5"
-                android:text="李俊姝都梗iuwoej王嘉尔佛文件佛山鸡王嘉尔佛文件佛山鸡王嘉尔佛文件佛山鸡皮肤我破解"
+                android:maxLines="5"
+                android:text="@string/text_default"
                 android:textColor="@color/black_3"
                 android:textSize="@dimen/text_size_13" />
 
@@ -85,22 +85,23 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="@dimen/space_10"
                     android:paddingLeft="@dimen/space_20"
                     android:paddingTop="@dimen/space_10">
 
                     <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/default_head" />
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/icon_hourglass" />
 
                     <TextView
                         android:id="@+id/listitem_news_tv_countdown"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/space_5"
-                        android:text="12:20:78"
+                        android:text="@string/text_default"
                         android:textColor="@color/black_3"
                         android:textSize="@dimen/text_size_11" />
                 </LinearLayout>
@@ -111,15 +112,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/click_transparent"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="@dimen/space_10"
                     android:paddingLeft="@dimen/space_20"
                     android:paddingTop="@dimen/space_10">
 
                     <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/default_head" />
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/icon_share" />
 
                     <TextView
                         android:layout_width="wrap_content"
