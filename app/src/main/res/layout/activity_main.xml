@@ -10,7 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/act_main_lay_bottom"
+        android:layout_above="@+id/act_main_img_1"
         android:background="@color/white"
         android:scrollbars="none"
         tools:context="com.zp.xintianfei.ui.MainActivity">
@@ -210,6 +210,13 @@
 
     </ScrollView>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:background="@color/gray_2"
+        android:id="@+id/act_main_img_1"
+        android:layout_above="@+id/act_main_lay_bottom"
+        android:layout_height="1px" />
+
     <LinearLayout
         android:id="@+id/act_main_lay_bottom"
         android:layout_width="match_parent"
@@ -220,16 +227,15 @@
         <LinearLayout
             android:id="@+id/act_main_lay_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/click_transparent"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/space_10">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:src="@drawable/arrow_left_gray_1" />
         </LinearLayout>
 
@@ -240,12 +246,11 @@
             android:layout_weight="1"
             android:background="@drawable/click_transparent"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/space_10">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:src="@drawable/arrow_right_gray_1" />
         </LinearLayout>
 
@@ -256,12 +261,11 @@
             android:layout_weight="1"
             android:background="@drawable/click_transparent"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/space_10">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:src="@drawable/icon_more_gray" />
         </LinearLayout>
 

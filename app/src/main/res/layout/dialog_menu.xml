@@ -2,21 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_40"
+        android:layout_marginTop="33dp"
         android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_40"
+            android:layout_marginTop="@dimen/space_30"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -29,13 +28,17 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/default_head" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/main_text_5" />
+                    android:layout_marginTop="@dimen/space_5"
+                    android:text="@string/main_text_5"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/text_size_12" />
             </LinearLayout>
 
             <LinearLayout
@@ -48,13 +51,17 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/default_head" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/main_text_6" />
+                    android:layout_marginTop="@dimen/space_5"
+                    android:text="@string/main_text_6"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/text_size_12" />
             </LinearLayout>
 
             <LinearLayout
@@ -67,13 +74,17 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/default_head" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/main_text_8" />
+                    android:layout_marginTop="@dimen/space_5"
+                    android:text="@string/main_text_8"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/text_size_12" />
             </LinearLayout>
 
             <LinearLayout
@@ -86,13 +97,17 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/default_head" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/main_text_9" />
+                    android:layout_marginTop="@dimen/space_5"
+                    android:text="@string/main_text_9"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/text_size_12" />
             </LinearLayout>
 
             <LinearLayout
@@ -105,36 +120,82 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/default_head" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/main_text_10" />
+                    android:layout_marginTop="@dimen/space_5"
+                    android:text="@string/main_text_10"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/text_size_12" />
             </LinearLayout>
         </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"
-            android:background="@color/gray_2"
-            android:layout_height="1px" />
+            android:layout_height="1px"
+            android:background="@color/gray_2" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
 
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray_2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/dialog_menu_img_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/click_transparent"
+                android:gravity="center"
+                android:padding="@dimen/space_10"
+                android:src="@drawable/default_head" />
+
+            <ImageView
+                android:id="@+id/dialog_menu_img_close"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/click_transparent"
+                android:gravity="center"
+                android:padding="@dimen/space_10"
+                android:src="@drawable/default_head" />
+
+            <ImageView
+                android:id="@+id/dialog_menu_img_share"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/click_transparent"
+                android:gravity="center"
+                android:padding="@dimen/space_10"
+                android:src="@drawable/default_head" />
+        </LinearLayout>
     </LinearLayout>
 
     <org.kymjs.kjframe.widget.RoundImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:id="@+id/dialog_menu_img_head"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginLeft="@dimen/space_20"
         android:src="@drawable/default_head" />
 </RelativeLayout>

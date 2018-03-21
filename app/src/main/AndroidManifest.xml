@@ -31,9 +31,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
+        <activity
+            android:name=".ui.dialog.MenuDialog" android:theme="@style/CustomDialog" />
 
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -65,6 +64,14 @@
             android:value="5a77125bf43e480daf000404" >
         </meta-data>
 
+        <!-- 百度地图 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="kfIM9AGcx8lS0gtPP2lNGmkFGReAUlGc" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
     </application>
 
 </manifest>

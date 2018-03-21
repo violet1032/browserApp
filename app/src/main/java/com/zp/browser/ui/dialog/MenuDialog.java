@@ -2,10 +2,19 @@ package com.zp.browser.ui.dialog;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.zp.browser.R;
 import com.zp.browser.ui.common.BaseActivity;
+
+import org.kymjs.kjframe.ui.BindView;
+import org.kymjs.kjframe.widget.RoundImageView;
 
 /**
  * <p>
@@ -19,11 +28,16 @@ import com.zp.browser.ui.common.BaseActivity;
  */
 public class MenuDialog extends BaseActivity {
 
-    public static void startActivity(Context activity, String version, String content) {
+    @BindView(id = R.id.dialog_menu_img_head)
+    private RoundImageView imgHead;
+    @BindView(id = R.id.dialog_menu_img_close, click = true)
+    private ImageView imgClose;
+    @BindView(id = R.id.dialog_menu_lay_exit, click = true)
+    private LinearLayout layExit;
+
+    public static void startActivity(Context activity) {
         Intent intent = new Intent();
         intent.setClass(activity, MenuDialog.class);
-        intent.putExtra("version", version);
-        intent.putExtra("content", content);
         activity.startActivity(intent);
     }
 
@@ -32,9 +46,14 @@ public class MenuDialog extends BaseActivity {
         super.setRootView();
         setContentView(R.layout.dialog_menu);
 
-        setFinishOnTouchOutside(false);
-
-
+        Window dialogWindow = this.getWindow();
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        dialogWindow.setGravity(Gravity.BOTTOM);
+        dialogWindow.setWindowAnimations(R.style.AnimBottom);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        lp.width = metrics.widthPixels; // 宽度设置
+        dialogWindow.setAttributes(lp);
     }
 
     @Override
@@ -45,6 +64,8 @@ public class MenuDialog extends BaseActivity {
     @Override
     public void initWidget() {
         super.initWidget();
+
+        imgHead.setBorderThickness(3);
     }
 
     @Override
@@ -54,6 +75,9 @@ public class MenuDialog extends BaseActivity {
         switch (v.getId()) {
             case R.id.dialog_menu_lay_exit:
                 System.exit(0);
+                break;
+            case R.id.dialog_menu_img_close:
+                finish();
                 break;
         }
     }

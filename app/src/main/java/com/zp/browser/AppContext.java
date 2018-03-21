@@ -24,6 +24,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.DisplayMetrics;
 
+import com.baidu.location.LocationClient;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.zp.browser.api.FHttpClient;
@@ -38,6 +39,8 @@ import org.kymjs.kjframe.http.HttpConfig;
  * @since 2015-3
  */
 public class AppContext extends Application {
+    private final String tag = "AppContext";
+
     public static int screenW;
     public static int screenH;
 
@@ -57,6 +60,13 @@ public class AppContext extends Application {
     public static String versionName;
 
     public static String downLoadUrl;
+
+    // 百度定位
+    public LocationClient locationClient = null;
+    public static double longitude; // 经度
+    public static double latitude;// 纬度
+    public static String city;
+    public static String province;
 
     @Override
     public void onCreate() {
@@ -97,7 +107,6 @@ public class AppContext extends Application {
         PlatformConfig.setQQZone("101463498", "b1c5b154d39958000334a33aaf88289e"); // 正式版
 //        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba"); // 测试版
         Config.DEBUG = true;
-
     }
 
     public static boolean isGrantExternalRW(Activity activity) {

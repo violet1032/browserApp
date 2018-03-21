@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fromXDelta="0%"
-    android:toXDelta="0%"
-    android:fromYDelta="00%"
-    android:toYDelta="100%"
-    android:duration="500">
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <translate
+        android:duration="300"
+        android:fromXDelta="0"
+        android:toXDelta="0"
+        android:fromYDelta="0"
+        android:toYDelta="100%p" />
 
-</translate>
+</set><!-- From: file:/E:/AndroidStudioWorkspace/AlbumProject/album/src/main/res/anim/bottom_dialog_out_anim.xml -->
