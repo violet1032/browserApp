@@ -31,6 +31,12 @@
     <string name="main_text_2">用户积分</string>
     <string name="main_text_3">搜索或输入网址</string>
     <string name="main_text_4">分享挖矿</string>
+    <string name="main_text_5">收藏网址</string>
+    <string name="main_text_6">夜间模式</string>
+    <string name="main_text_7">日间模式</string>
+    <string name="main_text_8">刷新</string>
+    <string name="main_text_9">收藏/历史</string>
+    <string name="main_text_10">退出</string>
 
     <string name="version_text_1">版本更新</string>
     <string name="version_text_2">最新版本：</string>

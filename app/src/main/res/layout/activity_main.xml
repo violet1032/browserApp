@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,6 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/act_main_lay_bottom"
         android:background="@color/white"
         android:scrollbars="none"
         tools:context="com.zp.xintianfei.ui.MainActivity">
@@ -142,8 +143,8 @@
 
                         <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_marginLeft="@dimen/space_5"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_5"
                             android:src="@drawable/main_person" />
 
                     </LinearLayout>
@@ -153,21 +154,21 @@
                     android:id="@+id/act_main_lay_searce"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:layout_marginBottom="@dimen/space_10"
                     android:background="@drawable/shape_rounded_h_main_skyblue_3"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="@dimen/space_10">
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:src="@drawable/icon_search_white"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_search_white" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginLeft="@dimen/space_5"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_5"
                         android:text="@string/main_text_3"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_13" />
@@ -186,7 +187,7 @@
 
             </com.zp.browser.widget.GridViewScroll>
 
-            <com.zp.browser.widget.ListviewScroll
+            <!--<com.zp.browser.widget.ListviewScroll
                 android:id="@+id/act_main_lv_news"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -195,10 +196,76 @@
                 android:dividerHeight="0px"
                 android:listSelector="@color/transparent">
 
-            </com.zp.browser.widget.ListviewScroll>
+            </com.zp.browser.widget.ListviewScroll>-->
+
+            <LinearLayout
+                android:id="@+id/act_main_lay_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/act_main_lay_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/act_main_lay_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/click_transparent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/space_10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_left_gray_1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/act_main_lay_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/click_transparent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/space_10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_right_gray_1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/act_main_lay_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/click_transparent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/space_10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_more_gray" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
 
 

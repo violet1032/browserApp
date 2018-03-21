@@ -13,13 +13,13 @@ import java.util.Locale;
 
 /**
  * 字符串辅助类
- * <p>
+ * <p/>
  * description:继承kj框架中的StringUtils,自定义在此扩展
- * <p>
+ * <p/>
  * author:zipeng
- * <p>
+ * <p/>
  * createTime:2015/9/14 20:37
- * <p>
+ * <p/>
  * version:1.0
  */
 public class StringUtils extends org.kymjs.kjframe.utils.StringUtils {
@@ -49,6 +49,7 @@ public class StringUtils extends org.kymjs.kjframe.utils.StringUtils {
             "May", "June", "July", "August", "September", "October", "November", "December"};
     private final static String[] monthsCN = new String[]{"一月", "二月", "三月", "四月",
             "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
+    private final static String[] weekdays = new String[]{"星期日","星期一","星期二","星期三","星期四","星期五","星期六"};
 
     /**
      * 计算星座
@@ -639,21 +640,68 @@ public class StringUtils extends org.kymjs.kjframe.utils.StringUtils {
         return "";
     }
 
-    public static String getDateYMD(long l){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
-        return sdf.format(new Date(l));
-    }
-    public static String getDateMDHM(long l){
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm",Locale.getDefault());
-        return sdf.format(new Date(l));
-    }
-    public static String getDateMD(long l){
-        SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日",Locale.getDefault());
+    public static String getDateYMD(long l) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return sdf.format(new Date(l));
     }
 
-    public static String getDateHM(long l){
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm",Locale.getDefault());
+    public static String getDateMDHM(long l) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm", Locale.getDefault());
         return sdf.format(new Date(l));
+    }
+
+    public static String getDateMD(long l) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日", Locale.getDefault());
+        return sdf.format(new Date(l));
+    }
+
+    public static String getDateHM(long l) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        return sdf.format(new Date(l));
+    }
+
+    public static long getTimeHMS(String str) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        try {
+            Date date = sdf.parse(str);
+            return date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static String getDateHMS(long l) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        return sdf.format(new Date(l));
+    }
+
+    /**
+     * 获取凌晨
+     *
+     * @Description:
+     * @date:2017年7月13日 下午4:32:46
+     * @author 瞿子朋
+     * @vesrsion: 1.0
+     *
+     * @return
+     */
+    public static Date getDay0(int offset) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, offset);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
+    public static String getWeekday(Date date){
+        if(date == null)
+            date = new Date();
+        Calendar c=Calendar.getInstance();
+        c.setTime(date);
+        int weekday=c.get(Calendar.DAY_OF_WEEK);
+        return weekdays[weekday - 1];
     }
 }
