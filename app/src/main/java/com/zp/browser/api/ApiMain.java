@@ -36,4 +36,16 @@ public class ApiMain {
 
         AppContext.http.post(url, params, callBack, false, false);
     }
+
+    public static void getWeather(String city, FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        params.put("city", city);
+
+        // 地址
+        String url = "https://www.sojson.com/open/api/weather/json.shtml";
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
+
 }

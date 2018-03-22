@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/click_transparent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/listitem_search_history_img_1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_20"
+            android:src="@drawable/icon_search_black" />
+
+        <TextView
+            android:id="@+id/listitem_search_history_tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/space_20"
+            android:layout_toLeftOf="@+id/listitem_search_history_img_arrow"
+            android:layout_toRightOf="@+id/listitem_search_history_img_1"
+            android:singleLine="true"
+            android:textSize="@dimen/text_size_15" />
+
+        <ImageView
+            android:id="@+id/listitem_search_history_img_arrow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/space_20"
+            android:background="@drawable/click_transparent"
+            android:padding="@dimen/space_12"
+            android:src="@drawable/arrow_top_left" />
+    </RelativeLayout>
+</LinearLayout>

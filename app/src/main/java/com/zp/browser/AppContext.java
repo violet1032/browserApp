@@ -29,8 +29,10 @@ import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.zp.browser.api.FHttpClient;
 import com.zp.browser.bean.User;
+import com.zp.browser.db.DBHelper;
 
 import org.kymjs.kjframe.KJBitmap;
+import org.kymjs.kjframe.KJDB;
 import org.kymjs.kjframe.bitmap.BitmapConfig;
 import org.kymjs.kjframe.http.HttpConfig;
 
@@ -67,6 +69,9 @@ public class AppContext extends Application {
     public static double latitude;// 纬度
     public static String city;
     public static String province;
+
+    // db
+    public static KJDB dBHelper;
 
     @Override
     public void onCreate() {
@@ -107,6 +112,9 @@ public class AppContext extends Application {
         PlatformConfig.setQQZone("101463498", "b1c5b154d39958000334a33aaf88289e"); // 正式版
 //        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba"); // 测试版
         Config.DEBUG = true;
+
+        // 数据库实例化
+        dBHelper = DBHelper.getInstance(applicationContext);
     }
 
     public static boolean isGrantExternalRW(Activity activity) {

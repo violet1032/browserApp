@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:orientation="vertical">
 
 
@@ -15,8 +16,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_30"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/space_40"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/space_10">
 
             <LinearLayout
                 android:id="@+id/dialog_menu_lay_collect"
@@ -28,9 +30,9 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/default_head" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_collect_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -51,9 +53,9 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/default_head" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_yejianmoshi_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -74,9 +76,9 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/default_head" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_refresh_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -97,9 +99,9 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/default_head" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_history_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -120,9 +122,9 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/default_head" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/icon_exit_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -167,8 +169,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/click_transparent"
                 android:gravity="center"
-                android:padding="@dimen/space_10"
-                android:src="@drawable/default_head" />
+                android:padding="@dimen/space_15"
+                android:src="@drawable/icon_setting_black" />
 
             <ImageView
                 android:id="@+id/dialog_menu_img_close"
@@ -177,8 +179,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/click_transparent"
                 android:gravity="center"
-                android:padding="@dimen/space_10"
-                android:src="@drawable/default_head" />
+                android:padding="@dimen/space_19"
+                android:src="@drawable/icon_arrow_down_blue" />
 
             <ImageView
                 android:id="@+id/dialog_menu_img_share"
@@ -187,8 +189,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/click_transparent"
                 android:gravity="center"
-                android:padding="@dimen/space_10"
-                android:src="@drawable/default_head" />
+                android:padding="@dimen/space_15"
+                android:src="@drawable/icon_search_black" />
         </LinearLayout>
     </LinearLayout>
 

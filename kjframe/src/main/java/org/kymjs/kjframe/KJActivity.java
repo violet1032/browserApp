@@ -280,8 +280,7 @@ public abstract class KJActivity extends FragmentActivity implements
 
     /**
      * 用Fragment替换视图
-     *
-     * @param resView        将要被替换掉的视图
+     *  @param resView        将要被替换掉的视图
      * @param targetFragment 用来替换的Fragment
      */
     public void changeFragment(int resView, KJFragment targetFragment) {

@@ -1,5 +1,7 @@
 package com.zp.browser.adapter;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
@@ -18,12 +20,15 @@ import java.util.Collection;
  */
 public class AdvertListAdapter extends KJAdapter<Advert> {
 
-    public AdvertListAdapter(AbsListView view, Collection<Advert> mDatas) {
+    private Handler handler;
+
+    public AdvertListAdapter(AbsListView view, Collection<Advert> mDatas,Handler handler) {
         super(view, mDatas, R.layout.listitem_advert);
+        this.handler = handler;
     }
 
     @Override
-    public void convert(AdapterHolder helper, Advert item, boolean isScrolling, int position) {
+    public void convert(AdapterHolder helper, final Advert item, boolean isScrolling, int position) {
         super.convert(helper, item, isScrolling, position);
 
         helper.setText(R.id.listitem_advert_tv, item.getName());
@@ -32,7 +37,10 @@ public class AdvertListAdapter extends KJAdapter<Advert> {
         helper.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Message message = new Message();
+                message.what = 101;
+                message.obj = item;
+                handler.sendMessage(message);
             }
         });
     }

@@ -65,7 +65,7 @@ public class MenuDialog extends BaseActivity {
     public void initWidget() {
         super.initWidget();
 
-        imgHead.setBorderThickness(3);
+        imgHead.setBorderThickness(5);
     }
 
     @Override
