@@ -11,20 +11,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
 import com.zp.browser.R;
 import com.zp.browser.adapter.SearchHistoryListAdapter;
+import com.zp.browser.api.ApiUser;
+import com.zp.browser.api.FHttpCallBack;
+import com.zp.browser.bean.Result;
 import com.zp.browser.db.Model.SearchHistory;
 import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.ui.dialog.MenuDialog;
 import com.zp.browser.ui.fragment.MainFragment;
 import com.zp.browser.ui.fragment.WebviewFragment;
-import com.zp.browser.utils.LogUtil;
 import com.zp.browser.utils.StringUtils;
-import com.zp.browser.widget.ListviewScroll;
 
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.KJFragment;
@@ -34,6 +37,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends BaseActivity {
 
@@ -72,10 +77,13 @@ public class MainActivity extends BaseActivity {
 
     private List<String> searchHistory = new ArrayList<>();
     @BindView(id = R.id.act_main_search_history_lv)
-    private ListviewScroll lvSearchHistory;
+    private ListView lvSearchHistory;
     private SearchHistoryListAdapter searchHistoryListAdapter;
     @BindView(id = R.id.act_main_img_clean, click = true)
     private ImageView imgClean;
+
+    private Timer timer;
+    private TimerTask timerTask;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent();
@@ -119,6 +127,22 @@ public class MainActivity extends BaseActivity {
                 return false;
             }
         });
+
+        // 自动登录
+        autoLogin();
+
+        // 定时更新用户信息
+        if (timer == null)
+            timer = new Timer();
+        if (timerTask == null) {
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    autoGetUserInfo();
+                }
+            };
+            timer.schedule(timerTask, 5000, 5000);
+        }
     }
 
     @Override
@@ -183,15 +207,28 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.act_main_tv_cancel:
                 String str = tvCancel.getText().toString().trim();
+                String content = edtUrl.getText().toString().trim();
                 if (str.equals("搜索")) {
-                    List<SearchHistory> searchHistorys = AppContext.dBHelper.findAllByWhere(SearchHistory.class,"content='"+str+"'");
-                    searchHistory.setContent(str);
-                    searchHistory.setDateline(System.currentTimeMillis());
-                    AppContext.dBHelper.save(searchHistory);
+                    List<SearchHistory> searchHistorys = AppContext.dBHelper.findAllByWhere(SearchHistory.class, "content='" + content + "'");
+                    if (searchHistorys.size() == 0) {
+                        SearchHistory searchHistory = new SearchHistory();
+                        searchHistory.setContent(content);
+                        searchHistory.setDateline(System.currentTimeMillis());
+                        AppContext.dBHelper.save(searchHistory);
+                    }
                 } else if (str.equals("取消")) {
-                    laySearchShow.setVisibility(View.VISIBLE);
-                    laySearchInput.setVisibility(View.GONE);
-                    lvSearchHistory.setVisibility(View.GONE);
+                    if (current == 0) {
+                        layTop.setVisibility(View.GONE);
+                        lvSearchHistory.setVisibility(View.GONE);
+
+                        laySearchShow.setVisibility(View.VISIBLE);
+                        laySearchInput.setVisibility(View.GONE);
+                        lvSearchHistory.setVisibility(View.GONE);
+                    } else {
+                        laySearchShow.setVisibility(View.VISIBLE);
+                        laySearchInput.setVisibility(View.GONE);
+                        lvSearchHistory.setVisibility(View.GONE);
+                    }
                 }
                 break;
             case R.id.act_main_img_clean:
@@ -203,6 +240,14 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+        if (timerTask != null) {
+            timerTask.cancel();
+            timerTask = null;
+        }
     }
 
     public void webviewStart(String url) {
@@ -211,6 +256,14 @@ public class MainActivity extends BaseActivity {
 
         WebviewFragment webviewFragment = new WebviewFragment(url, handler);
         addFragment(webviewFragment);
+    }
+
+    public void wakuang() {
+        if (AppContext.user.getId() == 0) {
+            LoginActivity.startActivity(this);
+        } else {
+            UserActivity.startActivity(this);
+        }
     }
 
     public void addFragment(KJFragment fragment) {
@@ -238,6 +291,12 @@ public class MainActivity extends BaseActivity {
         edtUrl.setText(((WebviewFragment) fragmentMap.get(current)).getUrl());
         tvTitle.setText(((WebviewFragment) fragmentMap.get(current)).getTitle());
 
+        lvSearchHistory.setVisibility(View.GONE);
+
+        laySearchShow.setVisibility(View.VISIBLE);
+        laySearchInput.setVisibility(View.GONE);
+        lvSearchHistory.setVisibility(View.GONE);
+
         arrowHandle();
     }
 
@@ -253,6 +312,12 @@ public class MainActivity extends BaseActivity {
         } else {
             edtUrl.setText(((WebviewFragment) fragmentMap.get(current)).getUrl());
             tvTitle.setText(((WebviewFragment) fragmentMap.get(current)).getTitle());
+
+            lvSearchHistory.setVisibility(View.GONE);
+
+            laySearchShow.setVisibility(View.VISIBLE);
+            laySearchInput.setVisibility(View.GONE);
+            lvSearchHistory.setVisibility(View.GONE);
         }
 
         arrowHandle();
@@ -275,16 +340,9 @@ public class MainActivity extends BaseActivity {
 
         // 只获取历史
         List<SearchHistory> list = AppContext.dBHelper.findAllByWhere(SearchHistory.class, "content like '%" + content + "%'", "dateline desc");
-//        List<SearchHistory> list = AppContext.dBHelper.findAll(SearchHistory.class,"dateline desc");
-
-        for (SearchHistory searchHistory : list) {
-            LogUtil.logError(MainActivity.class, "content:" + searchHistory.getContent());
-        }
 
         searchHistoryListAdapter = new SearchHistoryListAdapter(lvSearchHistory, list, handler, content);
         lvSearchHistory.setAdapter(searchHistoryListAdapter);
-
-        LogUtil.logError(MainActivity.class, "list.size():" + list.size());
 
         if (StringUtils.isEmpty(content)) {
             return;
@@ -294,6 +352,8 @@ public class MainActivity extends BaseActivity {
     }
 
     public void searchShow(String content) {
+        layTop.setVisibility(View.VISIBLE);
+
         laySearchShow.setVisibility(View.GONE);
         laySearchInput.setVisibility(View.VISIBLE);
         lvSearchHistory.setVisibility(View.VISIBLE);
@@ -303,5 +363,59 @@ public class MainActivity extends BaseActivity {
         edtUrl.setFocusableInTouchMode(true);
         edtUrl.requestFocus();
         edtUrl.selectAll();
+    }
+
+    public void autoLogin() {
+        String phone = AppConfig.getInstance().getmPre().getString("phone", null);
+        String password = AppConfig.getInstance().getmPre().getString("password", null);
+
+        if (!StringUtils.isEmpty(phone) && !StringUtils.isEmpty(password)) {
+            FHttpCallBack callBack = new FHttpCallBack() {
+
+                @Override
+                public void onSuccess(Map<String, String> headers, byte[] t) {
+                    super.onSuccess(headers, t);
+                    String str = new String(t);
+                    Result result = new Result();
+                    result.parse(str);
+                    if (result.isOk()) {
+                        // 登录成功
+                        AppContext.user.parse(str);
+                    }
+                }
+
+                @Override
+                public void onSuccess(String t) {
+                    super.onSuccess(t);
+
+                }
+            };
+            ApiUser.login(phone, password, callBack);
+        }
+    }
+
+    public void autoGetUserInfo() {
+        if (AppContext.user.getId() > 0) {
+            FHttpCallBack callBack = new FHttpCallBack() {
+
+                @Override
+                public void onSuccess(Map<String, String> headers, byte[] t) {
+                    super.onSuccess(headers, t);
+                    String str = new String(t);
+                    Result result = new Result();
+                    result.parse(str);
+                    if (result.isOk()) {
+                        AppContext.user.parse(str);
+                    }
+                }
+
+                @Override
+                public void onSuccess(String t) {
+                    super.onSuccess(t);
+
+                }
+            };
+            ApiUser.getUserInfo(callBack);
+        }
     }
 }

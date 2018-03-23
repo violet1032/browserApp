@@ -26,6 +26,7 @@
     <color name="gray_2">#cccccc</color>
     <color name="gray_3">#e2e7ea</color>
     <color name="black">#000000</color>
+    <color name="gray_bg">#f4f4f4</color>
 
     <color name="main_translucent_gray">#77808080</color>
     <color name="main_translucent_black_3">#7555</color>

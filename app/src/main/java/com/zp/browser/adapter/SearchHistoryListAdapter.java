@@ -2,11 +2,13 @@ package com.zp.browser.adapter;
 
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.view.View;
 import android.widget.AbsListView;
 
 import com.zp.browser.R;
 import com.zp.browser.db.Model.SearchHistory;
+import com.zp.browser.utils.StringUtils;
 
 import org.kymjs.kjframe.widget.AdapterHolder;
 import org.kymjs.kjframe.widget.KJAdapter;
@@ -21,7 +23,7 @@ public class SearchHistoryListAdapter extends KJAdapter<SearchHistory> {
     private Handler handler;
     private String select;
 
-    public SearchHistoryListAdapter(AbsListView view, Collection<SearchHistory> mDatas, Handler handler,String str) {
+    public SearchHistoryListAdapter(AbsListView view, Collection<SearchHistory> mDatas, Handler handler, String str) {
         super(view, mDatas, R.layout.listitem_search_history);
         this.handler = handler;
         select = str;
@@ -31,7 +33,21 @@ public class SearchHistoryListAdapter extends KJAdapter<SearchHistory> {
     public void convert(AdapterHolder helper, final SearchHistory item, boolean isScrolling, int position) {
         super.convert(helper, item, isScrolling, position);
 
-        helper.setText(R.id.listitem_search_history_tv_content, item.getContent());
+        String str = item.getContent();
+        int t = str.indexOf(select);
+        String str1 = str.substring(0, t);
+        String str2 = str.substring(t + select.length());
+
+        StringBuffer stringBuffer = new StringBuffer();
+        if (!StringUtils.isEmpty(str1))
+            stringBuffer.append(str1);
+        if (!StringUtils.isEmpty(select))
+            stringBuffer.append("<font color = '#50ade6'>" + select + "</font>");
+        if (!StringUtils.isEmpty(str2))
+            stringBuffer.append(str2);
+
+        helper.setText(R.id.listitem_search_history_tv_content, Html.fromHtml(stringBuffer.toString()));
+
 
         helper.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override

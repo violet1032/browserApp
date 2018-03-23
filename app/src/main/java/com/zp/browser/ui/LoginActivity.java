@@ -3,34 +3,50 @@ package com.zp.browser.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.umeng.socialize.UMShareAPI;
 import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
 import com.zp.browser.R;
+import com.zp.browser.api.ApiUser;
 import com.zp.browser.api.FHttpCallBack;
 import com.zp.browser.bean.Result;
 import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.ui.dialog.VersionUpdateDialog;
 import com.zp.browser.utils.JsonUtils;
+import com.zp.browser.utils.StringUtils;
 import com.zp.browser.utils.UIHelper;
 
 import org.json.JSONException;
+import org.kymjs.kjframe.ui.BindView;
 
 import java.util.Map;
 
 public class LoginActivity extends BaseActivity {
 
+    @BindView(id = R.id.umeng_banner_title)
+    private TextView tvTitle;
+    @BindView(id = R.id.umeng_banner_img_left, click = true)
+    private ImageView imgBack;
+
+    @BindView(id = R.id.act_login_edt_phone)
+    private EditText edtPhone;
+    @BindView(id = R.id.act_login_edt_password)
+    private EditText edtPassword;
+    @BindView(id = R.id.act_login_btn_login, click = true)
+    private Button btnLogin;
+    @BindView(id = R.id.act_login_tv_register, click = true)
+    private TextView tvRegister;
+    @BindView(id = R.id.act_login_tv_forgot, click = true)
+    private TextView tvForgot;
+
     public static void startActivity(Context context) {
         Intent intent = new Intent();
         intent.setClass(context, LoginActivity.class);
         context.startActivity(intent);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -43,39 +59,51 @@ public class LoginActivity extends BaseActivity {
     public void widgetClick(View v) {
         super.widgetClick(v);
 
-
+        switch (v.getId()) {
+            case R.id.umeng_banner_img_left:
+                finish();
+                break;
+            case R.id.act_login_btn_login:
+                // 登录
+                login();
+                break;
+            case R.id.act_login_tv_register:
+                // 注册
+                RegisterActivity.startActivity(this);
+                break;
+            case R.id.act_login_tv_forgot:
+                // 忘记密码
+                break;
+        }
     }
 
     @Override
     public void initData() {
         super.initData();
-
-//        if (Build.VERSION.SDK_INT >= 23) {
-//            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
-//            ActivityCompat.requestPermissions(this, mPermissionList, 123);
-//        }
-
-        // 自动登录
-//        if (!StringUtils.isEmpty(AppConfig.getInstance().getLoginWxUnionid())) {
-//            // 自动登录
-//            appLogin(AppConfig.getInstance().getLoginWxUnionid(), AppConfig.getInstance().getLoginWxOpenid(),
-//                    AppConfig.getInstance().getLoginWxNickname(), AppConfig.getInstance().getLoginWxNickname());
-//        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-
     }
 
     @Override
     public void initWidget() {
         super.initWidget();
 
+        tvTitle.setText("手机号登录");
+
         getAppVersion();
     }
 
-    private void appLogin(String unionid, String openid, String nickname, String headimgurl) {
+    private void login() {
+        final String phone = edtPhone.getText().toString().trim();
+        final String password = edtPassword.getText().toString().trim();
+
+        if (StringUtils.isEmpty(phone)) {
+            UIHelper.ToastMessage("请输入手机号");
+            return;
+        }
+        if (StringUtils.isEmpty(password)) {
+            UIHelper.ToastMessage("请输入密码");
+            return;
+        }
+
         FHttpCallBack callBack = new FHttpCallBack() {
             @Override
             public void onFinish() {
@@ -86,6 +114,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onPreStart() {
                 super.onPreStart();
+                UIHelper.showLoadingDialog(LoginActivity.this);
             }
 
             @Override
@@ -96,13 +125,11 @@ public class LoginActivity extends BaseActivity {
                 result.parse(str);
                 if (result.isOk()) {
                     // 登录成功
-                    AppContext.user.parse(str,true);
+                    AppContext.user.parse(str);
 
                     // 缓存信息
-                    AppConfig.getInstance().setLoginWxHeadimgurl(AppContext.user.getAvatar());
-                    AppConfig.getInstance().setLoginWxUnionid(AppContext.user.getOpenid());
-                    AppConfig.getInstance().setLoginWxOpenid(AppContext.user.getOpenid());
-                    AppConfig.getInstance().setLoginWxNickname(AppContext.user.getNickname());
+                    AppConfig.getInstance().mPreSet("phone", phone);
+                    AppConfig.getInstance().mPreSet("password", password);
 
                     MainActivity.startActivity(LoginActivity.this);
                     finish();
@@ -117,7 +144,7 @@ public class LoginActivity extends BaseActivity {
 
             }
         };
-//        ApiUser.appLogin(unionid, openid, nickname, headimgurl, callBack);
+        ApiUser.login(phone, password, callBack);
     }
 
     private void getAppVersion() {

@@ -2,14 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/banner_height"
-    android:background="#000"
+    android:background="@color/main_skyblue"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/umeng_banner_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/banner_height"
-        android:gravity="center"
+        android:layout_toRightOf="@+id/umeng_banner_img_left"
+        android:gravity="left|center_vertical"
         android:singleLine="true"
         android:text="标题"
         android:textColor="#fff"

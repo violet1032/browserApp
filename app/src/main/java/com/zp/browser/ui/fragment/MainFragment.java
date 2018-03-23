@@ -28,7 +28,9 @@ import com.zp.browser.bean.Advert;
 import com.zp.browser.bean.News;
 import com.zp.browser.bean.NewsList;
 import com.zp.browser.bean.Result;
+import com.zp.browser.ui.LoginActivity;
 import com.zp.browser.ui.MainActivity;
+import com.zp.browser.ui.UserActivity;
 import com.zp.browser.ui.common.BaseFragment;
 import com.zp.browser.utils.StringUtils;
 import com.zp.browser.utils.UIHelper;
@@ -46,13 +48,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * <p>
+ * <p/>
  * 描述:
- * <p>
+ * <p/>
  * 作者:Administrator
- * <p>
+ * <p/>
  * 时间:2018/3/22 11:06
- * <p>
+ * <p/>
  * 版本:
  */
 public class MainFragment extends BaseFragment {
@@ -86,6 +88,8 @@ public class MainFragment extends BaseFragment {
     private TextView txPm25;
     @BindView(id = R.id.act_main_lay_search, click = true)
     private LinearLayout laySearch;
+    @BindView(id = R.id.fg_main_lay_wakuang, click = true)
+    private LinearLayout layWakuang;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -97,8 +101,10 @@ public class MainFragment extends BaseFragment {
     protected void initWidget(View parentView) {
         super.initWidget(parentView);
 
-        if (AppContext.user.getUid() == 0) {
+        if (AppContext.user.getId() == 0) {
             txCoin.setText("登录");
+        } else {
+            txCoin.setText(AppContext.user.getCoin().toString());
         }
 
         txCity.setText(AppContext.city);
@@ -127,6 +133,9 @@ public class MainFragment extends BaseFragment {
 
                 switch (message.what) {
                     case 1:
+                        // 更新积分
+                        if (AppContext.user.getId() > 0)
+                            txCoin.setText(AppContext.user.getCoin().toString());
                         countDown();
                         break;
                     case 109:
@@ -146,7 +155,7 @@ public class MainFragment extends BaseFragment {
                             ((MainActivity) getActivity()).webviewStart(advert.getUrl());
                         } else if (advert.getType() == 1) {
                             // 挖矿
-
+                            ((MainActivity) getActivity()).wakuang();
                         }
                         break;
                 }
@@ -182,7 +191,14 @@ public class MainFragment extends BaseFragment {
 
         switch (v.getId()) {
             case R.id.act_main_lay_search:
-                ((MainActivity)getActivity()).searchShow("");
+                ((MainActivity) getActivity()).searchShow("");
+                break;
+            case R.id.fg_main_lay_wakuang:
+                if (AppContext.user.getId() == 0) {
+                    LoginActivity.startActivity(getActivity());
+                }else{
+                    UserActivity.startActivity(getActivity());
+                }
                 break;
         }
     }

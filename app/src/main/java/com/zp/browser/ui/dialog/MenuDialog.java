@@ -10,25 +10,29 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.zp.browser.AppContext;
 import com.zp.browser.R;
+import com.zp.browser.api.ApiCommon;
+import com.zp.browser.ui.LoginActivity;
+import com.zp.browser.ui.UserActivity;
 import com.zp.browser.ui.common.BaseActivity;
 
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.widget.RoundImageView;
 
 /**
- * <p>
+ * <p/>
  * 描述:
- * <p>
+ * <p/>
  * 作者:Administrator
- * <p>
+ * <p/>
  * 时间:2018/2/9 15:24
- * <p>
+ * <p/>
  * 版本:
  */
 public class MenuDialog extends BaseActivity {
 
-    @BindView(id = R.id.dialog_menu_img_head)
+    @BindView(id = R.id.dialog_menu_img_head, click = true)
     private RoundImageView imgHead;
     @BindView(id = R.id.dialog_menu_img_close, click = true)
     private ImageView imgClose;
@@ -66,6 +70,10 @@ public class MenuDialog extends BaseActivity {
         super.initWidget();
 
         imgHead.setBorderThickness(5);
+
+        if (AppContext.user.getId() > 0) {
+            ApiCommon.getNetBitmap(AppContext.user.getAvatar(), imgHead, false);
+        }
     }
 
     @Override
@@ -78,6 +86,13 @@ public class MenuDialog extends BaseActivity {
                 break;
             case R.id.dialog_menu_img_close:
                 finish();
+                break;
+            case R.id.dialog_menu_img_head:
+                if (AppContext.user.getId() == 0) {
+                    LoginActivity.startActivity(this);
+                }else{
+                    UserActivity.startActivity(this);
+                }
                 break;
         }
     }

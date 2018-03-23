@@ -1,0 +1,184 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_skyblue"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.zp.xintianfei.ui.LoginActivity">
+
+    <include layout="@layout/common_banner" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_bg"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/space_15"
+        android:paddingRight="@dimen/space_15"
+        android:paddingTop="@dimen/space_20">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rounded_h_white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_10"
+                android:src="@drawable/icon_mobile_blue" />
+
+            <EditText
+                android:id="@+id/act_register_edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@color/transparent"
+                android:hint="@string/login_text_1"
+                android:inputType="number"
+                android:paddingLeft="@dimen/space_10"
+                android:textColor="@color/black_3"
+                android:textColorHint="@color/gray_2"
+                android:textSize="@dimen/text_size_15" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_20"
+            android:background="@drawable/shape_rounded_h_white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_10"
+                android:src="@drawable/password_2" />
+
+            <EditText
+                android:id="@+id/act_register_edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@color/transparent"
+                android:hint="@string/login_text_2"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/space_10"
+                android:textColor="@color/black_3"
+                android:textColorHint="@color/gray_2"
+                android:textSize="@dimen/text_size_15" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_20"
+            android:background="@drawable/shape_rounded_h_white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_10"
+                android:src="@drawable/password_2" />
+
+            <EditText
+                android:id="@+id/act_register_edt_repassword"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@color/transparent"
+                android:hint="@string/register_text_2"
+                android:inputType="textPassword"
+                android:paddingLeft="@dimen/space_10"
+                android:textColor="@color/black_3"
+                android:textColorHint="@color/gray_2"
+                android:textSize="@dimen/text_size_15" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_20"
+            android:background="@drawable/shape_rounded_h_white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginBottom="@dimen/space_10"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_10"
+                android:src="@drawable/sms_code" />
+
+            <EditText
+                android:id="@+id/act_register_edt_smscode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="7"
+                android:background="@color/transparent"
+                android:hint="@string/register_text_6"
+                android:inputType="number"
+                android:paddingLeft="@dimen/space_10"
+                android:textColor="@color/black_3"
+                android:textColorHint="@color/gray_2"
+                android:textSize="@dimen/text_size_15" />
+
+            <ImageView
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_5"
+                android:background="@color/main_skyblue" />
+
+            <TextView
+                android:id="@+id/act_register_tv_getcode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/click_transparent"
+                android:gravity="center"
+                android:text="@string/register_text_7"
+                android:textColor="@color/main_skyblue" />
+        </LinearLayout>
+
+
+        <CheckBox
+            android:id="@+id/act_register_cbox"
+            style="@style/MyCheckboxStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_15"
+            android:layout_marginTop="@dimen/space_15"
+            android:checked="true"
+            android:paddingLeft="@dimen/space_30"
+            android:text="@string/register_text_4"
+            android:textColor="@color/black_3"
+            android:textSize="@dimen/text_size_13" />
+
+        <Button
+            android:id="@+id/act_register_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_5"
+            android:background="@drawable/click_btn_round_h_skyblue_3"
+            android:padding="@dimen/space_10"
+            android:text="@string/register_text_5"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

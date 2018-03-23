@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>
+ * <p/>
  * 描述:
- * <p>
+ * <p/>
  * 作者:Administrator
- * <p>
+ * <p/>
  * 时间:2018/2/5 15:09
- * <p>
+ * <p/>
  * 版本:
  */
 public class ApiUser {
@@ -32,11 +32,64 @@ public class ApiUser {
         AppContext.http.get(url, params, callBack, false, false);
     }
 
+    public static void login(String phone, String password, FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        params.put("phone", phone);
+        params.put("password", password);
+
+        // 地址
+        String url = URLs.login;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
+
     public static void logout(FHttpCallBack callBack) {
         // 参数设置
         Map<String, Object> params = new HashMap<>();
         // 地址
         String url = URLs.LOGOUT;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
+
+    public static void register(String phone, String password, String rePassword, String smscode, FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        params.put("phone", phone);
+        params.put("password", password);
+        params.put("repassword", rePassword);
+        params.put("sms_code", smscode);
+        // 地址
+        String url = URLs.register;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
+
+    public static void sendIdentifyingCode(String phone, FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        params.put("phone", phone);
+        // 地址
+        String url = URLs.sendIdentifyingCode;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
+
+    public static void getUserInfo(FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        // 地址
+        String url = URLs.getUserInfo;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
+
+    public static void getSystemParam(FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        // 地址
+        String url = URLs.getSystemParam;
 
         AppContext.http.get(url, params, callBack, false, false);
     }
