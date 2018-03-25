@@ -68,4 +68,7 @@
     <string name="user_text_9">邀请好友将获得</string>
     <string name="user_text_10">立即邀请</string>
 
+    <string name="share_text_1">此二维码已包含邀请“邀请下级”等功能</string>
+    <string name="share_text_2">二维码获取中……</string>
+
 </resources>

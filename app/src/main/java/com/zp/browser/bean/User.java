@@ -27,6 +27,8 @@ public class User implements Serializable {
     private E_GENDER_TYPE genderType;
     private String shareLink;
     private String phone;
+    private String invite_bg;
+    private String share_news_bg;
     private int count;
     private String invitation_code;
 
@@ -41,6 +43,8 @@ public class User implements Serializable {
             setCoin(jsonUtils1.getBigDecimal("coin"));
             setShareLink(jsonUtils1.getString("share"));
             setPhone(jsonUtils1.getString("telephone"));
+            setInvite_bg(jsonUtils1.getString("invite_bg"));
+            setShare_news_bg(jsonUtils1.getString("share_news_bg"));
             setCount(jsonUtils1.getInt("count"));
             setInvitation_code(jsonUtils1.getString("invitation_code"));
         } catch (JSONException e) {
@@ -128,5 +132,21 @@ public class User implements Serializable {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getInvite_bg() {
+        return invite_bg;
+    }
+
+    public void setInvite_bg(String invite_bg) {
+        this.invite_bg = invite_bg;
+    }
+
+    public String getShare_news_bg() {
+        return share_news_bg;
+    }
+
+    public void setShare_news_bg(String share_news_bg) {
+        this.share_news_bg = share_news_bg;
     }
 }

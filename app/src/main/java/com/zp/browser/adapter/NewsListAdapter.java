@@ -1,16 +1,12 @@
 package com.zp.browser.adapter;
 
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.zp.browser.R;
 import com.zp.browser.bean.News;
-import com.zp.browser.utils.LogUtil;
 import com.zp.browser.utils.StringUtils;
-import com.zp.browser.utils.UIHelper;
 import com.zp.browser.widget.ListviewScroll;
 
 import org.kymjs.kjframe.widget.AdapterHolder;
@@ -61,25 +57,11 @@ public class NewsListAdapter extends KJAdapter<News> {
             @Override
             public void onClick(View view) {
 
-                int heightBefore = UIHelper.getViewHeight(helper.getConvertView());
                 int maxLines = ((TextView) helper.getView(R.id.listitem_news_tv_content)).getMaxLines();
-                if (maxLines == 5)
+                if (maxLines == 5) {
                     ((TextView) helper.getView(R.id.listitem_news_tv_content)).setMaxLines(1000);
-                else
+                }else
                     ((TextView) helper.getView(R.id.listitem_news_tv_content)).setMaxLines(5);
-
-                int heightAfter = UIHelper.getViewHeight(helper.getConvertView());
-
-                LogUtil.logError(NewsListAdapter.class,"heightBefore:"+heightBefore);
-                LogUtil.logError(NewsListAdapter.class,"heightAfter:"+heightAfter);
-
-
-                ScrollView scrollView = (ScrollView)listView.getParent().getParent();
-                ViewGroup.LayoutParams layoutParams =  scrollView.getLayoutParams();
-
-                LogUtil.logError(NewsListAdapter.class,"layoutParams.height:"+layoutParams.height);
-                layoutParams.height = layoutParams.height + 400;
-                scrollView.setLayoutParams(layoutParams);
             }
         });
 

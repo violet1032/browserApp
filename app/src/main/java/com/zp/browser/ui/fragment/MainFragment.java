@@ -22,6 +22,7 @@ import com.zp.browser.AppContext;
 import com.zp.browser.R;
 import com.zp.browser.adapter.AdvertListAdapter;
 import com.zp.browser.api.ApiMain;
+import com.zp.browser.api.ApiUser;
 import com.zp.browser.api.FHttpCallBack;
 import com.zp.browser.bean.AdverList;
 import com.zp.browser.bean.Advert;
@@ -196,7 +197,7 @@ public class MainFragment extends BaseFragment {
             case R.id.fg_main_lay_wakuang:
                 if (AppContext.user.getId() == 0) {
                     LoginActivity.startActivity(getActivity());
-                }else{
+                } else {
                     UserActivity.startActivity(getActivity());
                 }
                 break;
@@ -300,10 +301,11 @@ public class MainFragment extends BaseFragment {
                 @Override
                 public void onClick(View view) {
                     int maxLines = tvContent.getMaxLines();
-                    if (maxLines == 5)
+                    if (maxLines == 5) {
                         tvContent.setMaxLines(1000);
-                    else
+                    } else
                         tvContent.setMaxLines(5);
+                    readAward();
                 }
             });
 
@@ -316,6 +318,18 @@ public class MainFragment extends BaseFragment {
 
 
             layList.addView(layItem);
+        }
+    }
+
+    public void readAward() {
+        if (AppContext.user.getId() > 0) {
+            FHttpCallBack callBack = new FHttpCallBack() {
+                @Override
+                public void onSuccess(Map<String, String> headers, byte[] t) {
+                    super.onSuccess(headers, t);
+                }
+            };
+            ApiUser.readAward(callBack);
         }
     }
 

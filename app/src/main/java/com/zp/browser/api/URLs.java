@@ -19,6 +19,8 @@ public class URLs {
     public final static String register = APP_STORE_HOST + "user/register"; // 手机注册
     public final static String getUserInfo = APP_STORE_HOST + "user/getUserInfo"; // 获取用户信息
     public final static String getSystemParam = APP_STORE_HOST + "user/getSystemParam"; // 获取系统配置
+    public final static String readAward = APP_STORE_HOST + "user/readAward"; // 阅读咨询奖励
+    public final static String shareAward = APP_STORE_HOST + "user/shareAward"; // 分享成功奖励
 
 
     public final static String sendIdentifyingCode = APP_STORE_HOST + "sms/sendIdentifyingCode"; // 获取手机号

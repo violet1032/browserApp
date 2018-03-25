@@ -36,6 +36,8 @@ public class MenuDialog extends BaseActivity {
     private RoundImageView imgHead;
     @BindView(id = R.id.dialog_menu_img_close, click = true)
     private ImageView imgClose;
+    @BindView(id = R.id.dialog_menu_img_share, click = true)
+    private ImageView imgShare;
     @BindView(id = R.id.dialog_menu_lay_exit, click = true)
     private LinearLayout layExit;
 
@@ -90,9 +92,18 @@ public class MenuDialog extends BaseActivity {
             case R.id.dialog_menu_img_head:
                 if (AppContext.user.getId() == 0) {
                     LoginActivity.startActivity(this);
-                }else{
+                } else {
                     UserActivity.startActivity(this);
                 }
+                break;
+            case R.id.dialog_menu_img_share:
+                // 分享
+                if (AppContext.user.getId() == 0) {
+                    LoginActivity.startActivity(MenuDialog.this);
+                } else {
+                    ShareDialog.startActivity(MenuDialog.this, 0);
+                }
+                finish();
                 break;
         }
     }

@@ -84,8 +84,6 @@ public class ImageUtils {
         byte[] bytes = stream.toByteArray();
         fos.write(bytes);
         fos.close();
-
-        UIHelper.ToastMessage("保存成功");
     }
 
     /**

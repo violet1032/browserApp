@@ -12,10 +12,15 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.zp.browser.AppContext;
 import com.zp.browser.R;
+import com.zp.browser.api.ApiUser;
+import com.zp.browser.api.FHttpCallBack;
 import com.zp.browser.ui.common.BaseFragment;
 
 import org.kymjs.kjframe.ui.BindView;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -97,6 +102,8 @@ public class WebviewFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
+
+        readAward();
     }
 
     @Override
@@ -117,5 +124,17 @@ public class WebviewFragment extends BaseFragment {
 
     public void refresh(){
         webView.loadUrl(url);
+    }
+
+    public void readAward(){
+        if(AppContext.user.getId() > 0) {
+            FHttpCallBack callBack = new FHttpCallBack() {
+                @Override
+                public void onSuccess(Map<String, String> headers, byte[] t) {
+                    super.onSuccess(headers, t);
+                }
+            };
+            ApiUser.readAward(callBack);
+        }
     }
 }

@@ -109,8 +109,8 @@ public class AppContext extends Application {
 
         // 配置友盟
         PlatformConfig.setWeixin("wx60ad3c3c49c77ed8", "c1254aec048bc287404a82e560b15fac");
-        PlatformConfig.setQQZone("101463498", "b1c5b154d39958000334a33aaf88289e"); // 正式版
-//        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba"); // 测试版
+//        PlatformConfig.setQQZone("101463498", "b1c5b154d39958000334a33aaf88289e"); // 正式版
+        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba"); // 测试版
         Config.DEBUG = true;
 
         // 数据库实例化

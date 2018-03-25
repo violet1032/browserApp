@@ -94,21 +94,21 @@ public class AppConfig {
     /**
      * 图片保存地址
      */
-//    public static final String SAVE_IMAGE_PATH = Environment
-//            .getExternalStorageDirectory()
-//            + File.separator
-//            + AppContext.applicationContext.getResources().getString(
-//            R.string.app_name_en)
-//            + File.separator
-//            + "image"
-//            + File.separator;
     public static final String SAVE_IMAGE_PATH = Environment
             .getExternalStorageDirectory()
             + File.separator
-            + "DCIM"
+            + AppContext.applicationContext.getResources().getString(
+            R.string.app_name_en)
             + File.separator
-            + "Camera"
+            + "image"
             + File.separator;
+//    public static final String SAVE_IMAGE_PATH = Environment
+//            .getExternalStorageDirectory()
+//            + File.separator
+//            + "DCIM"
+//            + File.separator
+//            + "Camera"
+//            + File.separator;
 
 
     /**
