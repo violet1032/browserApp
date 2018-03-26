@@ -12,6 +12,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
 import com.zp.browser.R;
 import com.zp.browser.api.ApiUser;
@@ -136,6 +137,12 @@ public class WebviewFragment extends BaseFragment {
     }
 
     @Override
+    public void onChange() {
+        super.onChange();
+        changeStyle();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
@@ -176,6 +183,16 @@ public class WebviewFragment extends BaseFragment {
                 }
             };
             ApiUser.readAward(callBack);
+        }
+    }
+
+    public void changeStyle(){
+        if(AppConfig.getInstance().getmPre().getBoolean("isNight",false)){
+            webView.setBackgroundColor(getResources().getColor(R.color.black_3)); // 设置背景色
+            webView.getBackground().setAlpha(255); // 设置填充透明度 范围：0-255
+        }else{
+            webView.setBackgroundColor(getResources().getColor(R.color.transparent)); // 设置背景色
+            webView.getBackground().setAlpha(0); // 设置填充透明度 范围：0-255
         }
     }
 }

@@ -1,8 +1,10 @@
 package com.zp.browser.ui;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
@@ -91,6 +93,14 @@ public class MainActivity extends BaseActivity {
     private Timer timer;
     private TimerTask timerTask;
 
+    private Timer timerGetSuggestion;
+    private TimerTask taskGetSuggestion;
+
+    @BindView(id=R.id.act_main_lay_bg)
+    private RelativeLayout layBg;
+    @BindView(id=R.id.act_main_lay_bg_1)
+    private LinearLayout layBg_1;
+
     public static void startActivity(Context context) {
         Intent intent = new Intent();
         intent.setClass(context, MainActivity.class);
@@ -160,9 +170,6 @@ public class MainActivity extends BaseActivity {
         searchUrl();
     }
 
-    private Timer timerGetSuggestion;
-    private TimerTask taskGetSuggestion;
-
     @Override
     public void initWidget() {
         super.initWidget();
@@ -184,7 +191,7 @@ public class MainActivity extends BaseActivity {
                     tvCancel.setText("搜索");
                 }
 
-                if(timerGetSuggestion == null || taskGetSuggestion == null){
+                if (timerGetSuggestion == null || taskGetSuggestion == null) {
                     timerGetSuggestion = new Timer();
                     taskGetSuggestion = new TimerTask() {
                         @Override
@@ -197,8 +204,8 @@ public class MainActivity extends BaseActivity {
                             taskGetSuggestion = null;
                         }
                     };
-                    timerGetSuggestion.schedule(taskGetSuggestion,1000);
-                }else{
+                    timerGetSuggestion.schedule(taskGetSuggestion, 1000);
+                } else {
                     timerGetSuggestion.cancel();
                     timerGetSuggestion = null;
                     taskGetSuggestion.cancel();
@@ -216,7 +223,7 @@ public class MainActivity extends BaseActivity {
                             taskGetSuggestion = null;
                         }
                     };
-                    timerGetSuggestion.schedule(taskGetSuggestion,1000);
+                    timerGetSuggestion.schedule(taskGetSuggestion, 1000);
                 }
 
 
@@ -237,6 +244,7 @@ public class MainActivity extends BaseActivity {
             case R.id.act_main_lay_menu:
                 MenuDialog.startActivity(this);
                 break;
+
             case R.id.act_main_lay_left:
                 previousFragment();
                 break;
@@ -308,6 +316,48 @@ public class MainActivity extends BaseActivity {
         if (timerTask != null) {
             timerTask.cancel();
             timerTask = null;
+        }
+    }
+
+    private BroadcastReceiver broadcastReceiver;
+
+    @Override
+    public void registerBroadcast() {
+        super.registerBroadcast();
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if(intent.getAction().equals("android.intent.style_change")){
+                    changeStyle();
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver, new IntentFilter("android.intent.style_change"));
+    }
+
+    @Override
+    public void unRegisterBroadcast() {
+        super.unRegisterBroadcast();
+        unregisterReceiver(broadcastReceiver);
+    }
+
+    private void changeStyle(){
+        if(AppConfig.getInstance().getmPre().getBoolean("isNight",false)){
+            layBg.setBackgroundColor(getResources().getColor(R.color.black_3));
+            layBg_1.setBackgroundColor(getResources().getColor(R.color.black_3));
+        }else{
+            layBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            layBg_1.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+        }
+
+        mainFragment.changeStyle();
+
+        for (Integer key :
+                fragmentMap.keySet()) {
+            KJFragment kjFragment = fragmentMap.get(key);
+            if(kjFragment instanceof WebviewFragment){
+                ((WebviewFragment)kjFragment).changeStyle();;
+            }
         }
     }
 

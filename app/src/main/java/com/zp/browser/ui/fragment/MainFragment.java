@@ -495,4 +495,12 @@ public class MainFragment extends BaseFragment {
                 break;
         }
     }
+
+    public void changeStyle(){
+        if(AppConfig.getInstance().getmPre().getBoolean("isNight",false)){
+            laySearch.setBackgroundResource(R.drawable.shape_rounded_h_black_4);
+        }else{
+            laySearch.setBackgroundResource(R.drawable.click_btn_round_h_skyblue_3);
+        }
+    }
 }

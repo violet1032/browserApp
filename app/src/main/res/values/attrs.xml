@@ -30,6 +30,19 @@
         <!-- StickyListHeaders attributes -->
         <attr name="hasStickyHeaders" format="boolean" />
         <attr name="isDrawingListUnderStickyHeader" format="boolean" />
+
+
+
+        <attr name="color_main_skyblue" format="color" />
+        <attr name="color_white" format="color" />
+        <attr name="color_black_3" format="color" />
+        <attr name="floatValue" format="float" />
+        <attr name="integerValue" format="integer" />
+        <attr name="booleanValue" format="boolean" />
+        <attr name="dimensionValue" format="dimension" />
+        <attr name="stringValue" format="string" />
+        <attr name="referenceValue" format="color|reference" />
+        <attr name="imageValue" format="reference"/>
     </declare-styleable>
 
 </resources>

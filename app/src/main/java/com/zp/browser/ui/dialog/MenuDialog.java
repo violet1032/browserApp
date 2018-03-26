@@ -10,12 +10,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
 import com.zp.browser.R;
 import com.zp.browser.api.ApiCommon;
 import com.zp.browser.ui.LoginActivity;
 import com.zp.browser.ui.UserActivity;
 import com.zp.browser.ui.common.BaseActivity;
+import com.zp.browser.utils.UIHelper;
 
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.widget.RoundImageView;
@@ -40,6 +42,8 @@ public class MenuDialog extends BaseActivity {
     private ImageView imgShare;
     @BindView(id = R.id.dialog_menu_lay_exit, click = true)
     private LinearLayout layExit;
+    @BindView(id = R.id.dialog_menu_lay_day, click = true)
+    private LinearLayout layDay;
 
     public static void startActivity(Context activity) {
         Intent intent = new Intent();
@@ -50,6 +54,8 @@ public class MenuDialog extends BaseActivity {
     @Override
     public void setRootView() {
         super.setRootView();
+        setTheme(UIHelper.getStyleDialog());
+
         setContentView(R.layout.dialog_menu);
 
         Window dialogWindow = this.getWindow();
@@ -105,6 +111,22 @@ public class MenuDialog extends BaseActivity {
                     ShareDialog.startActivity(MenuDialog.this, 0);
                 }
                 finish();
+                break;
+            case R.id.dialog_menu_lay_day:
+//                //  获取当前模式
+//                int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+//                //  切换模式
+//                //  重启Activity
+//                recreate();
+                if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+                    AppConfig.getInstance().mPreSet("isNight", false);
+                } else {
+                    AppConfig.getInstance().mPreSet("isNight", true);
+                }
+
+                Intent intent = new Intent("android.intent.style_change");
+                sendBroadcast(intent);
+
                 break;
         }
     }

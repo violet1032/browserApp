@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
 import com.zp.browser.R;
 
@@ -145,7 +146,7 @@ public class UIHelper {
      */
     public static void showLoadingDialog(Context context) {
         if (dlg == null) {
-            dlg = new AlertDialog.Builder(context, R.style.CustomDialog).create();
+            dlg = new AlertDialog.Builder(context, getStyleDialog()).create();
             dlg.show();
             dlg.setCancelable(false);
             Window window = dlg.getWindow();
@@ -154,7 +155,7 @@ public class UIHelper {
             window.setContentView(view);
         } else {
             if (!dlg.isShowing()) {
-                dlg = new AlertDialog.Builder(context, R.style.CustomDialog).create();
+                dlg = new AlertDialog.Builder(context, getStyleDialog()).create();
                 dlg.show();
                 dlg.setCancelable(false);
                 Window window = dlg.getWindow();
@@ -439,5 +440,18 @@ public class UIHelper {
         listView.setLayoutParams(params);
     }
 
-
+    public static int getStyle(){
+        if(AppConfig.getInstance().getmPre().getBoolean("isNight",false)){
+            return R.style.AppThemeNight;
+        }else{
+            return R.style.AppThemeDay;
+        }
+    }
+    public static int getStyleDialog(){
+        if(AppConfig.getInstance().getmPre().getBoolean("isNight",false)){
+            return R.style.CustomDialogDay;
+        }else{
+            return R.style.CustomDialogNight;
+        }
+    }
 }

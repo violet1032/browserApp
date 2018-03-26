@@ -13,15 +13,36 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
+    <style name="AppThemeDay" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="color_main_skyblue">@color/main_skyblue</item>
+        <item name="color_white">@color/white</item>
+        <item name="color_black_3">@color/black_3</item>
+    </style>
+    <style name="AppThemeNight" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="color_main_skyblue">@color/black</item>
+        <item name="color_white">@color/white</item>
+        <item name="color_black_3">@color/gray</item>
     </style>
 
     <!-- Dialog Style -->
-    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+    <style name="CustomDialogDay" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">true</item>
+        <item name="color_main_skyblue">@color/main_skyblue</item>
+        <item name="color_white">@color/white</item>
+        <item name="color_black_3">@color/black_3</item>
+    </style>
+
+    <style name="CustomDialogNight" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="color_main_skyblue">@color/black</item>
+        <item name="color_white">@color/white</item>
+        <item name="color_black_3">@color/gray</item>
     </style>
 
     <style name="titlebar">
