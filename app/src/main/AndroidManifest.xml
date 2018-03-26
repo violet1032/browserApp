@@ -86,6 +86,10 @@
             android:name=".ui.UserActivity"
             android:label="@string/title_activity_user" >
         </activity>
+        <activity
+            android:name=".ui.InviteFriendsActivity"
+            android:label="@string/title_activity_invite_friends" >
+        </activity>
     </application>
 
 </manifest>

@@ -95,6 +95,7 @@ public class MenuDialog extends BaseActivity {
                 } else {
                     UserActivity.startActivity(this);
                 }
+                finish();
                 break;
             case R.id.dialog_menu_img_share:
                 // 分享

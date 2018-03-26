@@ -49,7 +49,7 @@ public class StringUtils extends org.kymjs.kjframe.utils.StringUtils {
             "May", "June", "July", "August", "September", "October", "November", "December"};
     private final static String[] monthsCN = new String[]{"一月", "二月", "三月", "四月",
             "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
-    private final static String[] weekdays = new String[]{"星期日","星期一","星期二","星期三","星期四","星期五","星期六"};
+    private final static String[] weekdays = new String[]{"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
 
     /**
      * 计算星座
@@ -679,12 +679,11 @@ public class StringUtils extends org.kymjs.kjframe.utils.StringUtils {
     /**
      * 获取凌晨
      *
+     * @return
      * @Description:
      * @date:2017年7月13日 下午4:32:46
      * @author 瞿子朋
      * @vesrsion: 1.0
-     *
-     * @return
      */
     public static Date getDay0(int offset) {
         Calendar calendar = Calendar.getInstance();
@@ -696,12 +695,22 @@ public class StringUtils extends org.kymjs.kjframe.utils.StringUtils {
         return calendar.getTime();
     }
 
-    public static String getWeekday(Date date){
-        if(date == null)
+    public static String getWeekday(Date date) {
+        if (date == null)
             date = new Date();
-        Calendar c=Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         c.setTime(date);
-        int weekday=c.get(Calendar.DAY_OF_WEEK);
+        int weekday = c.get(Calendar.DAY_OF_WEEK);
         return weekdays[weekday - 1];
+    }
+
+    public static String getDomain(String url) {
+        url = url.replaceAll("http://", "");
+        url = url.replaceAll("https://", "");
+
+        int end = url.indexOf("/");
+        if (end > 0)
+            return url.substring(0, end + 1);
+        return url;
     }
 }

@@ -2,6 +2,8 @@ package com.zp.browser.api;
 
 import com.zp.browser.AppContext;
 
+import org.kymjs.kjframe.http.HttpCallBack;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,5 +49,21 @@ public class ApiMain {
 
         AppContext.http.get(url, params, callBack, false, false);
     }
+    public static void searchUrl(FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
 
+        // 地址
+        String url = URLs.searchUrl;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
+
+    public static void getSearchSuggestion(String url,HttpCallBack callBack){
+        // 参数设置
+
+        // 地址
+
+        AppContext.http.get(url, callBack);
+    }
 }

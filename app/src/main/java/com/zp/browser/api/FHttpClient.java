@@ -125,6 +125,11 @@ public class FHttpClient extends KJHttp {
         return super.get(url, params, callback);
     }
 
+    public Request<byte[]> get(String url, HttpCallBack
+            callback) {
+        return super.get(url, callback);
+    }
+
     public void get(String url, Map<String, Object> params, HttpCallBack callback, boolean
             setCookie, boolean login) {
         this.setCookie = setCookie;

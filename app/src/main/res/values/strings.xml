@@ -70,5 +70,28 @@
 
     <string name="share_text_1">此二维码已包含邀请“邀请下级”等功能</string>
     <string name="share_text_2">二维码获取中……</string>
+    <string name="title_activity_invite_friends">InviteFriendsActivity</string>
 
+    <string name="invite_text_1">邀请好友拿佣金</string>
+    <string name="invite_text_2">全球首款</string>
+    <string name="invite_text_3">可挖矿的</string>
+    <string name="invite_text_4">区块链媒体平台</string>
+    <string name="invite_text_5">我的邀请链接：</string>
+    <string name="invite_text_6">复制链接</string>
+    <string name="invite_text_7">活动开始时间：</string>
+    <string name="invite_text_8">邀请记录</string>
+    <string name="invite_text_9">累计获得：</string>
+    <string name="invite_text_10">BX糖果</string>
+    <string name="invite_text_11">邀请层级</string>
+    <string name="invite_text_12">一次性奖励</string>
+    <string name="invite_text_13">后续收益</string>
+    <string name="invite_text_14">邀请人数</string>
+    <string name="invite_text_15">邀请规则</string>
+    <string name="invite_text_16">区</string>
+    <string name="invite_text_17">块</string>
+    <string name="invite_text_18">链</string>
+    <string name="invite_text_19">媒</string>
+    <string name="invite_text_20">体</string>
+    <string name="invite_text_21">平</string>
+    <string name="invite_text_22">台</string>
 </resources>

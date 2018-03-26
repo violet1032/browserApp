@@ -16,20 +16,23 @@ import com.zp.browser.AppContext;
 import com.zp.browser.R;
 import com.zp.browser.api.ApiUser;
 import com.zp.browser.api.FHttpCallBack;
+import com.zp.browser.db.Model.ScanHistory;
 import com.zp.browser.ui.common.BaseFragment;
+import com.zp.browser.utils.StringUtils;
 
 import org.kymjs.kjframe.ui.BindView;
 
+import java.util.List;
 import java.util.Map;
 
 /**
- * <p>
+ * <p/>
  * 描述:
- * <p>
+ * <p/>
  * 作者:Administrator
- * <p>
+ * <p/>
  * 时间:2018/3/22 11:31
- * <p>
+ * <p/>
  * 版本:
  */
 public class WebviewFragment extends BaseFragment {
@@ -51,10 +54,11 @@ public class WebviewFragment extends BaseFragment {
 
     }
 
-    public String getUrl(){
+    public String getUrl() {
         return this.url;
     }
-    public String getTitle(){
+
+    public String getTitle() {
         return this.webTitle;
     }
 
@@ -77,7 +81,7 @@ public class WebviewFragment extends BaseFragment {
         webView.setWebViewClient(new webviewClient());
         webSettings.setLoadWithOverviewMode(true);
 
-        WebChromeClient webChromeClient = new WebChromeClient(){
+        WebChromeClient webChromeClient = new WebChromeClient() {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
@@ -86,6 +90,43 @@ public class WebviewFragment extends BaseFragment {
                 message.what = 103;
                 message.obj = title;
                 mainHandler.sendMessage(message);
+
+                // 添加历史记录
+                List<ScanHistory> list = AppContext.dBHelper.findAllByWhere(ScanHistory.class, "url='" + url + "'", "dateline desc");
+                if (list.size() == 0) {
+                    ScanHistory scanHistory = new ScanHistory();
+                    scanHistory.setDateline(System.currentTimeMillis());
+                    scanHistory.setDomain(StringUtils.getDomain(url));
+                    scanHistory.setUrl(url);
+                    scanHistory.setTitle(title);
+                    scanHistory.setIcon("");
+                    AppContext.dBHelper.save(scanHistory);
+                } else {
+                    ScanHistory scanHistory = list.get(0);
+                    scanHistory.setTitle(title);
+                    AppContext.dBHelper.update(scanHistory);
+                }
+            }
+
+            @Override
+            public void onReceivedTouchIconUrl(WebView view, String iconurl, boolean precomposed) {
+                super.onReceivedTouchIconUrl(view, iconurl, precomposed);
+
+                // 添加历史记录
+                List<ScanHistory> list = AppContext.dBHelper.findAllByWhere(ScanHistory.class, "url='" + url + "'", "dateline desc");
+                if (list.size() == 0) {
+                    ScanHistory scanHistory = new ScanHistory();
+                    scanHistory.setDateline(System.currentTimeMillis());
+                    scanHistory.setDomain(StringUtils.getDomain(url));
+                    scanHistory.setUrl(url);
+                    scanHistory.setTitle("");
+                    scanHistory.setIcon(iconurl);
+                    AppContext.dBHelper.save(scanHistory);
+                } else {
+                    ScanHistory scanHistory = list.get(0);
+                    scanHistory.setIcon(iconurl);
+                    AppContext.dBHelper.update(scanHistory);
+                }
             }
         };
 
@@ -122,12 +163,12 @@ public class WebviewFragment extends BaseFragment {
         }
     }
 
-    public void refresh(){
+    public void refresh() {
         webView.loadUrl(url);
     }
 
-    public void readAward(){
-        if(AppContext.user.getId() > 0) {
+    public void readAward() {
+        if (AppContext.user.getId() > 0) {
             FHttpCallBack callBack = new FHttpCallBack() {
                 @Override
                 public void onSuccess(Map<String, String> headers, byte[] t) {

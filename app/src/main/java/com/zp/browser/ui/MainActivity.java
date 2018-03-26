@@ -19,6 +19,7 @@ import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
 import com.zp.browser.R;
 import com.zp.browser.adapter.SearchHistoryListAdapter;
+import com.zp.browser.api.ApiMain;
 import com.zp.browser.api.ApiUser;
 import com.zp.browser.api.FHttpCallBack;
 import com.zp.browser.bean.Result;
@@ -27,11 +28,16 @@ import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.ui.dialog.MenuDialog;
 import com.zp.browser.ui.fragment.MainFragment;
 import com.zp.browser.ui.fragment.WebviewFragment;
+import com.zp.browser.utils.JsonUtils;
 import com.zp.browser.utils.StringUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.KJFragment;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -122,6 +128,12 @@ public class MainActivity extends BaseActivity {
                         // 填入内容
                         searchHistory = (SearchHistory) message.obj;
                         edtUrl.setText(searchHistory.getContent());
+
+                        edtUrl.requestFocus();
+                        edtUrl.setSelection(edtUrl.getText().length());
+                        break;
+                    case 104:
+                        getSearchHistory();
                         break;
                 }
                 return false;
@@ -143,7 +155,13 @@ public class MainActivity extends BaseActivity {
             };
             timer.schedule(timerTask, 5000, 5000);
         }
+
+        // 获取搜索引擎地址
+        searchUrl();
     }
+
+    private Timer timerGetSuggestion;
+    private TimerTask taskGetSuggestion;
 
     @Override
     public void initWidget() {
@@ -166,7 +184,42 @@ public class MainActivity extends BaseActivity {
                     tvCancel.setText("搜索");
                 }
 
-                getSearchHistory();
+                if(timerGetSuggestion == null || taskGetSuggestion == null){
+                    timerGetSuggestion = new Timer();
+                    taskGetSuggestion = new TimerTask() {
+                        @Override
+                        public void run() {
+                            handler.sendEmptyMessage(104);
+
+                            timerGetSuggestion.cancel();
+                            timerGetSuggestion = null;
+                            taskGetSuggestion.cancel();
+                            taskGetSuggestion = null;
+                        }
+                    };
+                    timerGetSuggestion.schedule(taskGetSuggestion,1000);
+                }else{
+                    timerGetSuggestion.cancel();
+                    timerGetSuggestion = null;
+                    taskGetSuggestion.cancel();
+                    taskGetSuggestion = null;
+
+                    timerGetSuggestion = new Timer();
+                    taskGetSuggestion = new TimerTask() {
+                        @Override
+                        public void run() {
+                            handler.sendEmptyMessage(104);
+
+                            timerGetSuggestion.cancel();
+                            timerGetSuggestion = null;
+                            taskGetSuggestion.cancel();
+                            taskGetSuggestion = null;
+                        }
+                    };
+                    timerGetSuggestion.schedule(taskGetSuggestion,1000);
+                }
+
+
             }
 
             @Override
@@ -209,12 +262,20 @@ public class MainActivity extends BaseActivity {
                 String str = tvCancel.getText().toString().trim();
                 String content = edtUrl.getText().toString().trim();
                 if (str.equals("搜索")) {
-                    List<SearchHistory> searchHistorys = AppContext.dBHelper.findAllByWhere(SearchHistory.class, "content='" + content + "'");
-                    if (searchHistorys.size() == 0) {
-                        SearchHistory searchHistory = new SearchHistory();
-                        searchHistory.setContent(content);
-                        searchHistory.setDateline(System.currentTimeMillis());
-                        AppContext.dBHelper.save(searchHistory);
+                    if (content.startsWith("http")) {
+                        webviewStart(content);
+                    } else {
+                        List<SearchHistory> searchHistorys = AppContext.dBHelper.findAllByWhere(SearchHistory.class, "content='" + content + "'");
+                        if (searchHistorys.size() == 0) {
+                            SearchHistory searchHistory = new SearchHistory();
+                            searchHistory.setContent(content);
+                            searchHistory.setDateline(System.currentTimeMillis());
+                            AppContext.dBHelper.save(searchHistory);
+                        }
+
+                        // 获取搜索引擎，跳转搜索
+                        String url = AppConfig.getInstance().getmPre().getString("searchUrl", "https://www.baidu.com/s?wd=") + content;
+                        webviewStart(url);
                     }
                 } else if (str.equals("取消")) {
                     if (current == 0) {
@@ -254,6 +315,12 @@ public class MainActivity extends BaseActivity {
 
         layTop.setVisibility(View.VISIBLE);
 
+        lvSearchHistory.setVisibility(View.GONE);
+
+        laySearchShow.setVisibility(View.VISIBLE);
+        laySearchInput.setVisibility(View.GONE);
+        lvSearchHistory.setVisibility(View.GONE);
+
         WebviewFragment webviewFragment = new WebviewFragment(url, handler);
         addFragment(webviewFragment);
     }
@@ -283,21 +350,21 @@ public class MainActivity extends BaseActivity {
         current++;
         if (fragmentMap.get(current) != null) {
             changeFragment(R.id.act_main_fragment, fragmentMap.get(current));
+
+            layTop.setVisibility(View.VISIBLE);
+
+            edtUrl.setText(((WebviewFragment) fragmentMap.get(current)).getUrl());
+            tvTitle.setText(((WebviewFragment) fragmentMap.get(current)).getTitle());
+
+            lvSearchHistory.setVisibility(View.GONE);
+
+            laySearchShow.setVisibility(View.VISIBLE);
+            laySearchInput.setVisibility(View.GONE);
+            lvSearchHistory.setVisibility(View.GONE);
+
+            arrowHandle();
         } else
             current--;
-
-        layTop.setVisibility(View.VISIBLE);
-
-        edtUrl.setText(((WebviewFragment) fragmentMap.get(current)).getUrl());
-        tvTitle.setText(((WebviewFragment) fragmentMap.get(current)).getTitle());
-
-        lvSearchHistory.setVisibility(View.GONE);
-
-        laySearchShow.setVisibility(View.VISIBLE);
-        laySearchInput.setVisibility(View.GONE);
-        lvSearchHistory.setVisibility(View.GONE);
-
-        arrowHandle();
     }
 
     public void previousFragment() {
@@ -336,10 +403,10 @@ public class MainActivity extends BaseActivity {
     }
 
     private void getSearchHistory() {
-        String content = edtUrl.getText().toString();
+        final String content = edtUrl.getText().toString();
 
-        // 只获取历史
-        List<SearchHistory> list = AppContext.dBHelper.findAllByWhere(SearchHistory.class, "content like '%" + content + "%'", "dateline desc");
+        // 获取历史
+        final List<SearchHistory> list = AppContext.dBHelper.findAllByWhere(SearchHistory.class, "content like '%" + content + "%'", "dateline desc");
 
         searchHistoryListAdapter = new SearchHistoryListAdapter(lvSearchHistory, list, handler, content);
         lvSearchHistory.setAdapter(searchHistoryListAdapter);
@@ -348,7 +415,44 @@ public class MainActivity extends BaseActivity {
             return;
         }
 
-        // 在获取推荐搜索
+        // 获取推荐搜索
+        String url = AppConfig.getInstance().getmPre().getString("suggestion", "http://suggestion.baidu.com/su?ws=");
+        HttpCallBack callBack = new HttpCallBack() {
+            @Override
+            public void onSuccess(byte[] t) {
+                super.onSuccess(t);
+                try {
+                    String str = new String(t, "GB2312");
+                    int start = str.indexOf("[");
+                    int end = str.indexOf("]");
+                    String str2 = str.substring(start, end + 1);
+                    try {
+                        JSONArray jsonArray = new JSONArray(str2);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            SearchHistory searchHistory = new SearchHistory();
+                            searchHistory.setDateline(System.currentTimeMillis());
+                            searchHistory.setContent(jsonArray.getString(i));
+                            list.add(searchHistory);
+                        }
+
+                        searchHistoryListAdapter = new SearchHistoryListAdapter(lvSearchHistory, list, handler, content);
+                        lvSearchHistory.setAdapter(searchHistoryListAdapter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onSuccess(String str) {
+                super.onSuccess(str);
+
+
+            }
+        };
+        ApiMain.getSearchSuggestion(url + content, callBack);
     }
 
     public void searchShow(String content) {
@@ -417,5 +521,27 @@ public class MainActivity extends BaseActivity {
             };
             ApiUser.getUserInfo(callBack);
         }
+    }
+
+    public void searchUrl() {
+        FHttpCallBack callBack = new FHttpCallBack() {
+            @Override
+            public void onSuccess(Map<String, String> headers, byte[] t) {
+                super.onSuccess(headers, t);
+                String str = new String(t);
+                Result result = new Result();
+                result.parse(str);
+                if (result.isOk()) {
+                    try {
+                        JsonUtils jsonUtils = new JsonUtils(str);
+                        AppConfig.getInstance().mPreSet("searchUrl", jsonUtils.getString("search"));
+                        AppConfig.getInstance().mPreSet("suggestion", jsonUtils.getString("suggestion"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        ApiMain.searchUrl(callBack);
     }
 }

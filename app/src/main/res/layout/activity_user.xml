@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_skyblue"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
     android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.zp.browser.ui.UserActivity">
 
     <include layout="@layout/common_banner" />
@@ -190,6 +190,7 @@
                             android:src="@drawable/arrow_right_gray_2" />
 
                         <TextView
+                            android:id="@+id/act_user_tv_share"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -212,53 +213,7 @@
                         android:id="@+id/act_user_lay_share"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:id="@+id/act_user_lay_share_item"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="@dimen/space_5"
-                            android:paddingTop="@dimen/space_5">
-
-                            <TextView
-                                android:id="@+id/act_user_tv_unit"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="@dimen/space_5"
-                                android:text="@string/text_default"
-                                android:textColor="@color/black_3"
-                                android:textSize="@dimen/text_size_14" />
-
-                            <ImageView
-                                android:id="@+id/act_user_img_3"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_marginLeft="@dimen/space_5"
-                                android:layout_toLeftOf="@+id/act_user_tv_unit"
-                                android:src="@drawable/gold" />
-
-                            <TextView
-                                android:id="@+id/act_user_tv_num"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toLeftOf="@+id/act_user_img_3"
-                                android:text="@string/text_default"
-                                android:textColor="@color/orange_3"
-                                android:textSize="@dimen/text_size_14" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:text="@string/text_default"
-                                android:textColor="@color/gray"
-                                android:textSize="@dimen/text_size_14" />
-                        </RelativeLayout>
-                    </LinearLayout>
+                        android:orientation="vertical"></LinearLayout>
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -279,6 +234,7 @@
                             android:src="@drawable/arrow_right_gray_2" />
 
                         <TextView
+                            android:id="@+id/act_user_tv_invite"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -301,53 +257,7 @@
                         android:id="@+id/act_user_lay_invite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:id="@+id/act_user_lay_invite_item"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="@dimen/space_5"
-                            android:paddingTop="@dimen/space_5">
-
-                            <TextView
-                                android:id="@+id/act_user_tv_unit_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="@dimen/space_5"
-                                android:text="@string/text_default"
-                                android:textColor="@color/black_3"
-                                android:textSize="@dimen/text_size_14" />
-
-                            <ImageView
-                                android:id="@+id/act_user_img_3_1"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_marginLeft="@dimen/space_5"
-                                android:layout_toLeftOf="@+id/act_user_tv_unit_1"
-                                android:src="@drawable/gold" />
-
-                            <TextView
-                                android:id="@+id/act_user_tv_num_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toLeftOf="@+id/act_user_img_3_1"
-                                android:text="@string/text_default"
-                                android:textColor="@color/orange_3"
-                                android:textSize="@dimen/text_size_14" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:text="@string/text_default"
-                                android:textColor="@color/gray"
-                                android:textSize="@dimen/text_size_14" />
-                        </RelativeLayout>
-                    </LinearLayout>
+                        android:orientation="vertical"></LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

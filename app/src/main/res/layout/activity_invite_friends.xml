@@ -1,0 +1,555 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_skyblue"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.zp.browser.ui.InviteFriendsActivity">
+
+    <include layout="@layout/common_banner" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/space_10"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/invite_text_2"
+                    android:textColor="@color/white"
+                    android:textSize="40dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_3"
+                    android:background="@drawable/shape_rounded_h_white"
+                    android:paddingBottom="@dimen/space_2"
+                    android:paddingLeft="@dimen/space_5"
+                    android:paddingRight="@dimen/space_5"
+                    android:paddingTop="@dimen/space_2"
+                    android:text="@string/invite_text_3"
+                    android:textColor="@color/main_skyblue"
+                    android:textSize="40dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/invite_text_16"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/invite_text_17"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/invite_text_18"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/invite_text_19"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/invite_text_20"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/invite_text_21"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/invite_text_22"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/invite_friends"
+                android:id="@+id/act_invite_friends_img_invite"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_15"
+                android:layout_marginRight="@dimen/space_15"
+                android:layout_marginTop="@dimen/space_15"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/invite_text_5"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_13" />
+
+                <TextView
+                    android:id="@+id/act_invite_friends_tv_url"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="170dp"
+                    android:text="@string/text_default"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_13" />
+
+                <TextView
+                    android:id="@+id/act_invite_friends_tv_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_20"
+                    android:text="@string/invite_text_6"
+                    android:textColor="@color/orange_3"
+                    android:textSize="@dimen/text_size_13" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_15"
+                android:layout_marginRight="@dimen/space_15"
+                android:layout_marginTop="@dimen/space_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/invite_text_7"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_13" />
+
+                <TextView
+                    android:id="@+id/act_invite_friends_tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="170dp"
+                    android:text="@string/text_default"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_13" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_15"
+                    android:text="@string/invite_text_8"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_20" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/space_15"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/invite_text_9"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:id="@+id/act_invite_friends_tv_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:text="@string/invite_text_10"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TableLayout
+                android:id="@+id/act_invite_friends_lay_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_10">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/invite_text_11"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/invite_text_12"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/invite_text_13"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/invite_text_14"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+                </TableRow>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#33777777" />
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+                </TableRow>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#33777777" />
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+                </TableRow>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#33777777" />
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+                </TableRow>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#33777777" />
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/space_10"
+                        android:paddingLeft="@dimen/text_size_15"
+                        android:paddingRight="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10"
+                        android:text="@string/text_default"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+
+
+                </TableRow>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#33777777" />
+            </TableLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_15"
+                android:layout_marginTop="@dimen/space_15"
+                android:text="@string/invite_text_15"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20" />
+
+            <TextView
+                android:id="@+id/act_invite_friends_tv_rule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_15"
+                android:layout_marginRight="@dimen/space_15"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="@string/text_default"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_13" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/mountain" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

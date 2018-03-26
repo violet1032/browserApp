@@ -2,6 +2,7 @@ package com.zp.browser.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import com.zp.browser.api.FHttpCallBack;
 import com.zp.browser.bean.Result;
 import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.utils.JsonUtils;
+import com.zp.browser.utils.StringUtils;
 import com.zp.browser.utils.UIHelper;
 
 import org.json.JSONArray;
@@ -44,13 +46,13 @@ public class UserActivity extends BaseActivity {
 
     @BindView(id=R.id.act_user_lay_share)
     private LinearLayout layShare;
-    @BindView(id=R.id.act_user_lay_share_item)
-    private RelativeLayout layShareItem;
     @BindView(id=R.id.act_user_lay_invite)
     private LinearLayout layInvite;
-    @BindView(id=R.id.act_user_lay_invite_item)
-    private RelativeLayout layInviteItem;
 
+    @BindView(id=R.id.act_user_tv_share,click = true)
+    private TextView tvGoShare;
+    @BindView(id=R.id.act_user_tv_invite,click = true)
+    private TextView tvGoInvite;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent();
@@ -76,6 +78,8 @@ public class UserActivity extends BaseActivity {
         super.initData();
 
         getUserInfo();
+
+        getSystemParam();
     }
 
     @Override
@@ -85,6 +89,12 @@ public class UserActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.umeng_banner_img_left:
                 finish();
+                break;
+            case R.id.act_user_tv_share:
+                finish();
+                break;
+            case R.id.act_user_tv_invite:
+                InviteFriendsActivity.startActivity(UserActivity.this);
                 break;
         }
     }
@@ -158,9 +168,46 @@ public class UserActivity extends BaseActivity {
                         try {
                             JsonUtils jsonUtils = new JsonUtils(str);
                             JSONArray jsonArray = jsonUtils.getJSONArray("share_rule_news");
-                            layShare.removeView(layShareItem);
+                            LayoutInflater inflater = LayoutInflater.from(UserActivity.this);
                             for (int i = 0; i < jsonArray.length(); i++) {
+                                RelativeLayout item = (RelativeLayout) inflater.inflate(R.layout.layout_rule_item,null);
 
+                                JsonUtils jsonUtils1 = new JsonUtils(jsonArray.getString(i));
+                                String unit = jsonUtils1.getString("unit");
+                                if(!StringUtils.isEmpty(unit)){
+                                    if(unit.contains("矿币")){
+                                        unit = unit.replaceAll("矿币","");
+                                    }else{
+                                        item.findViewById(R.id.layout_rule_item_img_3).setVisibility(View.GONE);
+                                    }
+                                }
+
+                                ((TextView)item.findViewById(R.id.layout_rule_item_tv_name)).setText(jsonUtils1.getString("name"));
+                                ((TextView)item.findViewById(R.id.act_user_tv_num)).setText(jsonUtils1.getString("award"));
+                                ((TextView)item.findViewById(R.id.layout_rule_item_tv_unit)).setText(unit);
+
+                                layShare.addView(item);
+                            }
+                            
+                            JSONArray jsonArray2 = jsonUtils.getJSONArray("share_rule_qrcode");
+                            for (int i = 0; i < jsonArray2.length(); i++) {
+                                RelativeLayout item = (RelativeLayout) inflater.inflate(R.layout.layout_rule_item,null);
+
+                                JsonUtils jsonUtils1 = new JsonUtils(jsonArray2.getString(i));
+                                String unit = jsonUtils1.getString("unit");
+                                if(!StringUtils.isEmpty(unit)){
+                                    if(unit.contains("矿币")){
+                                        unit = unit.replaceAll("矿币","");
+                                    }else{
+                                        item.findViewById(R.id.layout_rule_item_img_3).setVisibility(View.GONE);
+                                    }
+                                }
+
+                                ((TextView)item.findViewById(R.id.layout_rule_item_tv_name)).setText(jsonUtils1.getString("name"));
+                                ((TextView)item.findViewById(R.id.act_user_tv_num)).setText(jsonUtils1.getString("award"));
+                                ((TextView)item.findViewById(R.id.layout_rule_item_tv_unit)).setText(unit);
+
+                                layInvite.addView(item);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

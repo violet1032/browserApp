@@ -19,7 +19,7 @@ import org.kymjs.kjframe.KJDB.DbUpdateListener;
  * version:1.0
  */
 public class DBHelper {
-    private final static int VERSION = 1;
+    private final static int VERSION = 2;
     private static KJDB kjdb;
 
     private static DbUpdateListener dbUpdateListener = new DbUpdateListener() {
@@ -29,6 +29,7 @@ public class DBHelper {
             /*
             版本 2
              */
+            sqLiteDatabase.execSQL("drop table com_zp_browser_db_Model_ScanHistory");
         }
     };
 

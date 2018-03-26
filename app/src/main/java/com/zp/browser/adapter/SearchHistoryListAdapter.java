@@ -35,19 +35,24 @@ public class SearchHistoryListAdapter extends KJAdapter<SearchHistory> {
 
         String str = item.getContent();
         int t = str.indexOf(select);
-        String str1 = str.substring(0, t);
-        String str2 = str.substring(t + select.length());
+        String str1 = "";
+        String str2 = "";
+        if (t >= 0) {
+            str1 = str.substring(0, t);
+            str2 = str.substring(t + select.length());
 
-        StringBuffer stringBuffer = new StringBuffer();
-        if (!StringUtils.isEmpty(str1))
-            stringBuffer.append(str1);
-        if (!StringUtils.isEmpty(select))
-            stringBuffer.append("<font color = '#50ade6'>" + select + "</font>");
-        if (!StringUtils.isEmpty(str2))
-            stringBuffer.append(str2);
+            StringBuffer stringBuffer = new StringBuffer();
+            if (!StringUtils.isEmpty(str1))
+                stringBuffer.append(str1);
+            if (!StringUtils.isEmpty(select))
+                stringBuffer.append("<font color = '#50ade6'>" + select + "</font>");
+            if (!StringUtils.isEmpty(str2))
+                stringBuffer.append(str2);
 
-        helper.setText(R.id.listitem_search_history_tv_content, Html.fromHtml(stringBuffer.toString()));
-
+            helper.setText(R.id.listitem_search_history_tv_content, Html.fromHtml(stringBuffer.toString()));
+        }else{
+            helper.setText(R.id.listitem_search_history_tv_content, Html.fromHtml(item.getContent()));
+        }
 
         helper.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
