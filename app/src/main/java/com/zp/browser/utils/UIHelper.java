@@ -397,7 +397,7 @@ public class UIHelper {
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
 
-    public static void setListViewHeightHaveSpecialetMsgEditT(ListView listView,ScrollView scrollView) {
+    public static void setListViewHeightHaveSpecialetMsgEditT(ListView listView, ScrollView scrollView) {
         if (listView == null) return;
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {// pre-condition
@@ -440,18 +440,34 @@ public class UIHelper {
         listView.setLayoutParams(params);
     }
 
-    public static int getStyle(){
-        if(AppConfig.getInstance().getmPre().getBoolean("isNight",false)){
+    public static int getStyle() {
+        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
             return R.style.AppThemeNight;
-        }else{
+        } else {
             return R.style.AppThemeDay;
         }
     }
-    public static int getStyleDialog(){
-        if(AppConfig.getInstance().getmPre().getBoolean("isNight",false)){
+
+    public static int getStyleDialog() {
+        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
             return R.style.CustomDialogDay;
-        }else{
+        } else {
             return R.style.CustomDialogNight;
         }
+    }
+
+    public static String toHex(int r, int g, int b) {
+        String hr = Integer.toHexString(r);
+        String hg = Integer.toHexString(g);
+        String hb = Integer.toHexString(b);
+
+        if (hr.length() == 1)
+            hr = "0" + hr;
+        if (hg.length() == 1)
+            hg = "0" + hg;
+        if (hb.length() == 1)
+            hb = "0" + hb;
+
+        return "#" + hr + hg + hb;
     }
 }

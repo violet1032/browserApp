@@ -1,5 +1,6 @@
 package com.zp.browser.adapter;
 
+import android.text.Html;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.TextView;
@@ -42,8 +43,12 @@ public class NewsListAdapter extends KJAdapter<News> {
             helper.getView(R.id.listitem_news_lay_time).setVisibility(View.GONE);
         }
 
+        TextView tv = helper.getView(R.id.listitem_news_tv_content);
+//        tv.setText(Html.fromHtml(item.getContent()));
+        tv.setText(Html.fromHtml("<h1 style=\"color:blue; text-align:center\">This is a header</h1>\n" +
+                "<p style=\"color:red\">This is a paragraph.</p>"));
 
-        helper.setText(R.id.listitem_news_tv_content, item.getContent());
+//        helper.setText(R.id.listitem_news_tv_content, Html.fromHtml(item.getContent()));
         helper.setText(R.id.listitem_news_tv_time, StringUtils.getDateHM(StringUtils.date_fromat_change_4(item.getDateline())));
         helper.setText(R.id.listitem_news_tv_countdown, getCoundDown(item.getDateline(), item.getHours()));
 

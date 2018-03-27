@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -281,6 +282,7 @@ public class MainFragment extends BaseFragment {
         ApiMain.getNewsList(callBack);
     }
 
+    @TargetApi(24)
     private void addNews() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         for (int i = 0; i < newsList.getList().size(); i++) {
@@ -300,8 +302,35 @@ public class MainFragment extends BaseFragment {
                 layTime.setVisibility(View.GONE);
             }
 
+            int start = 0;
+            StringBuffer stringBuffer = new StringBuffer();
+            String content = news.getContent();
+            while (content.indexOf("rgb", start + 1) > 0) {
+                if (start > 0) {
+                    int e1 = content.indexOf(")", start);
+                    stringBuffer.append(content.substring(e1 + 1, content.indexOf("rgb", start + 1)));
+                } else
+                    stringBuffer.append(content.substring(start, content.indexOf("rgb", start + 1)));
+                start = content.indexOf("rgb", start + 1);
+                int s = content.indexOf("(", start);
+                int e = content.indexOf(")", start);
+                String rgb = content.substring(s + 1, e);
+                String[] strs = rgb.replaceAll(" ", "").split(",");
+                if (strs.length == 3) {
+                    String color = UIHelper.toHex(Integer.parseInt(strs[0]), Integer.parseInt(strs[1]), Integer.parseInt(strs[2]));
+                    stringBuffer.append(color);
+                }
+                int s2 = content.indexOf("rgb", e);
+                if (s2 < 0)
+                    stringBuffer.append(content.substring(e + 1));
+            }
+
+            if (stringBuffer.length() == 0) {
+                stringBuffer.append(content);
+            }
+
             tvTime.setText(StringUtils.getDateHM(StringUtils.date_fromat_change_4(news.getDateline())));
-            tvContent.setText(news.getContent());
+            tvContent.setText(Html.fromHtml(stringBuffer.toString()));
             tvCountDown.setText(getCoundDown(news.getDateline(), news.getHours()));
 
             layItem.findViewById(R.id.listitem_news_lay_content).setOnClickListener(new View.OnClickListener() {
@@ -313,6 +342,13 @@ public class MainFragment extends BaseFragment {
                         tvContent.setMaxLines(1000);
                     } else
                         tvContent.setMaxLines(5);
+//                    ViewGroup.LayoutParams layoutParams = tvContent.getLayoutParams();
+//                    int maxLines = tvContent.getHeight();
+//                    if (maxLines > 200) {
+//                        layoutParams. =
+//                        tvContent.set(1000);
+//                    } else
+//                        tvContent.setMaxLines(5);
                     readAward();
                 }
             });
@@ -504,8 +540,8 @@ public class MainFragment extends BaseFragment {
         }
     }
 
-    public void changeStyle(){
-        if(AppConfig.getInstance().getmPre().getBoolean("isNight",false)){
+    public void changeStyle() {
+        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
             laySearch.setBackgroundResource(R.drawable.shape_rounded_h_black_4);
 
             txAir.setTextColor(getResources().getColor(R.color.night_text_1));
@@ -518,7 +554,7 @@ public class MainFragment extends BaseFragment {
 
             gridView.setBackgroundColor(getResources().getColor(R.color.night_black_2));
             layList.setBackgroundColor(getResources().getColor(R.color.night_black_2));
-        }else{
+        } else {
             laySearch.setBackgroundResource(R.drawable.click_btn_round_h_skyblue_3);
 
             txAir.setTextColor(getResources().getColor(R.color.white));
