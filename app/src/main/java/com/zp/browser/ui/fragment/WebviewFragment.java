@@ -1,8 +1,10 @@
 package com.zp.browser.ui.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ import com.zp.browser.utils.StringUtils;
 
 import org.kymjs.kjframe.ui.BindView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -129,6 +133,12 @@ public class WebviewFragment extends BaseFragment {
                     AppContext.dBHelper.update(scanHistory);
                 }
             }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                setNight();
+            }
         };
 
         webView.setWebChromeClient(webChromeClient);
@@ -168,6 +178,18 @@ public class WebviewFragment extends BaseFragment {
             mainHandler.sendMessage(message);
             return true;
         }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            setNight();
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            setNight();
+        }
     }
 
     public void refresh() {
@@ -186,13 +208,39 @@ public class WebviewFragment extends BaseFragment {
         }
     }
 
-    public void changeStyle(){
-        if(AppConfig.getInstance().getmPre().getBoolean("isNight",false)){
-            webView.setBackgroundColor(getResources().getColor(R.color.black_3)); // 设置背景色
-            webView.getBackground().setAlpha(255); // 设置填充透明度 范围：0-255
-        }else{
-            webView.setBackgroundColor(getResources().getColor(R.color.transparent)); // 设置背景色
-            webView.getBackground().setAlpha(0); // 设置填充透明度 范围：0-255
+    public void changeStyle() {
+        webView.reload();
+//        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+//            setNight();
+//        } else {
+//            webView.setBackgroundColor(getResources().getColor(R.color.transparent)); // 设置背景色
+//            webView.getBackground().setAlpha(0); // 设置填充透明度 范围：0-255
+//        }
+    }
+
+    private void setNight() {
+        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+
+            InputStream is = getActivity().getResources().openRawResource(R.raw.night);
+            byte[] buffer = new byte[0];
+            try {
+                buffer = new byte[is.available()];
+                is.read(buffer);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            String code = Base64.encodeToString(buffer, Base64.NO_WRAP);
+
+            webView.loadUrl("javascript:(function() {" + "var parent = document.getElementsByTagName('head').item(0);"
+                    + "var style = document.createElement('style');" + "style.type = 'text/css';"
+                    + "style.innerHTML = window.atob('" + code + "');"
+                    + "parent.appendChild(style)" + "})();");
         }
     }
 }

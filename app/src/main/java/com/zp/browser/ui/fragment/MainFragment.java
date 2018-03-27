@@ -87,6 +87,12 @@ public class MainFragment extends BaseFragment {
     private TextView txWeather;
     @BindView(id = R.id.act_main_tv_pm25)
     private TextView txPm25;
+    @BindView(id = R.id.fg_main_tv_1)
+    private TextView tx1;
+    @BindView(id = R.id.fg_main_tv_2)
+    private TextView tx2;
+    @BindView(id = R.id.fg_main_tv_3)
+    private TextView tx3;
     @BindView(id = R.id.act_main_lay_search, click = true)
     private LinearLayout laySearch;
     @BindView(id = R.id.fg_main_lay_wakuang, click = true)
@@ -109,6 +115,8 @@ public class MainFragment extends BaseFragment {
         }
 
         txCity.setText(AppContext.city);
+
+        changeStyle();
     }
 
     @Override
@@ -499,8 +507,30 @@ public class MainFragment extends BaseFragment {
     public void changeStyle(){
         if(AppConfig.getInstance().getmPre().getBoolean("isNight",false)){
             laySearch.setBackgroundResource(R.drawable.shape_rounded_h_black_4);
+
+            txAir.setTextColor(getResources().getColor(R.color.night_text_1));
+            txCity.setTextColor(getResources().getColor(R.color.night_text_1));
+            txWeather.setTextColor(getResources().getColor(R.color.night_text_1));
+            txWendu.setTextColor(getResources().getColor(R.color.night_text_1));
+            tx1.setTextColor(getResources().getColor(R.color.night_text_1));
+            tx2.setTextColor(getResources().getColor(R.color.night_text_1));
+            tx3.setTextColor(getResources().getColor(R.color.night_text_1));
+
+            gridView.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            layList.setBackgroundColor(getResources().getColor(R.color.night_black_2));
         }else{
             laySearch.setBackgroundResource(R.drawable.click_btn_round_h_skyblue_3);
+
+            txAir.setTextColor(getResources().getColor(R.color.white));
+            txCity.setTextColor(getResources().getColor(R.color.white));
+            txWeather.setTextColor(getResources().getColor(R.color.white));
+            txWendu.setTextColor(getResources().getColor(R.color.white));
+            tx1.setTextColor(getResources().getColor(R.color.white));
+            tx2.setTextColor(getResources().getColor(R.color.white));
+            tx3.setTextColor(getResources().getColor(R.color.white));
+
+            gridView.setBackgroundColor(getResources().getColor(R.color.white));
+            layList.setBackgroundColor(getResources().getColor(R.color.white));
         }
     }
 }

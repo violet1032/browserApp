@@ -96,9 +96,13 @@ public class MainActivity extends BaseActivity {
     private Timer timerGetSuggestion;
     private TimerTask taskGetSuggestion;
 
-    @BindView(id=R.id.act_main_lay_bg)
+    @BindView(id = R.id.act_main_lay_bg)
     private RelativeLayout layBg;
-    @BindView(id=R.id.act_main_lay_bg_1)
+    @BindView(id = R.id.act_main_lay_top_2)
+    private RelativeLayout layTop2;
+    @BindView(id = R.id.act_main_lay_search_input_content)
+    private RelativeLayout layInputContent;
+    @BindView(id = R.id.act_main_lay_bg_1)
     private LinearLayout layBg_1;
 
     public static void startActivity(Context context) {
@@ -234,6 +238,8 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+
+        changeStyle(true);
     }
 
     @Override
@@ -327,8 +333,8 @@ public class MainActivity extends BaseActivity {
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if(intent.getAction().equals("android.intent.style_change")){
-                    changeStyle();
+                if (intent.getAction().equals("android.intent.style_change")) {
+                    changeStyle(false);
                 }
             }
         };
@@ -339,26 +345,6 @@ public class MainActivity extends BaseActivity {
     public void unRegisterBroadcast() {
         super.unRegisterBroadcast();
         unregisterReceiver(broadcastReceiver);
-    }
-
-    private void changeStyle(){
-        if(AppConfig.getInstance().getmPre().getBoolean("isNight",false)){
-            layBg.setBackgroundColor(getResources().getColor(R.color.black_3));
-            layBg_1.setBackgroundColor(getResources().getColor(R.color.black_3));
-        }else{
-            layBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
-            layBg_1.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
-        }
-
-        mainFragment.changeStyle();
-
-        for (Integer key :
-                fragmentMap.keySet()) {
-            KJFragment kjFragment = fragmentMap.get(key);
-            if(kjFragment instanceof WebviewFragment){
-                ((WebviewFragment)kjFragment).changeStyle();;
-            }
-        }
     }
 
     public void webviewStart(String url) {
@@ -593,5 +579,42 @@ public class MainActivity extends BaseActivity {
             }
         };
         ApiMain.searchUrl(callBack);
+    }
+
+    private void changeStyle(boolean isFirst) {
+        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+            layBg.setBackgroundColor(getResources().getColor(R.color.night_black_1));
+            layBg_1.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            layTop2.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            laySearchInput.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            laySearchShow.setBackgroundColor(getResources().getColor(R.color.night_black_1));
+            layInputContent.setBackgroundColor(getResources().getColor(R.color.night_black_1));
+
+            tvCancel.setTextColor(getResources().getColor(R.color.night_text_1));
+            tvTitle.setTextColor(getResources().getColor(R.color.night_text_1));
+        } else {
+            layBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            layBg_1.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            layTop2.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            laySearchInput.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            laySearchShow.setBackgroundColor(getResources().getColor(R.color.main_skyblue_3));
+            layInputContent.setBackgroundColor(getResources().getColor(R.color.white));
+
+            tvCancel.setTextColor(getResources().getColor(R.color.white));
+            tvTitle.setTextColor(getResources().getColor(R.color.white));
+        }
+
+        if (!isFirst)
+            mainFragment.changeStyle();
+
+        if (!isFirst)
+            for (Integer key :
+                    fragmentMap.keySet()) {
+                KJFragment kjFragment = fragmentMap.get(key);
+                if (kjFragment instanceof WebviewFragment) {
+                    ((WebviewFragment) kjFragment).changeStyle();
+                    ;
+                }
+            }
     }
 }

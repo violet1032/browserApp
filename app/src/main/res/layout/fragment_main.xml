@@ -52,6 +52,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/fg_main_tv_2"
                             android:layout_marginLeft="@dimen/space_5"
                             android:text="@string/main_text_1"
                             android:textColor="@color/white"
@@ -110,6 +111,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/fg_main_tv_3"
                         android:text="@string/main_text_2"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_14" />
@@ -152,6 +154,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
+                android:id="@+id/fg_main_tv_1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_5"
                 android:text="@string/main_text_3"

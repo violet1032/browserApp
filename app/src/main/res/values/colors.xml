@@ -11,6 +11,11 @@
     <color name="main_skyblue">#50ade6</color>
     <color name="main_skyblue_2">#56ccfc</color>
     <color name="main_skyblue_3">#7dc0ea</color>
+    <color name="night_black_1">#0f1219</color>
+    <color name="night_black_2">#12151c</color>
+    <color name="night_black_3">#13161d</color>
+    <color name="night_black_4">#232730</color>
+    <color name="night_text_1">#595c63</color>
 
     <!-- 下拉刷新时，颜色值 -->
     <color name="swiperefresh_color1">#ff00ddff</color>

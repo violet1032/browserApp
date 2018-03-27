@@ -113,11 +113,6 @@ public class MenuDialog extends BaseActivity {
                 finish();
                 break;
             case R.id.dialog_menu_lay_day:
-//                //  获取当前模式
-//                int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-//                //  切换模式
-//                //  重启Activity
-//                recreate();
                 if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
                     AppConfig.getInstance().mPreSet("isNight", false);
                 } else {
@@ -127,6 +122,7 @@ public class MenuDialog extends BaseActivity {
                 Intent intent = new Intent("android.intent.style_change");
                 sendBroadcast(intent);
 
+                finish();
                 break;
         }
     }
