@@ -104,6 +104,8 @@ public class MainActivity extends BaseActivity {
     private RelativeLayout layInputContent;
     @BindView(id = R.id.act_main_lay_bg_1)
     private LinearLayout layBg_1;
+    @BindView(id = R.id.act_main_lay_bottom)
+    private LinearLayout layBottom;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent();
@@ -592,6 +594,8 @@ public class MainActivity extends BaseActivity {
 
             tvCancel.setTextColor(getResources().getColor(R.color.night_text_1));
             tvTitle.setTextColor(getResources().getColor(R.color.night_text_1));
+
+            layBottom.setBackgroundColor(getResources().getColor(R.color.night_black_3));
         } else {
             layBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
             layBg_1.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
@@ -602,6 +606,7 @@ public class MainActivity extends BaseActivity {
 
             tvCancel.setTextColor(getResources().getColor(R.color.white));
             tvTitle.setTextColor(getResources().getColor(R.color.white));
+            layBottom.setBackgroundColor(getResources().getColor(R.color.white));
         }
 
         if (!isFirst)

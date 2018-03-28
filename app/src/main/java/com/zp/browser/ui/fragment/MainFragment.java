@@ -11,6 +11,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -98,6 +99,10 @@ public class MainFragment extends BaseFragment {
     private LinearLayout laySearch;
     @BindView(id = R.id.fg_main_lay_wakuang, click = true)
     private LinearLayout layWakuang;
+    @BindView(id=R.id.fg_main_img_2)
+    private ImageView img2;
+    @BindView(id=R.id.fg_main_img_1)
+    private ImageView img1;
 
     @Override
     protected View inflaterView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
@@ -342,13 +347,6 @@ public class MainFragment extends BaseFragment {
                         tvContent.setMaxLines(1000);
                     } else
                         tvContent.setMaxLines(5);
-//                    ViewGroup.LayoutParams layoutParams = tvContent.getLayoutParams();
-//                    int maxLines = tvContent.getHeight();
-//                    if (maxLines > 200) {
-//                        layoutParams. =
-//                        tvContent.set(1000);
-//                    } else
-//                        tvContent.setMaxLines(5);
                     readAward();
                 }
             });
@@ -360,6 +358,17 @@ public class MainFragment extends BaseFragment {
                 }
             });
 
+            if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+                layItem.findViewById(R.id.listitem_news_lay_time).setBackgroundColor(getResources().getColor(R.color.night_black_4));
+                layItem.findViewById(R.id.listitem_news_line).setBackgroundColor(getResources().getColor(R.color.night_black_4));
+                layItem.findViewById(R.id.listitem_news_point).setBackgroundResource(R.drawable.circle_black);
+                layItem.findViewById(R.id.listitem_news_tv_time).setBackgroundResource(R.drawable.arrow_box_black);
+            }else{
+                layItem.findViewById(R.id.listitem_news_lay_time).setBackgroundColor(getResources().getColor(R.color.gray_3));
+                layItem.findViewById(R.id.listitem_news_line).setBackgroundColor(getResources().getColor(R.color.gray_2));
+                layItem.findViewById(R.id.listitem_news_point).setBackgroundResource(R.drawable.circle_orange);
+                layItem.findViewById(R.id.listitem_news_tv_time).setBackgroundResource(R.drawable.arrow_box_gray);
+            }
 
             layList.addView(layItem);
         }
@@ -554,6 +563,18 @@ public class MainFragment extends BaseFragment {
 
             gridView.setBackgroundColor(getResources().getColor(R.color.night_black_2));
             layList.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+
+            img1.setImageResource(R.drawable.icon_search_black);
+            img2.setImageResource(R.drawable.main_person_black);
+
+            for (int i = 0; i < layList.getChildCount(); i++) {
+                LinearLayout linearLayout = layList.getChildAt(i).findViewById(R.id.listitem_news_lay_time);
+                linearLayout.setBackgroundColor(getResources().getColor(R.color.night_black_4));
+
+                layList.getChildAt(i).findViewById(R.id.listitem_news_line).setBackgroundColor(getResources().getColor(R.color.night_black_4));
+                layList.getChildAt(i).findViewById(R.id.listitem_news_point).setBackgroundResource(R.drawable.circle_black);
+                layList.getChildAt(i).findViewById(R.id.listitem_news_tv_time).setBackgroundResource(R.drawable.arrow_box_black);
+            }
         } else {
             laySearch.setBackgroundResource(R.drawable.click_btn_round_h_skyblue_3);
 
@@ -567,6 +588,17 @@ public class MainFragment extends BaseFragment {
 
             gridView.setBackgroundColor(getResources().getColor(R.color.white));
             layList.setBackgroundColor(getResources().getColor(R.color.white));
+
+            img1.setImageResource(R.drawable.icon_search_white);
+            img2.setImageResource(R.drawable.main_person);
+
+            for (int i = 0; i < layList.getChildCount(); i++) {
+                LinearLayout linearLayout = layList.getChildAt(i).findViewById(R.id.listitem_news_lay_time);
+                linearLayout.setBackgroundColor(getResources().getColor(R.color.gray_3));
+                layList.getChildAt(i).findViewById(R.id.listitem_news_line).setBackgroundColor(getResources().getColor(R.color.gray_2));
+                layList.getChildAt(i).findViewById(R.id.listitem_news_point).setBackgroundResource(R.drawable.circle_orange);
+                layList.getChildAt(i).findViewById(R.id.listitem_news_tv_time).setBackgroundResource(R.drawable.arrow_box_gray);
+            }
         }
     }
 }
