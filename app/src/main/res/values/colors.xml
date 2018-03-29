@@ -38,6 +38,7 @@
     <color name="black_3">#555</color>
     <color name="black_4">#333</color>
     <color name="black_5">#999999</color>
+    <color name="gray_6">#e1effa</color>
 
     <color name="main_translucent_white">#77ffffff</color>
     <color name="white">#ffffffff</color>

@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
@@ -44,6 +45,14 @@ public class MenuDialog extends BaseActivity {
     private LinearLayout layExit;
     @BindView(id = R.id.dialog_menu_lay_day, click = true)
     private LinearLayout layDay;
+
+    @BindView(id=R.id.dialog_menu_tv_style)
+    private TextView tvStyle;
+    @BindView(id=R.id.dialog_menu_img_style)
+    private ImageView imgStyle;
+
+    @BindView(id=R.id.dialog_menu_lay_bg)
+    private LinearLayout layBg;
 
     public static void startActivity(Context activity) {
         Intent intent = new Intent();
@@ -82,6 +91,8 @@ public class MenuDialog extends BaseActivity {
         if (AppContext.user.getId() > 0) {
             ApiCommon.getNetBitmap(AppContext.user.getAvatar(), imgHead, false);
         }
+
+        changeStyle();
     }
 
     @Override
@@ -124,6 +135,22 @@ public class MenuDialog extends BaseActivity {
 
                 finish();
                 break;
+        }
+    }
+
+    public void changeStyle() {
+        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+            layBg.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            imgClose.setImageResource(R.drawable.icon_arrow_down_black);
+
+            imgStyle.setImageResource(R.drawable.icon_rijianmoshi_black);
+            tvStyle.setText("日间模式");
+        }else{
+            layBg.setBackgroundColor(getResources().getColor(R.color.white));
+            imgClose.setImageResource(R.drawable.icon_arrow_down_blue);
+
+            imgStyle.setImageResource(R.drawable.icon_yejianmoshi_black);
+            tvStyle.setText("夜间模式");
         }
     }
 }

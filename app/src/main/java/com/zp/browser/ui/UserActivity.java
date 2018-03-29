@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
 import com.zp.browser.R;
 import com.zp.browser.api.ApiCommon;
@@ -54,6 +55,17 @@ public class UserActivity extends BaseActivity {
     @BindView(id=R.id.act_user_tv_invite,click = true)
     private TextView tvGoInvite;
 
+    @BindView(id=R.id.act_user_lay_bg)
+    private LinearLayout layBg;
+    @BindView(id=R.id.act_user_lay_bg_2)
+    private LinearLayout layBg_2;
+    @BindView(id=R.id.umeng_banner_lay_bg)
+    private RelativeLayout layTitleBg;
+    @BindView(id=R.id.act_user_lay_bg_3)
+    private RelativeLayout layBg_3;
+    @BindView(id=R.id.act_user_lay_bg_4)
+    private LinearLayout layBg_4;
+
     public static void startActivity(Context context) {
         Intent intent = new Intent();
         intent.setClass(context, UserActivity.class);
@@ -71,6 +83,8 @@ public class UserActivity extends BaseActivity {
         super.initWidget();
 
         tvTitle.setText("个人中心");
+
+        changeStyle();
     }
 
     @Override
@@ -223,6 +237,22 @@ public class UserActivity extends BaseActivity {
                 }
             };
             ApiUser.getSystemParam(callBack);
+        }
+    }
+
+    public void changeStyle() {
+        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+            layBg.setBackgroundColor(getResources().getColor(R.color.night_black_1));
+            layTitleBg.setBackgroundColor(getResources().getColor(R.color.night_black_1));
+            layBg_2.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            layBg_3.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            layBg_4.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+        }else{
+            layBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            layTitleBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            layBg_2.setBackgroundColor(getResources().getColor(R.color.gray_bg));
+            layBg_3.setBackgroundColor(getResources().getColor(R.color.white));
+            layBg_4.setBackgroundColor(getResources().getColor(R.color.gray_6));
         }
     }
 }

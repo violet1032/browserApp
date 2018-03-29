@@ -35,6 +35,7 @@ import com.zp.browser.ui.LoginActivity;
 import com.zp.browser.ui.MainActivity;
 import com.zp.browser.ui.UserActivity;
 import com.zp.browser.ui.common.BaseFragment;
+import com.zp.browser.ui.dialog.ShareDialog;
 import com.zp.browser.utils.StringUtils;
 import com.zp.browser.utils.UIHelper;
 import com.zp.browser.utils.WeatherUtil;
@@ -99,9 +100,9 @@ public class MainFragment extends BaseFragment {
     private LinearLayout laySearch;
     @BindView(id = R.id.fg_main_lay_wakuang, click = true)
     private LinearLayout layWakuang;
-    @BindView(id=R.id.fg_main_img_2)
+    @BindView(id = R.id.fg_main_img_2)
     private ImageView img2;
-    @BindView(id=R.id.fg_main_img_1)
+    @BindView(id = R.id.fg_main_img_1)
     private ImageView img1;
 
     @Override
@@ -291,7 +292,7 @@ public class MainFragment extends BaseFragment {
     private void addNews() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         for (int i = 0; i < newsList.getList().size(); i++) {
-            News news = newsList.getList().get(i);
+            final News news = newsList.getList().get(i);
             LinearLayout layItem = (LinearLayout) inflater.inflate(R.layout.listitem_news, null);
             TextView tvTime = layItem.findViewById(R.id.listitem_news_tv_time);
             final TextView tvContent = layItem.findViewById(R.id.listitem_news_tv_content);
@@ -336,7 +337,16 @@ public class MainFragment extends BaseFragment {
 
             tvTime.setText(StringUtils.getDateHM(StringUtils.date_fromat_change_4(news.getDateline())));
             tvContent.setText(Html.fromHtml(stringBuffer.toString()));
-            tvCountDown.setText(getCoundDown(news.getDateline(), news.getHours()));
+            String str2 = getCoundDown(news.getDateline(), news.getHours());
+            tvCountDown.setText(str2);
+            if (str2.equals("已结束")) {
+                layItem.findViewById(R.id.listitem_news_lay_countdown).setVisibility(View.GONE);
+                ((TextView) layItem.findViewById(R.id.listitem_news_tv_share)).setText("分享");
+            } else {
+                layItem.findViewById(R.id.listitem_news_lay_countdown).setVisibility(View.VISIBLE);
+                ((TextView) layItem.findViewById(R.id.listitem_news_tv_share)).setText("分享挖矿");
+            }
+
 
             layItem.findViewById(R.id.listitem_news_lay_content).setOnClickListener(new View.OnClickListener() {
                 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -354,7 +364,8 @@ public class MainFragment extends BaseFragment {
             layItem.findViewById(R.id.listitem_news_lay_share).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    // 分享挖矿
+                    ShareDialog.startActivity(getActivity(), 1, news);
                 }
             });
 
@@ -363,7 +374,7 @@ public class MainFragment extends BaseFragment {
                 layItem.findViewById(R.id.listitem_news_line).setBackgroundColor(getResources().getColor(R.color.night_black_4));
                 layItem.findViewById(R.id.listitem_news_point).setBackgroundResource(R.drawable.circle_black);
                 layItem.findViewById(R.id.listitem_news_tv_time).setBackgroundResource(R.drawable.arrow_box_black);
-            }else{
+            } else {
                 layItem.findViewById(R.id.listitem_news_lay_time).setBackgroundColor(getResources().getColor(R.color.gray_3));
                 layItem.findViewById(R.id.listitem_news_line).setBackgroundColor(getResources().getColor(R.color.gray_2));
                 layItem.findViewById(R.id.listitem_news_point).setBackgroundResource(R.drawable.circle_orange);

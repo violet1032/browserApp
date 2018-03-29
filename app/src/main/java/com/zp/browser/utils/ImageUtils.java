@@ -514,9 +514,9 @@ public class ImageUtils {
      * @param drawable
      * @return
      */
-    public static Bitmap drawableToBitmap(Drawable drawable) {
-        int width = drawable.getIntrinsicWidth();
-        int height = drawable.getIntrinsicHeight();
+    public static Bitmap drawableToBitmap(Drawable drawable,float score) {
+        int width = (int) (drawable.getIntrinsicWidth() * score);
+        int height = (int) (drawable.getIntrinsicHeight() * score);
         Bitmap bitmap = Bitmap.createBitmap(width, height, drawable
                 .getOpacity() != PixelFormat.OPAQUE ? Config.ARGB_8888
                 : Config.RGB_565);

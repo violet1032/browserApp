@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -12,14 +13,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
 import com.zp.browser.R;
+import com.zp.browser.bean.News;
 import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.utils.ImageCreateUtil;
 import com.zp.browser.utils.ImageUtils;
@@ -45,14 +50,29 @@ public class ShareDialog extends BaseActivity {
     @BindView(id = R.id.dialog_share_img_qq, click = true)
     private ImageView imgQQ;
 
+    @BindView(id = R.id.dialog_share_lay_1)
+    private LinearLayout layBg;
+
     private Handler handler;
 
     private String path;
+    private News news;
+
+    @BindView(id=R.id.dialog_share_tv_content)
+    private TextView textContent;
 
     public static void startActivity(Context activity, int type) {
         Intent intent = new Intent();
         intent.setClass(activity, ShareDialog.class);
         intent.putExtra("type", type);
+        activity.startActivity(intent);
+    }
+
+    public static void startActivity(Context activity, int type, News news) {
+        Intent intent = new Intent();
+        intent.setClass(activity, ShareDialog.class);
+        intent.putExtra("type", type);
+        intent.putExtra("news", news);
         activity.startActivity(intent);
     }
 
@@ -74,6 +94,8 @@ public class ShareDialog extends BaseActivity {
     @Override
     public void initWidget() {
         super.initWidget();
+
+        changeStyle();
     }
 
     @Override
@@ -95,10 +117,16 @@ public class ShareDialog extends BaseActivity {
 
         type = getIntent().getIntExtra("type", 0);
 
+        news = (News) getIntent().getSerializableExtra("news");
+        textContent.setText(Html.fromHtml(news.getContent()));
+
         if (type == 0) {
             // 邀请好友
-            ImageCreateUtil.createInviteImage(AppContext.user.getShareLink(),AppContext.user.getInvite_bg(), handler);
-        }
+            ImageCreateUtil.createInviteImage(AppContext.user.getShareLink(), AppContext.user.getInvite_bg(), handler);
+        } else
+            ImageCreateUtil.createShareImage(AppContext.user.getShareLink(), AppContext.user.getShare_news_bg(), handler, news, ShareDialog.this,textContent);
+
+//        textContent.setVisibility(View.GONE);
     }
 
     @Override
@@ -142,6 +170,16 @@ public class ShareDialog extends BaseActivity {
                     shareAction.withMedia(image).share();
                 }
                 break;
+        }
+    }
+
+    public void changeStyle() {
+        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+            layBg.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            btnCancel.setTextColor(getResources().getColor(R.color.night_text_1));
+        } else {
+            layBg.setBackgroundColor(getResources().getColor(R.color.white));
+            btnCancel.setTextColor(getResources().getColor(R.color.orange_3));
         }
     }
 

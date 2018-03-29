@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.ClipboardManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
 import com.zp.browser.R;
 import com.zp.browser.api.ApiUser;
@@ -49,6 +53,12 @@ public class InviteFriendsActivity extends BaseActivity {
     @BindView(id = R.id.act_invite_friends_lay_record)
     private TableLayout layHistory;
 
+    @BindView(id = R.id.act_invite_friends_lay_bg)
+    private LinearLayout layBg;
+    @BindView(id = R.id.umeng_banner_lay_bg)
+    private RelativeLayout layTitleBg;
+    @BindView(id = R.id.act_invite_friends_lay_bg_2)
+    private LinearLayout layBg_2;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent();
@@ -69,6 +79,8 @@ public class InviteFriendsActivity extends BaseActivity {
         tvTitle.setText("邀请好友拿佣金");
 
         tvUrl.setText(AppContext.user.getShareLink());
+
+        changeStyle();
     }
 
     @Override
@@ -162,7 +174,7 @@ public class InviteFriendsActivity extends BaseActivity {
                         if (m1) {
                             layHistory.getChildAt(1).setVisibility(View.VISIBLE);
                             layHistory.getChildAt(2).setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             layHistory.getChildAt(1).setVisibility(View.GONE);
                             layHistory.getChildAt(2).setVisibility(View.GONE);
                         }
@@ -170,7 +182,7 @@ public class InviteFriendsActivity extends BaseActivity {
                         if (m2) {
                             layHistory.getChildAt(3).setVisibility(View.VISIBLE);
                             layHistory.getChildAt(4).setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             layHistory.getChildAt(3).setVisibility(View.GONE);
                             layHistory.getChildAt(4).setVisibility(View.GONE);
                         }
@@ -178,7 +190,7 @@ public class InviteFriendsActivity extends BaseActivity {
                         if (m3) {
                             layHistory.getChildAt(5).setVisibility(View.VISIBLE);
                             layHistory.getChildAt(6).setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             layHistory.getChildAt(5).setVisibility(View.GONE);
                             layHistory.getChildAt(6).setVisibility(View.GONE);
                         }
@@ -186,7 +198,7 @@ public class InviteFriendsActivity extends BaseActivity {
                         if (m4) {
                             layHistory.getChildAt(7).setVisibility(View.VISIBLE);
                             layHistory.getChildAt(8).setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             layHistory.getChildAt(7).setVisibility(View.GONE);
                             layHistory.getChildAt(8).setVisibility(View.GONE);
                         }
@@ -211,5 +223,37 @@ public class InviteFriendsActivity extends BaseActivity {
             }
         };
         ApiUser.getInviteInfo(callBack);
+    }
+
+    public void changeStyle() {
+        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+            layBg.setBackgroundColor(getResources().getColor(R.color.night_black_1));
+            layTitleBg.setBackgroundColor(getResources().getColor(R.color.night_black_1));
+
+            childStyle(layBg_2, getResources().getColor(R.color.night_text_1));
+        } else {
+            layBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            layTitleBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            childStyle(layBg_2, getResources().getColor(R.color.white));
+        }
+    }
+
+    public void childStyle(ViewGroup viewGroup, int color) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            View view = viewGroup.getChildAt(i);
+            if (view instanceof TextView) {
+                if (color == getResources().getColor(R.color.white) && view.getId() == R.id.act_invite_friends_tv_1)
+                    ((TextView) view).setTextColor(getResources().getColor(R.color.main_skyblue));
+                else if(color == getResources().getColor(R.color.white) && view.getId() == R.id.act_invite_friends_tv_copy)
+                    ((TextView) view).setTextColor(getResources().getColor(R.color.orange_3));
+                else
+                    ((TextView) view).setTextColor(color);
+
+            } else if (view instanceof ViewGroup) {
+                if (((ViewGroup) view).getChildCount() > 0) {
+                    childStyle((ViewGroup) view, color);
+                }
+            }
+        }
     }
 }

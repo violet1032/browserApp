@@ -6,10 +6,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.zp.browser.AppConfig;
 import com.zp.browser.R;
 import com.zp.browser.api.ApiUser;
 import com.zp.browser.api.FHttpCallBack;
@@ -34,7 +38,7 @@ public class RegisterActivity extends BaseActivity {
     private EditText edtPhone;
     @BindView(id = R.id.act_register_edt_password)
     private EditText edtPassword;
-    @BindView(id = R.id.act_register_edt_password)
+    @BindView(id = R.id.act_register_edt_repassword)
     private EditText edtRePassword;
     @BindView(id = R.id.act_register_edt_smscode)
     private EditText edtCode;
@@ -49,6 +53,33 @@ public class RegisterActivity extends BaseActivity {
 
     private Timer timer;
     private TimerTask timerTask;
+
+    @BindView(id=R.id.act_register_lay_bg)
+    private LinearLayout layBg;
+    @BindView(id=R.id.umeng_banner_lay_bg)
+    private RelativeLayout layTitleBg;
+    @BindView(id=R.id.act_register_lay_bg_2)
+    private LinearLayout layBg_2;
+    @BindView(id=R.id.act_register_lay_phone)
+    private LinearLayout layPhone;
+    @BindView(id=R.id.act_register_lay_password)
+    private LinearLayout layPassword;
+    @BindView(id=R.id.act_register_lay_repassword)
+    private LinearLayout layRePassword;
+    @BindView(id=R.id.act_register_lay_code)
+    private LinearLayout layCode;
+    @BindView(id=R.id.act_register_img_phone)
+    private ImageView imgPhone;
+    @BindView(id=R.id.act_register_img_password)
+    private ImageView imgPassword;
+    @BindView(id=R.id.act_register_img_repassword)
+    private ImageView imgRePassword;
+    @BindView(id=R.id.act_register_img_line)
+    private ImageView imgLine;
+    @BindView(id=R.id.act_register_img_code)
+    private ImageView imgCode;
+    @BindView(id=R.id.act_register_cbox)
+    private CheckBox cbox;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent();
@@ -67,6 +98,8 @@ public class RegisterActivity extends BaseActivity {
         super.initWidget();
 
         tvTitle.setText("手机号注册");
+
+        changeStyle();
     }
 
     @Override
@@ -151,6 +184,11 @@ public class RegisterActivity extends BaseActivity {
             return;
         }
 
+        if(!cbox.isChecked()){
+            UIHelper.ToastMessage("请同意用户协议后继续");
+            return;
+        }
+
         FHttpCallBack callBack = new FHttpCallBack() {
             @Override
             public void onSuccess(Map<String, String> headers, byte[] t) {
@@ -228,5 +266,59 @@ public class RegisterActivity extends BaseActivity {
             }
         };
         ApiUser.sendIdentifyingCode(phone, callBack);
+    }
+
+    public void changeStyle() {
+        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+            layBg.setBackgroundColor(getResources().getColor(R.color.night_black_1));
+            layTitleBg.setBackgroundColor(getResources().getColor(R.color.night_black_1));
+            layBg_2.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            layPhone.setBackgroundResource(R.drawable.shape_rounded_h_black_3);
+            layPassword.setBackgroundResource(R.drawable.shape_rounded_h_black_3);
+            layRePassword.setBackgroundResource(R.drawable.shape_rounded_h_black_3);
+            layCode.setBackgroundResource(R.drawable.shape_rounded_h_black_3);
+
+            btnRegister.setBackgroundResource(R.drawable.click_btn_round_h_black_3);
+
+            imgPhone.setImageResource(R.drawable.icon_mobile_black);
+            imgPassword.setImageResource(R.drawable.password_2_black);
+            imgRePassword.setImageResource(R.drawable.password_2_black);
+            imgCode.setImageResource(R.drawable.sms_code_black);
+
+            tvGetCode.setTextColor(getResources().getColor(R.color.gray));
+
+            imgLine.setBackgroundColor(getResources().getColor(R.color.night_black_4));
+
+            edtPassword.setTextColor(getResources().getColor(R.color.white));
+            edtPhone.setTextColor(getResources().getColor(R.color.white));
+            edtRePassword.setTextColor(getResources().getColor(R.color.white));
+            edtCode.setTextColor(getResources().getColor(R.color.white));
+        }else{
+            layBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            layTitleBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            layBg_2.setBackgroundColor(getResources().getColor(R.color.gray_bg));
+            layPhone.setBackgroundResource(R.drawable.shape_rounded_h_white);
+            layPassword.setBackgroundResource(R.drawable.shape_rounded_h_white);
+            layRePassword.setBackgroundResource(R.drawable.shape_rounded_h_white);
+            layCode.setBackgroundResource(R.drawable.shape_rounded_h_white);
+
+            btnRegister.setBackgroundResource(R.drawable.click_btn_round_h_skyblue_3);
+
+            imgPhone.setImageResource(R.drawable.icon_mobile_blue);
+            imgPassword.setImageResource(R.drawable.password_2);
+            imgRePassword.setImageResource(R.drawable.password_2);
+            imgCode.setImageResource(R.drawable.sms_code);
+
+
+
+            tvGetCode.setTextColor(getResources().getColor(R.color.main_skyblue));
+
+            imgLine.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+
+            edtPassword.setTextColor(getResources().getColor(R.color.black_3));
+            edtPhone.setTextColor(getResources().getColor(R.color.black_3));
+            edtRePassword.setTextColor(getResources().getColor(R.color.black_3));
+            edtCode.setTextColor(getResources().getColor(R.color.black_3));
+        }
     }
 }

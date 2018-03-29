@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zp.browser.AppConfig;
@@ -42,6 +44,23 @@ public class LoginActivity extends BaseActivity {
     private TextView tvRegister;
     @BindView(id = R.id.act_login_tv_forgot, click = true)
     private TextView tvForgot;
+
+    @BindView(id=R.id.act_login_lay_bg)
+    private LinearLayout layBg;
+    @BindView(id=R.id.umeng_banner_lay_bg)
+    private RelativeLayout layTitleBg;
+    @BindView(id=R.id.act_login_lay_bg_2)
+    private LinearLayout layBg_2;
+    @BindView(id=R.id.act_login_lay_phone)
+    private LinearLayout layPhone;
+    @BindView(id=R.id.act_login_lay_password)
+    private LinearLayout layPassword;
+    @BindView(id=R.id.act_login_img_phone)
+    private ImageView imgPhone;
+    @BindView(id=R.id.act_login_img_password)
+    private ImageView imgPassword;
+
+
 
     public static void startActivity(Context context) {
         Intent intent = new Intent();
@@ -89,6 +108,8 @@ public class LoginActivity extends BaseActivity {
         tvTitle.setText("手机号登录");
 
         getAppVersion();
+
+        changeStyle();
     }
 
     private void login() {
@@ -185,5 +206,43 @@ public class LoginActivity extends BaseActivity {
             }
         };
 //        ApiUser.getAppVersion(callBack);
+    }
+
+    public void changeStyle() {
+        if (AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+            layBg.setBackgroundColor(getResources().getColor(R.color.night_black_1));
+            layTitleBg.setBackgroundColor(getResources().getColor(R.color.night_black_1));
+            layBg_2.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            layPhone.setBackgroundResource(R.drawable.shape_rounded_h_black_3);
+            layPassword.setBackgroundResource(R.drawable.shape_rounded_h_black_3);
+
+            btnLogin.setBackgroundResource(R.drawable.click_btn_round_h_black_3);
+
+            tvForgot.setTextColor(getResources().getColor(R.color.night_text_1));
+            tvRegister.setTextColor(getResources().getColor(R.color.night_text_1));
+
+            imgPhone.setImageResource(R.drawable.icon_mobile_black);
+            imgPassword.setImageResource(R.drawable.password_2_black);
+
+            edtPassword.setTextColor(getResources().getColor(R.color.white));
+            edtPhone.setTextColor(getResources().getColor(R.color.white));
+        }else{
+            layBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            layTitleBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
+            layBg_2.setBackgroundColor(getResources().getColor(R.color.gray_bg));
+            layPhone.setBackgroundResource(R.drawable.shape_rounded_h_white);
+            layPassword.setBackgroundResource(R.drawable.shape_rounded_h_white);
+
+            btnLogin.setBackgroundResource(R.drawable.click_btn_round_h_skyblue_3);
+
+            tvForgot.setTextColor(getResources().getColor(R.color.main_skyblue));
+            tvRegister.setTextColor(getResources().getColor(R.color.main_skyblue));
+
+            imgPhone.setImageResource(R.drawable.icon_mobile_blue);
+            imgPassword.setImageResource(R.drawable.password_2);
+
+            edtPassword.setTextColor(getResources().getColor(R.color.black_3));
+            edtPhone.setTextColor(getResources().getColor(R.color.black_3));
+        }
     }
 }

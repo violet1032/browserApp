@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/dialog_menu_lay_bg"
         android:layout_marginTop="33dp"
         android:background="@color/white"
         android:orientation="vertical">
@@ -57,12 +58,14 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:id="@+id/dialog_menu_img_style"
                     android:src="@drawable/icon_yejianmoshi_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_5"
+                    android:id="@+id/dialog_menu_tv_style"
                     android:text="@string/main_text_6"
                     android:textColor="@color/black_3"
                     android:textSize="@dimen/text_size_12" />
