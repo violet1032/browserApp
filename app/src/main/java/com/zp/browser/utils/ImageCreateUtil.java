@@ -71,7 +71,8 @@ public class ImageCreateUtil {
         AppContext.bitmap.saveImage(AppContext.applicationContext, imgUrl, AppConfig.SAVE_IMAGE_PATH + filename, true, httpCallBack);
     }
 
-    public static void createShareImage(final String qrCodeUrl, String imgUrl, final Handler handler, final News news, final Activity context, final TextView textView) {
+    public static void createShareImage(final String qrCodeUrl, String imgUrl, final Handler handler,
+                                        final News news, final Activity context, final TextView textView, final String registerAward) {
         final String filename = System.currentTimeMillis() + ".png";
         final String path = AppConfig.SAVE_IMAGE_PATH + filename;
         HttpCallBack httpCallBack = new HttpCallBack() {
@@ -92,20 +93,10 @@ public class ImageCreateUtil {
 
                 // 计算整体高度 和宽度
                 int totalWidth = bg.getWidth();
-                int totalHeight = 500 + contentnew.getHeight();
-
+                int totalHeight = 550 + contentnew.getHeight();
 
                 float scaleX = (float) totalWidth / 100f;
                 float scaleY = (float) totalHeight / 100f;
-//                float scaleX = (float) totalWidth / (float) backgroud.getWidth();
-//                float scaleY = (float) totalHeight / (float) backgroud.getHeight();
-                LogUtil.logError(ImageCreateUtil.class, "totalWidth:" + totalWidth);
-                LogUtil.logError(ImageCreateUtil.class, "totalHeight:" + totalHeight);
-                LogUtil.logError(ImageCreateUtil.class, "backgroud.getWidth():" + backgroud.getWidth());
-                LogUtil.logError(ImageCreateUtil.class, "backgroud.getHeight():" + backgroud.getHeight());
-
-                LogUtil.logError(ImageCreateUtil.class, "scaleX:" + scaleX);
-                LogUtil.logError(ImageCreateUtil.class, "scaleY:" + scaleY);
 
                 // 缩放背景
                 matrix.postScale(scaleX, scaleY);
@@ -113,7 +104,7 @@ public class ImageCreateUtil {
                 Bitmap backgroudNew = Bitmap.createBitmap(backgroud, 0, 0, backgroud.getWidth(), backgroud.getHeight(), matrix, true);
 
                 // 图片下载后，加二维码
-                Bitmap qrcode = QRCodeUtil.generateBitmap(qrCodeUrl, 230, 230);
+                Bitmap qrcode = QRCodeUtil.generateBitmap(qrCodeUrl, 180, 180);
 
                 Paint paint1 = new Paint();
                 paint1.setAntiAlias(true);
@@ -123,9 +114,9 @@ public class ImageCreateUtil {
 
                 TextPaint paintContent = new TextPaint();
                 paintContent.setAntiAlias(true);
-                final int color2 = 0xff222222;
+                final int color2 = 0xff444444;
                 paintContent.setColor(color2);
-                paintContent.setTextSize(30);
+                paintContent.setTextSize(25);
 
                 // 开始绘制
                 Canvas canvas = new Canvas(backgroudNew);
@@ -142,10 +133,36 @@ public class ImageCreateUtil {
                 canvas.drawBitmap(contentnew, 50, 340, null);
 
                 // 二维码
-                canvas.drawBitmap(qrcode, 50, 340 + contentnew.getHeight() + 20, null);
+                canvas.drawBitmap(qrcode, 30, 340 + contentnew.getHeight(), null);
 
                 // 右边布局
-                canvas.drawText("扫码领取", 50 + qrcode.getWidth() + 10, 340 + contentnew.getHeight() + 40, paintContent);
+                if (registerAward.compareTo("0") > 0) {
+                    canvas.drawText("扫码领取", 30 + qrcode.getWidth(), 340 + contentnew.getHeight() + 60, paintContent);
+
+                    TextPaint paint3 = new TextPaint();
+                    paint3.setAntiAlias(true);
+                    final int color3 = 0xffea8131;
+                    paint3.setColor(color3);
+                    paint3.setTextSize(50);
+                    canvas.drawText(registerAward, 30 + qrcode.getWidth(), 340 + contentnew.getHeight() + 120, paint3);
+
+                    TextPaint paint4 = new TextPaint();
+                    paint4.setAntiAlias(true);
+                    final int color4 = 0xff555555;
+                    paint4.setColor(color4);
+                    paint4.setTextSize(32);
+                    canvas.drawText("BX糖果", 30 + qrcode.getWidth() + 120, 340 + contentnew.getHeight() + 120, paint4);
+
+                    TextPaint paint5 = new TextPaint();
+                    paint5.setAntiAlias(true);
+                    final int color5 = 0xffaaaaaa;
+                    paint5.setColor(color5);
+                    paint5.setTextSize(20);
+                    canvas.drawText("长按识别二维码", 30 + qrcode.getWidth(), 340 + contentnew.getHeight() + 150, paint5);
+
+                    Bitmap candy = ImageUtils.drawableToBitmap(context.getResources().getDrawable(R.drawable.candy, null), 0.5f);
+                    canvas.drawBitmap(candy, 30 + qrcode.getWidth() + 230, 340 + contentnew.getHeight() + 90, null);
+                }
 
                 try {
                     String fianlPath = AppConfig.SAVE_IMAGE_PATH + System.currentTimeMillis() + ".png";

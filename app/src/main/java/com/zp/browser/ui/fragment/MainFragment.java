@@ -336,7 +336,7 @@ public class MainFragment extends BaseFragment {
             }
 
             tvTime.setText(StringUtils.getDateHM(StringUtils.date_fromat_change_4(news.getDateline())));
-            tvContent.setText(Html.fromHtml(stringBuffer.toString()));
+            tvContent.setText(Html.fromHtml(stringBuffer.toString().replaceAll("background-color:","")));
             String str2 = getCoundDown(news.getDateline(), news.getHours());
             tvCountDown.setText(str2);
             if (str2.equals("已结束")) {

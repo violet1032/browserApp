@@ -7,9 +7,9 @@
 
 
     <LinearLayout
+        android:id="@+id/dialog_menu_lay_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/dialog_menu_lay_bg"
         android:layout_marginTop="33dp"
         android:background="@color/white"
         android:orientation="vertical">
@@ -32,16 +32,18 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
+                    android:id="@+id/dialog_menu_img_collect"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/icon_collect_black" />
 
                 <TextView
+                    android:id="@+id/dialog_menu_tv_collect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_5"
                     android:text="@string/main_text_5"
-                    android:textColor="?attr/color_black_3"
+                    android:textColor="@color/black_3"
                     android:textSize="@dimen/text_size_12" />
             </LinearLayout>
 
@@ -49,23 +51,23 @@
                 android:id="@+id/dialog_menu_lay_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/click_transparent"
                 android:layout_weight="1"
+                android:background="@drawable/click_transparent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:padding="@dimen/space_10">
 
                 <ImageView
+                    android:id="@+id/dialog_menu_img_style"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:id="@+id/dialog_menu_img_style"
                     android:src="@drawable/icon_yejianmoshi_black" />
 
                 <TextView
+                    android:id="@+id/dialog_menu_tv_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_5"
-                    android:id="@+id/dialog_menu_tv_style"
                     android:text="@string/main_text_6"
                     android:textColor="@color/black_3"
                     android:textSize="@dimen/text_size_12" />
@@ -82,11 +84,13 @@
                 android:padding="@dimen/space_10">
 
                 <ImageView
+                    android:id="@+id/dialog_menu_img_refresh"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/icon_refresh_black" />
 
                 <TextView
+                    android:id="@+id/dialog_menu_tv_refresh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_5"
@@ -100,8 +104,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
                 android:background="@drawable/click_transparent"
+                android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:padding="@dimen/space_10">
 

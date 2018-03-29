@@ -114,7 +114,6 @@
                     android:id="@+id/listitem_news_lay_share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/click_transparent"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="@dimen/space_10"

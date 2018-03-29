@@ -24,16 +24,22 @@ import com.umeng.socialize.media.UMImage;
 import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
 import com.zp.browser.R;
+import com.zp.browser.api.ApiUser;
+import com.zp.browser.api.FHttpCallBack;
 import com.zp.browser.bean.News;
+import com.zp.browser.bean.Result;
 import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.utils.ImageCreateUtil;
 import com.zp.browser.utils.ImageUtils;
+import com.zp.browser.utils.JsonUtils;
 import com.zp.browser.utils.StringUtils;
 import com.zp.browser.utils.UIHelper;
 
+import org.json.JSONException;
 import org.kymjs.kjframe.ui.BindView;
 
 import java.io.File;
+import java.util.Map;
 
 
 /**
@@ -58,7 +64,7 @@ public class ShareDialog extends BaseActivity {
     private String path;
     private News news;
 
-    @BindView(id=R.id.dialog_share_tv_content)
+    @BindView(id = R.id.dialog_share_tv_content)
     private TextView textContent;
 
     public static void startActivity(Context activity, int type) {
@@ -110,6 +116,10 @@ public class ShareDialog extends BaseActivity {
                         path = (String) message.obj;
                         imgContent.setImageBitmap(ImageUtils.getBitmapByPath(path));
                         break;
+                    case 2:
+                        ImageCreateUtil.createShareImage(AppContext.user.getShareLink(), AppContext.user.getShare_news_bg(),
+                                handler, news, ShareDialog.this, textContent,registerAward);
+                        break;
                 }
                 return false;
             }
@@ -123,8 +133,9 @@ public class ShareDialog extends BaseActivity {
         if (type == 0) {
             // 邀请好友
             ImageCreateUtil.createInviteImage(AppContext.user.getShareLink(), AppContext.user.getInvite_bg(), handler);
-        } else
-            ImageCreateUtil.createShareImage(AppContext.user.getShareLink(), AppContext.user.getShare_news_bg(), handler, news, ShareDialog.this,textContent);
+        } else {
+            getRegisterAward();
+        }
 
 //        textContent.setVisibility(View.GONE);
     }
@@ -181,6 +192,36 @@ public class ShareDialog extends BaseActivity {
             layBg.setBackgroundColor(getResources().getColor(R.color.white));
             btnCancel.setTextColor(getResources().getColor(R.color.orange_3));
         }
+    }
+
+    private String registerAward = "0";
+
+    public void getRegisterAward() {
+        FHttpCallBack callBack = new FHttpCallBack() {
+            @Override
+            public void onSuccess(Map<String, String> headers, byte[] t) {
+                super.onSuccess(headers, t);
+                String str = new String(t);
+                Result result = new Result().parse(str);
+                if (result.isOk()) {
+                    try {
+                        JsonUtils jsonUtils = new JsonUtils(str);
+                        registerAward = jsonUtils.getString("data");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                handler.sendEmptyMessage(2);
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg) {
+                super.onFailure(errorNo, strMsg);
+                handler.sendEmptyMessage(2);
+            }
+        };
+        ApiUser.getRegisterAward(callBack);
     }
 
 }

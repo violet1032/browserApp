@@ -22,6 +22,7 @@ public class URLs {
     public final static String readAward = APP_STORE_HOST + "user/readAward"; // 阅读咨询奖励
     public final static String shareAward = APP_STORE_HOST + "user/shareAward"; // 分享成功奖励
     public final static String getInviteInfo = APP_STORE_HOST + "user/getInviteInfo"; // 获取邀请好友信息
+    public final static String getRegisterAward = APP_STORE_HOST + "user/getRegisterAward"; // 获取注册赠送
 
     public final static String searchUrl = APP_STORE_HOST + "search/searchUrl"; // 获取搜索引擎地址
 

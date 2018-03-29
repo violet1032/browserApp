@@ -69,6 +69,8 @@ public class MainActivity extends BaseActivity {
     private LinearLayout layPrevious;
     @BindView(id = R.id.act_main_lay_right, click = true)
     private LinearLayout layNext;
+    @BindView(id = R.id.act_main_lay_home, click = true)
+    private LinearLayout layHome;
 
     @BindView(id = R.id.act_main_img_refresh, click = true)
     private ImageView imgRefresh;
@@ -151,6 +153,13 @@ public class MainActivity extends BaseActivity {
                     case 104:
                         getSearchHistory();
                         break;
+                    case 3:
+                        // 刷新
+                        KJFragment kjFragment = fragmentMap.get(current);
+                        if (kjFragment instanceof WebviewFragment) {
+                            ((WebviewFragment) kjFragment).refresh();
+                        }
+                        break;
                 }
                 return false;
             }
@@ -169,7 +178,7 @@ public class MainActivity extends BaseActivity {
                     autoGetUserInfo();
                 }
             };
-            timer.schedule(timerTask, 5000, 5000);
+//            timer.schedule(timerTask, 5000, 5000);
         }
 
         // 获取搜索引擎地址
@@ -250,9 +259,15 @@ public class MainActivity extends BaseActivity {
 
         switch (v.getId()) {
             case R.id.act_main_lay_menu:
-                MenuDialog.startActivity(this);
-                break;
+                // 获取当前url
+                String currUrl = "";
+                KJFragment kjFragment = fragmentMap.get(current);
+                if (kjFragment instanceof WebviewFragment) {
+                    currUrl = ((WebviewFragment) kjFragment).getUrl();
+                }
 
+                MenuDialog.startActivity(this, currUrl,handler);
+                break;
             case R.id.act_main_lay_left:
                 previousFragment();
                 break;
@@ -310,6 +325,10 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.act_main_img_clean:
                 edtUrl.setText("");
+                break;
+            case R.id.act_main_lay_home:
+                current = 0;
+                changeFragment(R.id.act_main_fragment, fragmentMap.get(current));
                 break;
         }
     }

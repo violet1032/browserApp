@@ -1,6 +1,8 @@
 package com.zp.browser.ui.fragment;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +23,7 @@ import com.zp.browser.api.ApiUser;
 import com.zp.browser.api.FHttpCallBack;
 import com.zp.browser.db.Model.ScanHistory;
 import com.zp.browser.ui.common.BaseFragment;
+import com.zp.browser.utils.LogUtil;
 import com.zp.browser.utils.StringUtils;
 
 import org.kymjs.kjframe.ui.BindView;
@@ -50,6 +53,8 @@ public class WebviewFragment extends BaseFragment {
 
     private Handler mainHandler;
 
+    private boolean isNight = false;
+
     public WebviewFragment(String url, Handler handler) {
         this.url = url;
         mainHandler = handler;
@@ -77,12 +82,17 @@ public class WebviewFragment extends BaseFragment {
     protected void initWidget(View parentView) {
         super.initWidget(parentView);
 
+        isNight = AppConfig.getInstance().getmPre().getBoolean("isNight", false);
+
         WebSettings webSettings = webView.getSettings();
         webSettings.setSupportZoom(true);
         webSettings.setDefaultTextEncodingName("gbk");
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(true);//关键点
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         webView.setWebViewClient(new webviewClient());
         webSettings.setLoadWithOverviewMode(true);
 
@@ -143,13 +153,18 @@ public class WebviewFragment extends BaseFragment {
 
         webView.setWebChromeClient(webChromeClient);
 
+        LogUtil.logError(WebviewFragment.class,"进入webviewfragment,加载网址:"+url);
+
         webView.loadUrl(url);
     }
 
     @Override
     public void onChange() {
         super.onChange();
-        changeStyle();
+        if(isNight != AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+            isNight = AppConfig.getInstance().getmPre().getBoolean("isNight", false);
+            changeStyle();
+        }
     }
 
     @Override
@@ -170,13 +185,18 @@ public class WebviewFragment extends BaseFragment {
     }
 
     private class webviewClient extends WebViewClient {
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            Message message = new Message();
-            message.what = 102;
-            message.obj = request.getUrl().toString();
-            mainHandler.sendMessage(message);
-            return true;
+            String url = request.getUrl().toString();
+            if(url.startsWith("http") || url.startsWith("https")) {
+                Message message = new Message();
+                message.what = 102;
+                message.obj = request.getUrl().toString();
+                mainHandler.sendMessage(message);
+                return true;
+            }
+            return false;
         }
 
         @Override
@@ -193,7 +213,7 @@ public class WebviewFragment extends BaseFragment {
     }
 
     public void refresh() {
-        webView.loadUrl(url);
+        webView.reload();
     }
 
     public void readAward() {
