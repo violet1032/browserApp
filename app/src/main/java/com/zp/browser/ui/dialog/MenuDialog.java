@@ -173,6 +173,11 @@ public class MenuDialog extends BaseActivity {
                 mainHandler.sendEmptyMessage(3);
                 finish();
                 break;
+            case R.id.dialog_menu_lay_collect:
+                // 收藏
+                mainHandler.sendEmptyMessage(5);
+                finish();
+                break;
         }
     }
 

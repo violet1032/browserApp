@@ -25,13 +25,16 @@ import com.zp.browser.api.ApiMain;
 import com.zp.browser.api.ApiUser;
 import com.zp.browser.api.FHttpCallBack;
 import com.zp.browser.bean.Result;
+import com.zp.browser.db.Model.Collect;
 import com.zp.browser.db.Model.SearchHistory;
 import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.ui.dialog.MenuDialog;
 import com.zp.browser.ui.fragment.MainFragment;
 import com.zp.browser.ui.fragment.WebviewFragment;
 import com.zp.browser.utils.JsonUtils;
+import com.zp.browser.utils.LogUtil;
 import com.zp.browser.utils.StringUtils;
+import com.zp.browser.utils.UIHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,7 +65,8 @@ public class MainActivity extends BaseActivity {
 
     private LinkedList<Fragment> fragments = new LinkedList<>();
 
-    private Map<Integer, KJFragment> fragmentMap = new HashMap<>();
+    //    private Map<Integer, KJFragment> fragmentLinkedList = new HashMap<>();
+    private LinkedList<KJFragment> fragmentLinkedList = new LinkedList<>();
     private int current = -1;
 
     @BindView(id = R.id.act_main_lay_left, click = true)
@@ -108,6 +112,8 @@ public class MainActivity extends BaseActivity {
     private LinearLayout layBg_1;
     @BindView(id = R.id.act_main_lay_bottom)
     private LinearLayout layBottom;
+
+    public static Map<String, Integer> urlMap = new HashMap<>();
 
     public static void startActivity(Context context) {
         Intent intent = new Intent();
@@ -155,9 +161,41 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 3:
                         // 刷新
-                        KJFragment kjFragment = fragmentMap.get(current);
+                        KJFragment kjFragment = fragmentLinkedList.get(current);
                         if (kjFragment instanceof WebviewFragment) {
                             ((WebviewFragment) kjFragment).refresh();
+                        }
+                        break;
+                    case 4:
+                        // 加载了空页面
+
+                        int i = message.arg1;
+
+                        // 将该页面移除，current减一
+
+                        LogUtil.logError(MainActivity.class, "当前页面:" + current);
+                        LogUtil.logError(MainActivity.class, "需要移除的页面:" + i);
+
+                        fragmentLinkedList.remove(i);
+                        current--;
+                        break;
+                    case 5:
+                        // 收藏
+                        // 判断是否已收藏
+                        WebviewFragment webviewFragment = (WebviewFragment) fragmentLinkedList.get(current);
+                        List<Collect> list = AppContext.dBHelper.findAllByWhere(Collect.class, "url='" + webviewFragment.getUrl()+"'");
+                        if (list.size() > 0) {
+                            // 已收藏
+                            UIHelper.ToastMessage("已收藏");
+                        } else {
+                            Collect collect = new Collect();
+                            collect.setDomain(StringUtils.getDomain(webviewFragment.getUrl()));
+                            collect.setDateline(System.currentTimeMillis());
+                            collect.setIcon(webviewFragment.getIcon());
+                            collect.setUrl(webviewFragment.getUrl());
+                            collect.setTitle(webviewFragment.getTitle());
+                            AppContext.dBHelper.save(collect);
+                            UIHelper.ToastMessage("收藏成功");
                         }
                         break;
                 }
@@ -261,12 +299,12 @@ public class MainActivity extends BaseActivity {
             case R.id.act_main_lay_menu:
                 // 获取当前url
                 String currUrl = "";
-                KJFragment kjFragment = fragmentMap.get(current);
+                KJFragment kjFragment = fragmentLinkedList.get(current);
                 if (kjFragment instanceof WebviewFragment) {
                     currUrl = ((WebviewFragment) kjFragment).getUrl();
                 }
 
-                MenuDialog.startActivity(this, currUrl,handler);
+                MenuDialog.startActivity(this, currUrl, handler);
                 break;
             case R.id.act_main_lay_left:
                 previousFragment();
@@ -275,14 +313,14 @@ public class MainActivity extends BaseActivity {
                 nextFragment();
                 break;
             case R.id.act_main_img_refresh:
-                ((WebviewFragment) fragmentMap.get(current)).refresh();
+                ((WebviewFragment) fragmentLinkedList.get(current)).refresh();
                 break;
             case R.id.act_main_search_tv_title:
                 laySearchShow.setVisibility(View.GONE);
                 laySearchInput.setVisibility(View.VISIBLE);
                 lvSearchHistory.setVisibility(View.VISIBLE);
 
-                edtUrl.setText(((WebviewFragment) fragmentMap.get(current)).getUrl());
+                edtUrl.setText(((WebviewFragment) fragmentLinkedList.get(current)).getUrl());
 
                 edtUrl.setFocusableInTouchMode(true);
                 edtUrl.requestFocus();
@@ -328,7 +366,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.act_main_lay_home:
                 current = 0;
-                changeFragment(R.id.act_main_fragment, fragmentMap.get(current));
+                changeFragment(R.id.act_main_fragment, fragmentLinkedList.get(current));
                 break;
         }
     }
@@ -378,7 +416,7 @@ public class MainActivity extends BaseActivity {
         laySearchInput.setVisibility(View.GONE);
         lvSearchHistory.setVisibility(View.GONE);
 
-        WebviewFragment webviewFragment = new WebviewFragment(url, handler);
+        WebviewFragment webviewFragment = new WebviewFragment(url, handler, current + 1);
         addFragment(webviewFragment);
     }
 
@@ -393,7 +431,8 @@ public class MainActivity extends BaseActivity {
     public void addFragment(KJFragment fragment) {
         current++;
         changeFragment(R.id.act_main_fragment, fragment);
-        fragmentMap.put(current, fragment);
+//        fragmentLinkedList.put(current, fragment);
+        fragmentLinkedList.add(fragment);
 
         if (current > 0) {
             edtUrl.setText(((WebviewFragment) fragment).getUrl());
@@ -405,13 +444,13 @@ public class MainActivity extends BaseActivity {
 
     public void nextFragment() {
         current++;
-        if (fragmentMap.get(current) != null) {
-            changeFragment(R.id.act_main_fragment, fragmentMap.get(current));
+        if (current < fragmentLinkedList.size() && fragmentLinkedList.get(current) != null) {
+            changeFragment(R.id.act_main_fragment, fragmentLinkedList.get(current));
 
             layTop.setVisibility(View.VISIBLE);
 
-            edtUrl.setText(((WebviewFragment) fragmentMap.get(current)).getUrl());
-            tvTitle.setText(((WebviewFragment) fragmentMap.get(current)).getTitle());
+            edtUrl.setText(((WebviewFragment) fragmentLinkedList.get(current)).getUrl());
+            tvTitle.setText(((WebviewFragment) fragmentLinkedList.get(current)).getTitle());
 
             lvSearchHistory.setVisibility(View.GONE);
 
@@ -426,25 +465,30 @@ public class MainActivity extends BaseActivity {
 
     public void previousFragment() {
         current--;
-        if (fragmentMap.get(current) != null) {
-            changeFragment(R.id.act_main_fragment, fragmentMap.get(current));
-        } else
+        if (current < 0) {
             current++;
+        } else if (current < fragmentLinkedList.size() && fragmentLinkedList.get(current) != null) {
+//        if (current >= 0 && fragmentLinkedList.get(current) != null) {
+//            changeFragment(R.id.act_main_fragment, fragmentLinkedList.get(current));
+//        } else
+//            current++;
+            changeFragment(R.id.act_main_fragment, fragmentLinkedList.get(current));
 
-        if (current == 0) {
-            layTop.setVisibility(View.GONE);
-        } else {
-            edtUrl.setText(((WebviewFragment) fragmentMap.get(current)).getUrl());
-            tvTitle.setText(((WebviewFragment) fragmentMap.get(current)).getTitle());
+            if (current == 0) {
+                layTop.setVisibility(View.GONE);
+            } else {
+                edtUrl.setText(((WebviewFragment) fragmentLinkedList.get(current)).getUrl());
+                tvTitle.setText(((WebviewFragment) fragmentLinkedList.get(current)).getTitle());
 
-            lvSearchHistory.setVisibility(View.GONE);
+                lvSearchHistory.setVisibility(View.GONE);
 
-            laySearchShow.setVisibility(View.VISIBLE);
-            laySearchInput.setVisibility(View.GONE);
-            lvSearchHistory.setVisibility(View.GONE);
+                laySearchShow.setVisibility(View.VISIBLE);
+                laySearchInput.setVisibility(View.GONE);
+                lvSearchHistory.setVisibility(View.GONE);
+            }
+
+            arrowHandle();
         }
-
-        arrowHandle();
     }
 
     public void arrowHandle() {
@@ -453,7 +497,7 @@ public class MainActivity extends BaseActivity {
         } else
             ((ImageView) layPrevious.getChildAt(0)).setImageResource(R.drawable.arrow_left_gray_2);
 
-        if (current == fragmentMap.size() - 1) {
+        if (current == fragmentLinkedList.size() - 1) {
             ((ImageView) layNext.getChildAt(0)).setImageResource(R.drawable.arrow_right_gray_1);
         } else
             ((ImageView) layNext.getChildAt(0)).setImageResource(R.drawable.arrow_right_gray_2);
@@ -632,9 +676,16 @@ public class MainActivity extends BaseActivity {
             mainFragment.changeStyle();
 
         if (!isFirst)
-            for (Integer key :
-                    fragmentMap.keySet()) {
-                KJFragment kjFragment = fragmentMap.get(key);
+//            for (Integer key :
+//                    fragmentLinkedList.keySet()) {
+//                KJFragment kjFragment = fragmentLinkedList.get(key);
+//                if (kjFragment instanceof WebviewFragment) {
+//                    ((WebviewFragment) kjFragment).changeStyle();
+//                    ;
+//                }
+//            }
+            for (KJFragment kjFragment :
+                    fragmentLinkedList) {
                 if (kjFragment instanceof WebviewFragment) {
                     ((WebviewFragment) kjFragment).changeStyle();
                     ;

@@ -50,14 +50,21 @@ public class WebviewFragment extends BaseFragment {
 
     private String url;
     private String webTitle;
+    private String iconurl;
 
     private Handler mainHandler;
 
     private boolean isNight = false;
 
-    public WebviewFragment(String url, Handler handler) {
+    private int current;
+
+    private boolean hasGetReward = false;
+    private boolean hasRemove = false;
+
+    public WebviewFragment(String url, Handler handler, int current) {
         this.url = url;
         mainHandler = handler;
+        this.current = current;
     }
 
     public WebviewFragment() {
@@ -70,6 +77,10 @@ public class WebviewFragment extends BaseFragment {
 
     public String getTitle() {
         return this.webTitle;
+    }
+
+    public String getIcon(){
+        return this.iconurl;
     }
 
     @Override
@@ -105,55 +116,62 @@ public class WebviewFragment extends BaseFragment {
                 message.what = 103;
                 message.obj = title;
                 mainHandler.sendMessage(message);
-
-                // 添加历史记录
-                List<ScanHistory> list = AppContext.dBHelper.findAllByWhere(ScanHistory.class, "url='" + url + "'", "dateline desc");
-                if (list.size() == 0) {
-                    ScanHistory scanHistory = new ScanHistory();
-                    scanHistory.setDateline(System.currentTimeMillis());
-                    scanHistory.setDomain(StringUtils.getDomain(url));
-                    scanHistory.setUrl(url);
-                    scanHistory.setTitle(title);
-                    scanHistory.setIcon("");
-                    AppContext.dBHelper.save(scanHistory);
-                } else {
-                    ScanHistory scanHistory = list.get(0);
-                    scanHistory.setTitle(title);
-                    AppContext.dBHelper.update(scanHistory);
-                }
             }
 
             @Override
             public void onReceivedTouchIconUrl(WebView view, String iconurl, boolean precomposed) {
                 super.onReceivedTouchIconUrl(view, iconurl, precomposed);
 
-                // 添加历史记录
-                List<ScanHistory> list = AppContext.dBHelper.findAllByWhere(ScanHistory.class, "url='" + url + "'", "dateline desc");
-                if (list.size() == 0) {
-                    ScanHistory scanHistory = new ScanHistory();
-                    scanHistory.setDateline(System.currentTimeMillis());
-                    scanHistory.setDomain(StringUtils.getDomain(url));
-                    scanHistory.setUrl(url);
-                    scanHistory.setTitle("");
-                    scanHistory.setIcon(iconurl);
-                    AppContext.dBHelper.save(scanHistory);
-                } else {
-                    ScanHistory scanHistory = list.get(0);
-                    scanHistory.setIcon(iconurl);
-                    AppContext.dBHelper.update(scanHistory);
-                }
+                WebviewFragment.this.iconurl = iconurl;
             }
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 setNight();
+
+                if (newProgress >= 100) {
+                    // 判断是否为空页面
+                    if (view.getContentHeight() == 0) {
+                        // 非空页面
+                        if(!hasRemove) {
+                            hasRemove = true;
+                            // 做出处理
+                            Message message = new Message();
+                            message.what = 4;
+                            message.arg1 = current;
+                            mainHandler.sendMessage(message);
+                        }
+                    } else {
+                        if (!hasGetReward) {
+                            readAward();
+
+                            // 添加历史记录
+                            List<ScanHistory> list = AppContext.dBHelper.findAllByWhere(ScanHistory.class, "url='" + url + "'", "dateline desc");
+                            if (list.size() == 0) {
+                                ScanHistory scanHistory = new ScanHistory();
+                                scanHistory.setDateline(System.currentTimeMillis());
+                                scanHistory.setDomain(StringUtils.getDomain(url));
+                                scanHistory.setUrl(url);
+                                scanHistory.setTitle(webTitle);
+                                scanHistory.setIcon(iconurl);
+                                AppContext.dBHelper.save(scanHistory);
+                            } else {
+                                ScanHistory scanHistory = list.get(0);
+                                scanHistory.setIcon(iconurl);
+                                AppContext.dBHelper.update(scanHistory);
+                            }
+                        }
+                    }
+                }
             }
+
+
         };
 
         webView.setWebChromeClient(webChromeClient);
 
-        LogUtil.logError(WebviewFragment.class,"进入webviewfragment,加载网址:"+url);
+        LogUtil.logError(WebviewFragment.class, "进入webviewfragment,加载网址:" + url);
 
         webView.loadUrl(url);
     }
@@ -161,7 +179,7 @@ public class WebviewFragment extends BaseFragment {
     @Override
     public void onChange() {
         super.onChange();
-        if(isNight != AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
+        if (isNight != AppConfig.getInstance().getmPre().getBoolean("isNight", false)) {
             isNight = AppConfig.getInstance().getmPre().getBoolean("isNight", false);
             changeStyle();
         }
@@ -175,8 +193,6 @@ public class WebviewFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-
-        readAward();
     }
 
     @Override
@@ -189,7 +205,7 @@ public class WebviewFragment extends BaseFragment {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             String url = request.getUrl().toString();
-            if(url.startsWith("http") || url.startsWith("https")) {
+            if (url.startsWith("http") || url.startsWith("https")) {
                 Message message = new Message();
                 message.what = 102;
                 message.obj = request.getUrl().toString();
@@ -217,6 +233,7 @@ public class WebviewFragment extends BaseFragment {
     }
 
     public void readAward() {
+        hasGetReward = true;
         if (AppContext.user.getId() > 0) {
             FHttpCallBack callBack = new FHttpCallBack() {
                 @Override
