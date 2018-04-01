@@ -17,12 +17,9 @@ import com.zp.browser.api.ApiUser;
 import com.zp.browser.api.FHttpCallBack;
 import com.zp.browser.bean.Result;
 import com.zp.browser.ui.common.BaseActivity;
-import com.zp.browser.ui.dialog.VersionUpdateDialog;
-import com.zp.browser.utils.JsonUtils;
 import com.zp.browser.utils.StringUtils;
 import com.zp.browser.utils.UIHelper;
 
-import org.json.JSONException;
 import org.kymjs.kjframe.ui.BindView;
 
 import java.util.Map;
@@ -107,8 +104,6 @@ public class LoginActivity extends BaseActivity {
 
         tvTitle.setText("手机号登录");
 
-        getAppVersion();
-
         changeStyle();
     }
 
@@ -166,46 +161,6 @@ public class LoginActivity extends BaseActivity {
             }
         };
         ApiUser.login(phone, password, callBack);
-    }
-
-    private void getAppVersion() {
-        FHttpCallBack callBack = new FHttpCallBack() {
-            @Override
-            public void onSuccess(Map<String, String> headers, byte[] t) {
-                super.onSuccess(headers, t);
-                String str = new String(t);
-                Result result = new Result().parse(str);
-                if (result.isOk()) {
-                    try {
-                        JsonUtils j = new JsonUtils(str);
-                        JsonUtils jsonUtils = j.getJSONUtils("info");
-                        String content = jsonUtils.getString("content");
-                        String version = jsonUtils.getString("version");
-
-                        // 比较版本
-                        if (version.compareTo(AppContext.versionName) > 0) {
-                            // 如果有新版本
-                            VersionUpdateDialog.startActivity(LoginActivity.this, version, content);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                UIHelper.stopLoadingDialog();
-            }
-
-            @Override
-            public void onPreStart() {
-                super.onPreStart();
-                UIHelper.showLoadingDialog(LoginActivity.this);
-            }
-        };
-//        ApiUser.getAppVersion(callBack);
     }
 
     public void changeStyle() {

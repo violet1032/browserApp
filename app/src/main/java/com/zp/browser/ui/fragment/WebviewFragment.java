@@ -79,7 +79,7 @@ public class WebviewFragment extends BaseFragment {
         return this.webTitle;
     }
 
-    public String getIcon(){
+    public String getIcon() {
         return this.iconurl;
     }
 
@@ -134,7 +134,7 @@ public class WebviewFragment extends BaseFragment {
                     // 判断是否为空页面
                     if (view.getContentHeight() == 0) {
                         // 非空页面
-                        if(!hasRemove) {
+                        if (!hasRemove) {
                             hasRemove = true;
                             // 做出处理
                             Message message = new Message();
@@ -205,14 +205,26 @@ public class WebviewFragment extends BaseFragment {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             String url = request.getUrl().toString();
-            if (url.startsWith("http") || url.startsWith("https")) {
+            LogUtil.logError(WebviewFragment.class, "url:" + url);
+//            if (url.startsWith("http") || url.startsWith("https")) {
+//                Message message = new Message();
+//                message.what = 102;
+//                message.obj = request.getUrl().toString();
+//                mainHandler.sendMessage(message);
+//                return true;
+//            }
+//            return false;
+
+            if (url.startsWith("http:") || url.startsWith("https:")) {
                 Message message = new Message();
                 message.what = 102;
                 message.obj = request.getUrl().toString();
                 mainHandler.sendMessage(message);
-                return true;
             }
-            return false;
+            return true;
+//
+//            return true;
+
         }
 
         @Override

@@ -15,9 +15,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
@@ -117,8 +117,14 @@ public class ShareDialog extends BaseActivity {
                         imgContent.setImageBitmap(ImageUtils.getBitmapByPath(path));
                         break;
                     case 2:
-                        ImageCreateUtil.createShareImage(AppContext.user.getShareLink(), AppContext.user.getShare_news_bg(),
-                                handler, news, ShareDialog.this, textContent,registerAward);
+
+                        if (type == 0) {
+                            // 邀请好友
+                            ImageCreateUtil.createInviteImage(AppContext.user.getShareLink(), AppContext.user.getInvite_bg(), handler, registerAward);
+                        } else {
+                            ImageCreateUtil.createShareImage(AppContext.user.getShareLink(), AppContext.user.getShare_news_bg(),
+                                    handler, news, ShareDialog.this, textContent, registerAward);
+                        }
                         break;
                 }
                 return false;
@@ -127,17 +133,21 @@ public class ShareDialog extends BaseActivity {
 
         type = getIntent().getIntExtra("type", 0);
 
-        news = (News) getIntent().getSerializableExtra("news");
-        textContent.setText(Html.fromHtml(news.getContent()));
-
-        if (type == 0) {
-            // 邀请好友
-            ImageCreateUtil.createInviteImage(AppContext.user.getShareLink(), AppContext.user.getInvite_bg(), handler);
-        } else {
-            getRegisterAward();
+        if (type == 1) {
+            news = (News) getIntent().getSerializableExtra("news");
+            textContent.setText(Html.fromHtml(news.getContent()));
         }
 
+        getRegisterAward();
+
 //        textContent.setVisibility(View.GONE);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -160,23 +170,22 @@ public class ShareDialog extends BaseActivity {
                     shareAction.setCallback(new UMShareListener() {
                         @Override
                         public void onStart(SHARE_MEDIA share_media) {
-
                         }
 
                         @Override
                         public void onResult(SHARE_MEDIA share_media) {
-                            Toast.makeText(ShareDialog.this, "分享成功", Toast.LENGTH_LONG).show();
+                            if (AppContext.user.getId() > 0 && type == 1)
+                                shareAward();
                         }
 
                         @Override
                         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-
                         }
 
                         @Override
                         public void onCancel(SHARE_MEDIA share_media) {
-
                         }
+
                     });
                     shareAction.withMedia(image).share();
                 }
@@ -224,4 +233,19 @@ public class ShareDialog extends BaseActivity {
         ApiUser.getRegisterAward(callBack);
     }
 
+
+    public void shareAward() {
+        FHttpCallBack callBack = new FHttpCallBack() {
+            @Override
+            public void onSuccess(Map<String, String> headers, byte[] t) {
+                super.onSuccess(headers, t);
+                String str = new String(t);
+                Result result = new Result().parse(str);
+                if (result.isOk()){
+                    UIHelper.ToastMessage("已成功获得奖励");
+                }
+            }
+        };
+        ApiUser.shareAward(callBack);
+    }
 }

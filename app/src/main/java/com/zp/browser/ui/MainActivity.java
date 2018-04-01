@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ import com.zp.browser.db.Model.Collect;
 import com.zp.browser.db.Model.SearchHistory;
 import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.ui.dialog.MenuDialog;
+import com.zp.browser.ui.dialog.VersionUpdateDialog;
 import com.zp.browser.ui.fragment.MainFragment;
 import com.zp.browser.ui.fragment.WebviewFragment;
 import com.zp.browser.utils.JsonUtils;
@@ -183,13 +185,13 @@ public class MainActivity extends BaseActivity {
                         // 收藏
                         // 判断是否已收藏
                         WebviewFragment webviewFragment = (WebviewFragment) fragmentLinkedList.get(current);
-                        List<Collect> list = AppContext.dBHelper.findAllByWhere(Collect.class, "url='" + webviewFragment.getUrl()+"'");
+                        List<Collect> list = AppContext.dBHelper.findAllByWhere(Collect.class, "url='" + webviewFragment.getUrl() + "'");
                         if (list.size() > 0) {
                             // 已收藏
                             UIHelper.ToastMessage("已收藏");
                         } else {
                             Collect collect = new Collect();
-                            collect.setDomain(StringUtils.getDomain(webviewFragment.getUrl()));
+                            collect.setDomain(StringUtils.getDomain(webviewFragment.getUrl()) + "…");
                             collect.setDateline(System.currentTimeMillis());
                             collect.setIcon(webviewFragment.getIcon());
                             collect.setUrl(webviewFragment.getUrl());
@@ -221,6 +223,8 @@ public class MainActivity extends BaseActivity {
 
         // 获取搜索引擎地址
         searchUrl();
+
+        getVersion();
     }
 
     @Override
@@ -358,6 +362,9 @@ public class MainActivity extends BaseActivity {
                         laySearchShow.setVisibility(View.VISIBLE);
                         laySearchInput.setVisibility(View.GONE);
                         lvSearchHistory.setVisibility(View.GONE);
+
+                        layTop.setFocusable(true);
+                        layTop.setFocusableInTouchMode(true);
                     }
                 }
                 break;
@@ -409,6 +416,8 @@ public class MainActivity extends BaseActivity {
     public void webviewStart(String url) {
 
         layTop.setVisibility(View.VISIBLE);
+        layTop.setFocusable(true);
+        layTop.setFocusableInTouchMode(true);
 
         lvSearchHistory.setVisibility(View.GONE);
 
@@ -429,9 +438,17 @@ public class MainActivity extends BaseActivity {
     }
 
     public void addFragment(KJFragment fragment) {
+        if (current == 0) {
+            // 如果是从主页开始，那么直接清除掉后面所有的记录
+            KJFragment main = fragmentLinkedList.get(0);
+
+            fragmentLinkedList = null;
+            fragmentLinkedList = new LinkedList<>();
+            fragmentLinkedList.add(main);
+        }
+
         current++;
         changeFragment(R.id.act_main_fragment, fragment);
-//        fragmentLinkedList.put(current, fragment);
         fragmentLinkedList.add(fragment);
 
         if (current > 0) {
@@ -568,6 +585,9 @@ public class MainActivity extends BaseActivity {
         edtUrl.setFocusableInTouchMode(true);
         edtUrl.requestFocus();
         edtUrl.selectAll();
+
+        layTop.setFocusable(true);
+        layTop.setFocusableInTouchMode(true);
     }
 
     public void autoLogin() {
@@ -691,5 +711,68 @@ public class MainActivity extends BaseActivity {
                     ;
                 }
             }
+    }
+
+    private long exitTime = 0;//再按一次退出登录
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+
+            if (laySearchInput.getVisibility() == View.VISIBLE) {
+                if (current == 0) {
+                    layTop.setVisibility(View.GONE);
+                    lvSearchHistory.setVisibility(View.GONE);
+
+                    laySearchShow.setVisibility(View.VISIBLE);
+                    laySearchInput.setVisibility(View.GONE);
+                    lvSearchHistory.setVisibility(View.GONE);
+                } else {
+                    laySearchShow.setVisibility(View.VISIBLE);
+                    laySearchInput.setVisibility(View.GONE);
+                    lvSearchHistory.setVisibility(View.GONE);
+
+                    layTop.setFocusable(true);
+                    layTop.setFocusableInTouchMode(true);
+                }
+
+            } else if (current > 0) {
+                previousFragment();
+            } else if (current == 0) {
+                if ((System.currentTimeMillis() - exitTime) > 2000) {
+                    UIHelper.ToastMessage("再按一次退出程序");
+                    exitTime = System.currentTimeMillis();
+                } else {
+                    finish();
+                    System.exit(0);
+                }
+            }
+            return false;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    public void getVersion() {
+        FHttpCallBack callBack = new FHttpCallBack() {
+            @Override
+            public void onSuccess(Map<String, String> headers, byte[] t) {
+                super.onSuccess(headers, t);
+                String str = new String(t);
+                Result result = new Result().parse(str);
+                try {
+                    JsonUtils j = new JsonUtils(str);
+                    JsonUtils jsonUtils = j.getJSONUtils("version");
+
+                    if(jsonUtils.getString("version").compareTo(AppContext.versionName) > 0) {
+                        VersionUpdateDialog.startActivity(MainActivity.this, jsonUtils.getString("version"),
+                                jsonUtils.getString("content"), jsonUtils.getBoolean("must"), jsonUtils.getString("url"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        ApiMain.getVersion(callBack);
     }
 }

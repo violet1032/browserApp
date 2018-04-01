@@ -86,7 +86,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/click_dialog_left"
                 android:padding="@dimen/space_10"
-                android:text="@string/version_text_5"
+                android:text="@string/main_cancel"
                 android:textColor="@color/black_3"
                 android:textSize="@dimen/text_size_14" />
 

@@ -102,6 +102,14 @@ public class ApiUser {
 
         AppContext.http.get(url, params, callBack, false, false);
     }
+    public static void shareAward(FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        // 地址
+        String url = URLs.shareAward;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
     public static void getInviteInfo(FHttpCallBack callBack) {
         // 参数设置
         Map<String, Object> params = new HashMap<>();

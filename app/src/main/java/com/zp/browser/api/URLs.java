@@ -26,6 +26,8 @@ public class URLs {
 
     public final static String searchUrl = APP_STORE_HOST + "search/searchUrl"; // 获取搜索引擎地址
 
+    public final static String getVersion = APP_STORE_HOST + "user/getVersion"; // 获取最新版本
+
 
     public final static String sendIdentifyingCode = APP_STORE_HOST + "sms/sendIdentifyingCode"; // 获取手机号
     public final static String getAdvertList = APP_STORE_HOST + "advert/list"; // 获取首页外链列表

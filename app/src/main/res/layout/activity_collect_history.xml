@@ -1,0 +1,105 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/act_collect_history_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_skyblue"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.zp.browser.ui.CollectHistoryActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/umeng_banner_lay_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/banner_height"
+        android:background="@color/main_skyblue"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/umeng_banner_img_left"
+            android:layout_width="@dimen/banner_height"
+            android:layout_height="@dimen/banner_height"
+            android:padding="10dp"
+            android:src="@drawable/click_btn_banner_back_white" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/banner_height">
+
+                <TextView
+                    android:id="@+id/act_collect_history_tv_title_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/space_10"
+                    android:singleLine="true"
+                    android:text="收藏"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/act_collect_history_img_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="7px"
+                    android:layout_alignLeft="@+id/act_collect_history_tv_title_1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignRight="@+id/act_collect_history_tv_title_1"
+                    android:background="@color/white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/banner_height">
+
+                <TextView
+                    android:id="@+id/act_collect_history_tv_title_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/space_10"
+                    android:singleLine="true"
+                    android:text="历史"
+                    android:textColor="@color/gray_3"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/act_collect_history_img_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="7px"
+                    android:layout_alignLeft="@+id/act_collect_history_tv_title_2"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignRight="@+id/act_collect_history_tv_title_2"
+                    android:background="@color/white"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/act_collect_history_lv_c"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:divider="@color/transparent"
+        android:dividerHeight="0px"></ListView>
+
+    <ListView
+        android:id="@+id/act_collect_history_lv_h"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:divider="@color/transparent"
+        android:dividerHeight="0px"></ListView>
+</LinearLayout>

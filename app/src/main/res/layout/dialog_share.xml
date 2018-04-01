@@ -25,6 +25,7 @@
         android:maxWidth="220dp"
         android:textColor="@color/black_3"
         android:textSize="@dimen/text_size_14"
+        android:layout_marginLeft="-1000dp"
         android:visibility="visible" />
 
     <ImageView

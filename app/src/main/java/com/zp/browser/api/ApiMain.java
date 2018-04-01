@@ -58,6 +58,16 @@ public class ApiMain {
 
         AppContext.http.get(url, params, callBack, false, false);
     }
+    public static void getVersion(FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        params.put("type",0);
+
+        // 地址
+        String url = URLs.getVersion;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
 
     public static void getSearchSuggestion(String url,HttpCallBack callBack){
         // 参数设置

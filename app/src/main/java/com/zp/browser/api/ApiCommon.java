@@ -58,6 +58,17 @@ public class ApiCommon {
         };
         AppContext.bitmap.display(img, url);
     }
+    public static void getNetBitmap(String url, final ImageView img, final int default_img) {
+        // 色块
+        if (StringUtils.isEmpty(url)) {
+            img.setImageResource(default_img);
+            return;
+        }
+        // 如果地址没有域名，则给地址加上域名
+        url = StringUtils.getImgHttpUrl(url, false);
+        Log.e(TAG, "url:::" + url);
+        AppContext.bitmap.display(img, url);
+    }
 
     /**
      * 上传图片

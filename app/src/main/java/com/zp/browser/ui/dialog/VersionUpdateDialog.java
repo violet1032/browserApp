@@ -8,20 +8,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.zp.browser.AppConfig;
 import com.zp.browser.R;
 import com.zp.browser.ui.common.BaseActivity;
 
 import org.kymjs.kjframe.ui.BindView;
 
 /**
- * <p>
+ * <p/>
  * 描述:
- * <p>
+ * <p/>
  * 作者:Administrator
- * <p>
+ * <p/>
  * 时间:2018/2/9 15:24
- * <p>
+ * <p/>
  * 版本:
  */
 public class VersionUpdateDialog extends BaseActivity {
@@ -38,13 +37,17 @@ public class VersionUpdateDialog extends BaseActivity {
 
     private String version;
     private String content;
+    private String url;
+    private boolean must;
 
 
-    public static void startActivity(Context activity, String version, String content) {
+    public static void startActivity(Context activity, String version, String content, boolean must,String url) {
         Intent intent = new Intent();
         intent.setClass(activity, VersionUpdateDialog.class);
         intent.putExtra("version", version);
         intent.putExtra("content", content);
+        intent.putExtra("url", url);
+        intent.putExtra("must", must);
         activity.startActivity(intent);
     }
 
@@ -67,6 +70,8 @@ public class VersionUpdateDialog extends BaseActivity {
 
         content = getIntent().getStringExtra("content");
         version = getIntent().getStringExtra("version");
+        url = getIntent().getStringExtra("url");
+        must = getIntent().getBooleanExtra("must", false);
 
         tvContent.setText(content);
         tvVersion.setText("v" + version);
@@ -78,12 +83,15 @@ public class VersionUpdateDialog extends BaseActivity {
 
         switch (v.getId()) {
             case R.id.dialog_version_btn_exit:
-                System.exit(0);
+                if (must)
+                    System.exit(0);
+                else
+                    finish();
                 break;
             case R.id.dialog_version_btn_sure:
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse(AppConfig.getInstance().getmPre().getString("android_update_url", ""));
+                Uri content_url = Uri.parse(url);
                 intent.setData(content_url);
                 startActivity(intent);
                 break;

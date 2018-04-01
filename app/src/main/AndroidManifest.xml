@@ -35,6 +35,9 @@
             android:name=".ui.dialog.MenuDialog"
             android:theme="@style/CustomDialogDay" />
         <activity
+            android:name=".ui.dialog.VersionUpdateDialog"
+            android:theme="@style/CustomDialogDay" />
+        <activity
             android:name=".ui.dialog.ShareDialog"
             android:theme="@style/CustomDialogDay" />
         <activity android:name=".ui.LoginActivity" />
@@ -89,6 +92,10 @@
         <activity
             android:name=".ui.InviteFriendsActivity"
             android:label="@string/title_activity_invite_friends" >
+        </activity>
+        <activity
+            android:name=".ui.CollectHistoryActivity"
+            android:label="@string/title_activity_collect_history" >
         </activity>
     </application>
 

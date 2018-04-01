@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class ImageCreateUtil {
 
-    public static void createInviteImage(final String content, String imgUrl, final Handler handler) {
+    public static void createInviteImage(final String content, String imgUrl, final Handler handler, final String registerAward) {
         final String filename = System.currentTimeMillis() + ".png";
         final String path = AppConfig.SAVE_IMAGE_PATH + filename;
         HttpCallBack httpCallBack = new HttpCallBack() {
@@ -54,6 +54,14 @@ public class ImageCreateUtil {
                 Canvas canvas = new Canvas(bg);
                 canvas.drawBitmap(qrcode, widthBg - widthQrcode - 20, heightBg - heightQrcode - 60, null);
                 canvas.drawText("长按识别二维码", widthBg - widthQrcode, heightBg - 50, paint);
+
+                TextPaint paintContent = new TextPaint();
+                paintContent.setAntiAlias(true);
+                final int color2 = 0xffff2093;
+                paintContent.setColor(color2);
+                paintContent.setTextSize(240);
+
+                canvas.drawText(registerAward, 160, 780, paintContent);
 
                 try {
                     String fianlPath = AppConfig.SAVE_IMAGE_PATH + System.currentTimeMillis() + ".png";
