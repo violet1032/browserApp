@@ -336,7 +336,7 @@ public class MainFragment extends BaseFragment {
             }
 
             tvTime.setText(StringUtils.getDateHM(StringUtils.date_fromat_change_4(news.getDateline())));
-            tvContent.setText(Html.fromHtml(stringBuffer.toString().replaceAll("background-color:","")));
+            tvContent.setText(Html.fromHtml(stringBuffer.toString().replaceAll("background-color:", "")));
             String str2 = getCoundDown(news.getDateline(), news.getHours());
             tvCountDown.setText(str2);
             if (str2.equals("已结束")) {
@@ -365,7 +365,10 @@ public class MainFragment extends BaseFragment {
                 @Override
                 public void onClick(View view) {
                     // 分享挖矿
-                    ShareDialog.startActivity(getActivity(), 1, news);
+                    if (AppContext.user.getId() == 0)
+                        LoginActivity.startActivity(getActivity());
+                    else
+                        ShareDialog.startActivity(getActivity(), 1, news);
                 }
             });
 

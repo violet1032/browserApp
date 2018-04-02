@@ -34,6 +34,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/dialog_share_lay_1"
         android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
         android:layout_margin="@dimen/space_20"
         android:background="@color/transparent" />
 
