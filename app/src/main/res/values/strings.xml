@@ -96,4 +96,15 @@
     <string name="invite_text_22">台</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_collect_history">CollectHistoryActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+
+    <string name="setting_text_1">设置</string>
+    <string name="setting_text_2">清除数据</string>
+    <string name="setting_text_3">下载设置</string>
+    <string name="setting_text_4">启动时打开上次页面</string>
+    <string name="setting_text_5">翻页方式</string>
+    <string name="setting_text_6">搜索发现</string>
+    <string name="setting_text_7">搜索时展现搜索模块</string>
+    <string name="setting_text_8">大家都在搜</string>
+    <string name="setting_text_9">浏览网页时，展示智能推荐“大家都在搜”</string>
 </resources>

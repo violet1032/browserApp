@@ -6,8 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -91,37 +89,37 @@ public class ImageCreateUtil {
             public void onSuccess(Map<String, String> headers, byte[] t) {
                 super.onSuccess(headers, t);
 
-
                 try {
-                    Drawable drawable = AppContext.appContext.getResources().getDrawable(R.drawable.bg_box_white, null);
-                    // 创建一个白色底的bitmap
-                    Bitmap backgroud = Bitmap.createBitmap(100, 100, drawable
-                            .getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-                            : Bitmap.Config.RGB_565);
-                    Canvas canvasBG = new Canvas(backgroud);
-                    drawable.setBounds(0, 0, 100, 100);
-                    drawable.draw(canvasBG);
+//                    Drawable drawable = AppContext.appContext.getResources().getDrawable(R.drawable.bg_box_white, null);
+//                    // 创建一个白色底的bitmap
+//                    Bitmap backgroud = Bitmap.createBitmap(100, 100, drawable
+//                            .getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+//                            : Bitmap.Config.RGB_565);
+//                    Canvas canvasBG = new Canvas(backgroud);
+//                    drawable.setBounds(0, 0, 100, 100);
+//                    drawable.draw(canvasBG);
 
-//                    Bitmap backgroud = ImageUtils.drawableToBitmapNDP(AppContext.appContext.getResources().getDrawable(R.drawable.bg_box_white, null), 1f);
+                    Bitmap backgroud = ImageUtils.drawableToBitmap(AppContext.appContext.getResources().getDrawable(R.drawable.bg_box_white, null), 1f);
                     Bitmap bg = ImageUtils.getBitmapByPath(path).copy(Bitmap.Config.ARGB_8888, true);
 
 
                     // 获取新闻内容图片
                     Bitmap content = ImageUtils.getViewBitmap(textView);
-                    Matrix matrix = new Matrix();
-                    matrix.postScale(0.65f, 0.65f);
+                    Matrix matrix2 = new Matrix();
+                    matrix2.postScale(0.65f, 0.65f);
                     // 得到新的图片
-                    Bitmap contentnew = Bitmap.createBitmap(content, 0, 0, content.getWidth(), content.getHeight(), matrix, true);
+                    Bitmap contentnew = Bitmap.createBitmap(content, 0, 0, content.getWidth(), content.getHeight(), matrix2, true);
 
 
                     // 计算整体高度 和宽度
                     int totalWidth = bg.getWidth();
                     int totalHeight = 550 + contentnew.getHeight();
 
-                    float scaleX = (float) totalWidth / 100f;
-                    float scaleY = (float) totalHeight / 100f;
+                    float scaleX = (float) totalWidth / (float)backgroud.getWidth();
+                    float scaleY = (float) totalHeight / (float)backgroud.getHeight();
 
                     // 缩放背景
+                    Matrix matrix = new Matrix();
                     matrix.postScale(scaleX, scaleY);
                     // 得到新的图片
                     Bitmap backgroudNew = Bitmap.createBitmap(backgroud, 0, 0, backgroud.getWidth(), backgroud.getHeight(), matrix, true);
@@ -149,14 +147,18 @@ public class ImageCreateUtil {
                     canvas.drawBitmap(bg, 0, 0, null);
 
 
-                    canvas.drawText("totalWidth:" + totalWidth, 0, 0, paint1);
-                    canvas.drawText("totalHeight:" + totalHeight, 0, 20, paint1);
-                    canvas.drawText("contentnew.getWidth:"+contentnew.getWidth(), 0, 40, paint1);
-                    canvas.drawText("contentnew.getHeight:"+contentnew.getHeight(), 0, 60, paint1);
-                    canvas.drawText("backgroud.getWidth:"+backgroud.getWidth(), 0, 80, paint1);
-                    canvas.drawText("backgroud.getHeight:"+backgroud.getHeight(), 0, 100, paint1);
-                    canvas.drawText("canvas.getHeight:"+canvas.getHeight(), 0, 120, paint1);
-                    canvas.drawText("canvas.getWidth:"+canvas.getWidth(), 0, 140, paint1);
+                    canvas.drawText("totalWidth:" + totalWidth, 0, 20, paint1);
+                    canvas.drawText("totalHeight:" + totalHeight, 0, 40, paint1);
+                    canvas.drawText("contentnew.getWidth:"+contentnew.getWidth(), 0, 60, paint1);
+                    canvas.drawText("contentnew.getHeight:"+contentnew.getHeight(), 0, 80, paint1);
+                    canvas.drawText("backgroud.getWidth:"+backgroud.getWidth(), 0, 100, paint1);
+                    canvas.drawText("backgroud.getHeight:"+backgroud.getHeight(), 0, 120, paint1);
+                    canvas.drawText("canvas.getHeight:"+canvas.getHeight(), 0, 140, paint1);
+                    canvas.drawText("canvas.getWidth:"+canvas.getWidth(), 0, 160, paint1);
+                    canvas.drawText("bg.getHeight:"+bg.getHeight(), 0, 180, paint1);
+                    canvas.drawText("bg.getWidth:"+bg.getWidth(), 0, 200, paint1);
+                    canvas.drawText("scaleX:"+scaleX, 0, 220, paint1);
+                    canvas.drawText("scaleY:"+scaleY, 0, 240, paint1);
 
 
                     // 添加时间

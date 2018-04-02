@@ -18,6 +18,7 @@ import com.zp.browser.R;
 import com.zp.browser.api.ApiCommon;
 import com.zp.browser.ui.CollectHistoryActivity;
 import com.zp.browser.ui.LoginActivity;
+import com.zp.browser.ui.SettingActivity;
 import com.zp.browser.ui.UserActivity;
 import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.utils.StringUtils;
@@ -72,6 +73,8 @@ public class MenuDialog extends BaseActivity {
     private TextView tvCollect;
     @BindView(id=R.id.dialog_menu_img_refresh)
     private ImageView imgRefresh;
+    @BindView(id=R.id.dialog_menu_img_setting,click = true)
+    private ImageView imgSetting;
     @BindView(id=R.id.dialog_menu_tv_refresh)
     private TextView tvRefresh;
 
@@ -183,6 +186,10 @@ public class MenuDialog extends BaseActivity {
                 break;
             case R.id.dialog_menu_lay_history:
                 CollectHistoryActivity.startActivity(this,mainHandler);
+                finish();
+                break;
+            case R.id.dialog_menu_img_setting:
+                SettingActivity.startActivity(this);
                 finish();
                 break;
         }

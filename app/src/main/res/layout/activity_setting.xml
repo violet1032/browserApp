@@ -1,0 +1,218 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/act_setting_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_skyblue"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.zp.browser.ui.SettingActivity">
+
+    <include layout="@layout/common_banner" />
+
+    <LinearLayout
+        android:id="@+id/act_setting_bg_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_3"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/act_setting_lay_clear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/space_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/setting_text_2"
+                android:textColor="@color/black_3"
+                android:textSize="@dimen/text_size_15" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray_2" />
+
+        <RelativeLayout
+            android:id="@+id/act_setting_lay_download"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/space_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/setting_text_3"
+                android:textColor="@color/black_3"
+                android:textSize="@dimen/text_size_15" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/arrow_right_gray_1" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray_2" />
+
+        <RelativeLayout
+            android:id="@+id/act_setting_lay_last"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/space_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/setting_text_4"
+                android:textColor="@color/black_3"
+                android:textSize="@dimen/text_size_15" />
+
+            <com.zp.browser.widget.SwitchButton
+                android:id="@+id/act_setting_switch_last"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:checked="true"
+                app:kswBackColor="@color/main_skyblue"
+                app:kswBackRadius="@dimen/space_20"
+                app:kswThumbColor="@color/white"
+                app:kswThumbHeight="@dimen/space_15"
+                app:kswThumbRadius="@dimen/space_15"
+                app:kswThumbWidth="@dimen/space_20" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray_2" />
+
+        <RelativeLayout
+            android:id="@+id/act_setting_lay_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/space_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/setting_text_5"
+                android:textColor="@color/black_3"
+                android:textSize="@dimen/text_size_15" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/arrow_right_gray_1" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray_2" />
+
+        <RelativeLayout
+            android:id="@+id/act_setting_lay_faxian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/space_15">
+
+            <TextView
+                android:id="@+id/act_setting_tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setting_text_6"
+                android:textColor="@color/black_3"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/act_setting_tv_1"
+                android:text="@string/setting_text_7"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text_size_12" />
+
+            <com.zp.browser.widget.SwitchButton
+                android:id="@+id/act_setting_switch_faxian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:checked="true"
+                app:kswBackColor="@color/main_skyblue"
+                app:kswBackRadius="@dimen/space_20"
+                app:kswThumbColor="@color/white"
+                app:kswThumbHeight="@dimen/space_15"
+                app:kswThumbRadius="@dimen/space_15"
+                app:kswThumbWidth="@dimen/space_20" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray_2" />
+
+        <RelativeLayout
+            android:id="@+id/act_setting_lay_douzaisou"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/space_15">
+
+            <TextView
+                android:id="@+id/act_setting_tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setting_text_8"
+                android:textColor="@color/black_3"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/act_setting_tv_2"
+                android:text="@string/setting_text_9"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text_size_12" />
+
+            <com.zp.browser.widget.SwitchButton
+                android:id="@+id/act_setting_switch_douzaisou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:checked="true"
+                app:kswBackColor="@color/main_skyblue"
+                app:kswBackRadius="@dimen/space_20"
+                app:kswThumbColor="@color/white"
+                app:kswThumbHeight="@dimen/space_15"
+                app:kswThumbRadius="@dimen/space_15"
+                app:kswThumbWidth="@dimen/space_20" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
