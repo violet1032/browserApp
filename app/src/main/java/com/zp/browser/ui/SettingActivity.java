@@ -17,6 +17,8 @@ import com.zp.browser.api.ApiMain;
 import com.zp.browser.api.FHttpCallBack;
 import com.zp.browser.bean.Result;
 import com.zp.browser.ui.common.BaseActivity;
+import com.zp.browser.ui.dialog.ClearDialog;
+import com.zp.browser.ui.dialog.PageStyleDialog;
 import com.zp.browser.ui.dialog.VersionUpdateDialog;
 import com.zp.browser.utils.JsonUtils;
 import com.zp.browser.utils.UIHelper;
@@ -43,8 +45,8 @@ public class SettingActivity extends BaseActivity {
 
     @BindView(id = R.id.act_setting_lay_clear, click = true)
     private RelativeLayout layClear;
-    @BindView(id = R.id.act_setting_lay_download, click = true)
-    private RelativeLayout layDownload;
+//    @BindView(id = R.id.act_setting_lay_download, click = true)
+//    private RelativeLayout layDownload;
     @BindView(id = R.id.act_setting_lay_last, click = true)
     private RelativeLayout layLast;
     @BindView(id = R.id.act_setting_lay_type, click = true)
@@ -99,7 +101,10 @@ public class SettingActivity extends BaseActivity {
                 getVersion();
                 break;
             case R.id.act_setting_lay_clear:
-                clearData();
+                ClearDialog.startActivity(this);
+                break;
+            case R.id.act_setting_lay_type:
+                PageStyleDialog.startActivity(this);
                 break;
 
 //            case R.id.act_setting_lay_faxian:
@@ -169,9 +174,10 @@ public class SettingActivity extends BaseActivity {
             childStyle(layBg_2, getResources().getColor(R.color.night_text_1));
 
             layClear.setBackgroundColor(getResources().getColor(R.color.night_black_2));
-            layDownload.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+//            layDownload.setBackgroundColor(getResources().getColor(R.color.night_black_2));
             layLast.setBackgroundColor(getResources().getColor(R.color.night_black_2));
             layType.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            layVersion.setBackgroundColor(getResources().getColor(R.color.night_black_2));
 //            layFaxian.setBackgroundColor(getResources().getColor(R.color.night_black_2));
 //            layDouzaisou.setBackgroundColor(getResources().getColor(R.color.night_black_2));
         } else {
@@ -182,9 +188,10 @@ public class SettingActivity extends BaseActivity {
             childStyle(layBg_2, getResources().getColor(R.color.black_3));
 
             layClear.setBackgroundColor(getResources().getColor(R.color.white));
-            layDownload.setBackgroundColor(getResources().getColor(R.color.white));
+//            layDownload.setBackgroundColor(getResources().getColor(R.color.white));
             layLast.setBackgroundColor(getResources().getColor(R.color.white));
             layType.setBackgroundColor(getResources().getColor(R.color.white));
+            layVersion.setBackgroundColor(getResources().getColor(R.color.white));
 //            layFaxian.setBackgroundColor(getResources().getColor(R.color.white));
 //            layDouzaisou.setBackgroundColor(getResources().getColor(R.color.white));
         }
@@ -240,13 +247,5 @@ public class SettingActivity extends BaseActivity {
             }
         };
         ApiMain.getVersion(callBack);
-    }
-
-    public void clearData(){
-        UIHelper.showLoadingDialog(this);
-
-
-
-        UIHelper.stopLoadingDialog();
     }
 }

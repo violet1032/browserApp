@@ -29,9 +29,11 @@ public class ApiMain {
         AppContext.http.post(url, params, callBack, false, false);
     }
 
-    public static void getNewsList(FHttpCallBack callBack) {
+    public static void getNewsList(int page,int limit,FHttpCallBack callBack) {
         // 参数设置
         Map<String, Object> params = new HashMap<>();
+        params.put("page",page);
+        params.put("limit",limit);
 
         // 地址
         String url = URLs.getNewsList;

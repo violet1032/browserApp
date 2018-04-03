@@ -35,6 +35,12 @@
             android:name=".ui.dialog.MenuDialog"
             android:theme="@style/CustomDialogDay" />
         <activity
+            android:name=".ui.dialog.ClearDialog"
+            android:theme="@style/CustomDialogDay" />
+        <activity
+            android:name=".ui.dialog.PageStyleDialog"
+            android:theme="@style/CustomDialogDay" />
+        <activity
             android:name=".ui.dialog.EditInfoDialog"
             android:theme="@style/CustomDialogDay" />
         <activity
@@ -107,6 +113,13 @@
         <activity
             android:name=".ui.AccountActivity"
             android:label="@string/title_activity_account" >
+        </activity>
+        <activity
+            android:name=".ui.ChangePasswordActivity"
+            android:label="@string/title_activity_change_password" >
+        </activity>
+        <activity
+            android:name=".ui.ForgotActivity">
         </activity>
     </application>
 

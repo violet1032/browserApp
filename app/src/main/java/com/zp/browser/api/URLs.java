@@ -24,6 +24,8 @@ public class URLs {
     public final static String getInviteInfo = APP_STORE_HOST + "user/getInviteInfo"; // 获取邀请好友信息
     public final static String getRegisterAward = APP_STORE_HOST + "user/getRegisterAward"; // 获取注册赠送
     public final static String editInfo = APP_STORE_HOST + "user/editInfo"; // 修改信息
+    public final static String editPassword = APP_STORE_HOST + "user/editPassword"; // 修改密码
+    public final static String forgot = APP_STORE_HOST + "user/forgot"; // 修改密码
 
     public final static String searchUrl = APP_STORE_HOST + "search/searchUrl"; // 获取搜索引擎地址
 

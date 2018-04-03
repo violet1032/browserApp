@@ -89,6 +89,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.act_login_tv_forgot:
                 // 忘记密码
+                ForgotActivity.startActivity(this);
                 break;
         }
     }

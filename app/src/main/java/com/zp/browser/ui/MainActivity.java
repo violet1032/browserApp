@@ -37,6 +37,8 @@ import com.zp.browser.utils.JsonUtils;
 import com.zp.browser.utils.LogUtil;
 import com.zp.browser.utils.StringUtils;
 import com.zp.browser.utils.UIHelper;
+import com.zp.browser.widget.MyScrollView;
+import com.zp.browser.widget.OnOverScrolledListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,7 +117,19 @@ public class MainActivity extends BaseActivity {
     @BindView(id = R.id.act_main_lay_bottom)
     private LinearLayout layBottom;
 
+    private int pageNumber = 0;
+    private boolean isLast;
+    @BindView(id = R.id.act_main_scrollview)
+    private MyScrollView scrollView;
+
     public static Map<String, Integer> urlMap = new HashMap<>();
+
+    @BindView(id = R.id.act_main_lay_page)
+    private LinearLayout layPage;
+    @BindView(id = R.id.act_main_img_page_up, click = true)
+    private ImageView imgPageUp;
+    @BindView(id = R.id.act_main_img_page_down, click = true)
+    private ImageView imgPageDown;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent();
@@ -308,6 +322,20 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        scrollView.setOnOverScrolledListener(new OnOverScrolledListener() {
+            @Override
+            public void scrollTop() {
+
+            }
+
+            @Override
+            public void scrollBottom() {
+                if (current == 0) {
+                    mainFragment.getNewsList();
+                }
+            }
+        });
+
         changeStyle(true);
     }
 
@@ -391,6 +419,12 @@ public class MainActivity extends BaseActivity {
                 current = 0;
                 AppConfig.getInstance().mPreSet("lastUrl", "");
                 changeFragment(R.id.act_main_fragment, fragmentLinkedList.get(current));
+                break;
+            case R.id.act_main_img_page_up:
+                scrollView.scrollBy(0, -(AppContext.screenHeight - 300));
+                break;
+            case R.id.act_main_img_page_down:
+                scrollView.scrollBy(0, AppContext.screenHeight - 300);
                 break;
         }
     }
@@ -534,8 +568,13 @@ public class MainActivity extends BaseActivity {
     public void arrowHandle() {
         if (current == 0) {
             ((ImageView) layPrevious.getChildAt(0)).setImageResource(R.drawable.arrow_left_gray_1);
-        } else
+            layPage.setVisibility(View.GONE);
+        } else {
             ((ImageView) layPrevious.getChildAt(0)).setImageResource(R.drawable.arrow_left_gray_2);
+
+            if (AppConfig.getInstance().getmPre().getBoolean("page_1", false))
+                layPage.setVisibility(View.VISIBLE);
+        }
 
         if (current == fragmentLinkedList.size() - 1) {
             ((ImageView) layNext.getChildAt(0)).setImageResource(R.drawable.arrow_right_gray_1);
@@ -617,7 +656,7 @@ public class MainActivity extends BaseActivity {
         String phone = AppConfig.getInstance().getmPre().getString("phone", null);
         String password = AppConfig.getInstance().getmPre().getString("password", null);
 
-        if (!StringUtils.isEmpty(phone) && !StringUtils.isEmpty(password) && AppConfig.getInstance().getmPre().getBoolean("autoLogin",false)) {
+        if (!StringUtils.isEmpty(phone) && !StringUtils.isEmpty(password) && AppConfig.getInstance().getmPre().getBoolean("autoLogin", false)) {
             FHttpCallBack callBack = new FHttpCallBack() {
 
                 @Override
@@ -771,9 +810,18 @@ public class MainActivity extends BaseActivity {
                 }
             }
             return false;
-        } else {
-            return super.onKeyDown(keyCode, event);
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            if (AppConfig.getInstance().getmPre().getBoolean("page_3", false) && current > 0) {
+                scrollView.scrollBy(0, -(AppContext.screenHeight - 300));
+                return true;
+            }
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            if (AppConfig.getInstance().getmPre().getBoolean("page_3", false) && current > 0) {
+                scrollView.scrollBy(0, AppContext.screenHeight - 300);
+                return true;
+            }
         }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void getVersion() {
@@ -783,18 +831,18 @@ public class MainActivity extends BaseActivity {
                 super.onSuccess(headers, t);
                 String str = new String(t);
                 Result result = new Result().parse(str);
-                if(result.isOk())
-                try {
-                    JsonUtils j = new JsonUtils(str);
-                    JsonUtils jsonUtils = j.getJSONUtils("version");
+                if (result.isOk())
+                    try {
+                        JsonUtils j = new JsonUtils(str);
+                        JsonUtils jsonUtils = j.getJSONUtils("version");
 
-                    if (jsonUtils.getString("version").compareTo(AppContext.versionName) > 0) {
-                        VersionUpdateDialog.startActivity(MainActivity.this, jsonUtils.getString("version"),
-                                jsonUtils.getString("content"), jsonUtils.getBoolean("must"), jsonUtils.getString("url"));
+                        if (jsonUtils.getString("version").compareTo(AppContext.versionName) > 0) {
+                            VersionUpdateDialog.startActivity(MainActivity.this, jsonUtils.getString("version"),
+                                    jsonUtils.getString("content"), jsonUtils.getBoolean("must"), jsonUtils.getString("url"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
         };
         ApiMain.getVersion(callBack);

@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>
+ * <p/>
  * 描述:
- * <p>
+ * <p/>
  * 作者:Administrator
- * <p>
+ * <p/>
  * 时间:2018/2/5 15:09
- * <p>
+ * <p/>
  * 版本:
  */
 public class ApiUser {
@@ -137,6 +137,31 @@ public class ApiUser {
         params.put("content", content);
         // 地址
         String url = URLs.editInfo;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
+
+    public static void editPassword(String oldPassword, String newPassword, String reNewPassword, FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        params.put("oldPassword", oldPassword);
+        params.put("newPassword", newPassword);
+        params.put("reNewPassword", reNewPassword);
+        // 地址
+        String url = URLs.editPassword;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
+
+    public static void forgot(String phone, String password, String repassword, String sms_code, FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        params.put("phone", phone);
+        params.put("sms_code", sms_code);
+        params.put("password", password);
+        params.put("repassword", repassword);
+        // 地址
+        String url = URLs.forgot;
 
         AppContext.http.get(url, params, callBack, false, false);
     }

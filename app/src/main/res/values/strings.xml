@@ -117,4 +117,27 @@
     <string name="account_text_5">修改密码</string>
     <string name="account_text_6">我的积分：</string>
     <string name="account_text_7">退出登录</string>
+    <string name="title_activity_change_password">ChangePasswordActivity</string>
+
+    <string name="change_password_text_1">修改密码</string>
+    <string name="change_password_text_2">请输入原密码</string>
+    <string name="change_password_text_3">请输入新密码</string>
+    <string name="change_password_text_4">请再次输入新密码</string>
+    <string name="change_password_text_5">确认修改</string>
+
+    <string name="clear_text_1">清除记录</string>
+    <string name="clear_text_2">输入历史</string>
+    <string name="clear_text_3">搜索历史</string>
+    <string name="clear_text_4">浏览历史</string>
+    <string name="clear_text_5">缓存文件</string>
+    <string name="clear_text_6">Cookies</string>
+    <string name="clear_text_7">首页数据</string>
+    <string name="clear_text_8">表单密码</string>
+    <string name="clear_text_9">Flash缓存</string>
+    <string name="clear_text_10">位置授权</string>
+    <string name="clear_text_11">清除</string>
+    <string name="clear_text_12">翻页模式</string>
+    <string name="clear_text_13">翻页按钮（点击按钮翻页）</string>
+    <string name="clear_text_14">触屏翻页（触摸屏幕翻页）</string>
+    <string name="clear_text_15">音量键翻页（音量键+-）</string>
 </resources>

@@ -43,9 +43,6 @@ import org.kymjs.kjframe.http.HttpConfig;
 public class AppContext extends Application {
     private final String tag = "AppContext";
 
-    public static int screenW;
-    public static int screenH;
-
     public static Context applicationContext;
     public static AppContext appContext;
 

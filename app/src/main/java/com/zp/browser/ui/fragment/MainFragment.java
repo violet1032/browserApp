@@ -68,8 +68,6 @@ public class MainFragment extends BaseFragment {
     @BindView(id = R.id.act_main_grid_main)
     private GridViewScroll gridView;
 
-    private NewsList newsList = new NewsList();
-
     @BindView(id = R.id.act_main_lay_list)
     private LinearLayout layList;
 
@@ -256,42 +254,54 @@ public class MainFragment extends BaseFragment {
         ApiMain.getAdvertList(callBack);
     }
 
-    private void getNewsList() {
-        FHttpCallBack callBack = new FHttpCallBack() {
-            @Override
-            public void onSuccess(Map<String, String> headers, byte[] t) {
-                super.onSuccess(headers, t);
-                String str = new String(t);
-                Result result = new Result().parse(str);
-                if (result.isOk()) {
-                    try {
-                        newsList.parse(str);
+    private int pageNumber;
+    private boolean isLast;
 
-                        addNews();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        UIHelper.ToastMessage("外链数据解析错误");
+    public void getNewsList() {
+        if(!isLast) {
+            pageNumber++;
+            FHttpCallBack callBack = new FHttpCallBack() {
+                @Override
+                public void onSuccess(Map<String, String> headers, byte[] t) {
+                    super.onSuccess(headers, t);
+                    String str = new String(t);
+                    Result result = new Result().parse(str);
+                    if (result.isOk()) {
+                        try {
+                            NewsList newsList = new NewsList();
+                            newsList.parse(str);
+
+                            if (newsList.getPageNumber() == newsList.getTotalPage()) {
+                                isLast = true;
+                            }
+
+                            if(newsList.getList().size() > 0)
+                            addNews(newsList);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            UIHelper.ToastMessage("外链数据解析错误");
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onPreStart() {
-                super.onPreStart();
-                UIHelper.showLoadingDialog(getActivity());
-            }
+                @Override
+                public void onPreStart() {
+                    super.onPreStart();
+                    UIHelper.showLoadingDialog(getActivity());
+                }
 
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                UIHelper.stopLoadingDialog();
-            }
-        };
-        ApiMain.getNewsList(callBack);
+                @Override
+                public void onFinish() {
+                    super.onFinish();
+                    UIHelper.stopLoadingDialog();
+                }
+            };
+            ApiMain.getNewsList(pageNumber, 20, callBack);
+        }
     }
 
     @TargetApi(24)
-    private void addNews() {
+    private void addNews(NewsList newsList) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         for (int i = 0; i < newsList.getList().size(); i++) {
             final News news = newsList.getList().get(i);

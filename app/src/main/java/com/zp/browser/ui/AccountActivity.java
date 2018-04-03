@@ -126,6 +126,9 @@ public class AccountActivity extends BaseActivity {
             case R.id.act_account_lay_nickname:
                 EditInfoDialog.startActivity(this, "修改昵称", AppContext.user.getNickname(), handler, 0);
                 break;
+            case R.id.act_account_lay_password:
+                ChangePasswordActivity.startActivity(this);
+                break;
         }
     }
 

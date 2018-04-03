@@ -1,14 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/act_main_lay_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_skyblue"
-    android:id="@+id/act_main_lay_bg"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     tools:context="com.zp.xintianfei.ui.MainActivity">
 
-    <ScrollView
+    <com.zp.browser.widget.MyScrollView
+        android:id="@+id/act_main_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/act_main_img_1"
@@ -17,9 +18,9 @@
         tools:context="com.zp.xintianfei.ui.MainActivity">
 
         <LinearLayout
+            android:id="@+id/act_main_lay_bg_1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/act_main_lay_bg_1"
             android:background="@color/main_skyblue"
             android:orientation="vertical">
 
@@ -59,8 +60,8 @@
                             android:layout_marginLeft="@dimen/space_8"
                             android:layout_toLeftOf="@+id/act_main_img_refresh"
                             android:layout_toRightOf="@+id/act_main_img_2"
-                            android:text=""
                             android:singleLine="true"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_size_15" />
 
@@ -84,9 +85,9 @@
                         android:visibility="gone">
 
                         <RelativeLayout
+                            android:id="@+id/act_main_lay_search_input_content"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/act_main_lay_search_input_content"
                             android:layout_toLeftOf="@+id/act_main_tv_cancel"
                             android:background="@color/white"
                             android:padding="@dimen/space_7">
@@ -154,7 +155,7 @@
             </FrameLayout>
         </LinearLayout>
 
-    </ScrollView>
+    </com.zp.browser.widget.MyScrollView>
 
     <ImageView
         android:id="@+id/act_main_img_1"
@@ -245,6 +246,28 @@
 
     </ListView>
 
+    <LinearLayout
+        android:id="@+id/act_main_lay_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/space_10"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/act_main_img_page_up"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/page_up" />
+
+        <ImageView
+            android:id="@+id/act_main_img_page_down"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="@dimen/space_30"
+            android:src="@drawable/page_down" />
+    </LinearLayout>
 </RelativeLayout>
 
 
