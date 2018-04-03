@@ -2,6 +2,8 @@ package com.zp.browser.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -45,26 +47,30 @@ public class UserActivity extends BaseActivity {
     @BindView(id = R.id.act_user_tv_coin)
     private TextView tvCoin;
 
-    @BindView(id=R.id.act_user_lay_share)
+    @BindView(id = R.id.act_user_lay_share)
     private LinearLayout layShare;
-    @BindView(id=R.id.act_user_lay_invite)
+    @BindView(id = R.id.act_user_lay_invite)
     private LinearLayout layInvite;
 
-    @BindView(id=R.id.act_user_tv_share,click = true)
+    @BindView(id = R.id.act_user_tv_share, click = true)
     private TextView tvGoShare;
-    @BindView(id=R.id.act_user_tv_invite,click = true)
+    @BindView(id = R.id.act_user_tv_invite, click = true)
     private TextView tvGoInvite;
+    @BindView(id = R.id.act_user_tv_account, click = true)
+    private TextView tvAccount;
 
-    @BindView(id=R.id.act_user_lay_bg)
+    @BindView(id = R.id.act_user_lay_bg)
     private LinearLayout layBg;
-    @BindView(id=R.id.act_user_lay_bg_2)
+    @BindView(id = R.id.act_user_lay_bg_2)
     private LinearLayout layBg_2;
-    @BindView(id=R.id.umeng_banner_lay_bg)
+    @BindView(id = R.id.umeng_banner_lay_bg)
     private RelativeLayout layTitleBg;
-    @BindView(id=R.id.act_user_lay_bg_3)
+    @BindView(id = R.id.act_user_lay_bg_3)
     private RelativeLayout layBg_3;
-    @BindView(id=R.id.act_user_lay_bg_4)
+    @BindView(id = R.id.act_user_lay_bg_4)
     private LinearLayout layBg_4;
+
+    private Handler handler;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent();
@@ -91,6 +97,18 @@ public class UserActivity extends BaseActivity {
     public void initData() {
         super.initData();
 
+        handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message message) {
+                if (message.what == 0) {
+                    finish();
+                }else if (message.what == 1){
+                    ApiCommon.getNetBitmap((String)message.obj,imgHead,false);
+                }
+                return false;
+            }
+        });
+
         getUserInfo();
 
         getSystemParam();
@@ -109,6 +127,9 @@ public class UserActivity extends BaseActivity {
                 break;
             case R.id.act_user_tv_invite:
                 InviteFriendsActivity.startActivity(UserActivity.this);
+                break;
+            case R.id.act_user_tv_account:
+                AccountActivity.startActivity(this, handler);
                 break;
         }
     }
@@ -184,42 +205,42 @@ public class UserActivity extends BaseActivity {
                             JSONArray jsonArray = jsonUtils.getJSONArray("share_rule_news");
                             LayoutInflater inflater = LayoutInflater.from(UserActivity.this);
                             for (int i = 0; i < jsonArray.length(); i++) {
-                                RelativeLayout item = (RelativeLayout) inflater.inflate(R.layout.layout_rule_item,null);
+                                RelativeLayout item = (RelativeLayout) inflater.inflate(R.layout.layout_rule_item, null);
 
                                 JsonUtils jsonUtils1 = new JsonUtils(jsonArray.getString(i));
                                 String unit = jsonUtils1.getString("unit");
-                                if(!StringUtils.isEmpty(unit)){
-                                    if(unit.contains("矿币")){
-                                        unit = unit.replaceAll("矿币","");
-                                    }else{
+                                if (!StringUtils.isEmpty(unit)) {
+                                    if (unit.contains("矿币")) {
+                                        unit = unit.replaceAll("矿币", "");
+                                    } else {
                                         item.findViewById(R.id.layout_rule_item_img_3).setVisibility(View.GONE);
                                     }
                                 }
 
-                                ((TextView)item.findViewById(R.id.layout_rule_item_tv_name)).setText(jsonUtils1.getString("name"));
-                                ((TextView)item.findViewById(R.id.act_user_tv_num)).setText(jsonUtils1.getString("award"));
-                                ((TextView)item.findViewById(R.id.layout_rule_item_tv_unit)).setText(unit);
+                                ((TextView) item.findViewById(R.id.layout_rule_item_tv_name)).setText(jsonUtils1.getString("name"));
+                                ((TextView) item.findViewById(R.id.act_user_tv_num)).setText(jsonUtils1.getString("award"));
+                                ((TextView) item.findViewById(R.id.layout_rule_item_tv_unit)).setText(unit);
 
                                 layShare.addView(item);
                             }
-                            
+
                             JSONArray jsonArray2 = jsonUtils.getJSONArray("share_rule_qrcode");
                             for (int i = 0; i < jsonArray2.length(); i++) {
-                                RelativeLayout item = (RelativeLayout) inflater.inflate(R.layout.layout_rule_item,null);
+                                RelativeLayout item = (RelativeLayout) inflater.inflate(R.layout.layout_rule_item, null);
 
                                 JsonUtils jsonUtils1 = new JsonUtils(jsonArray2.getString(i));
                                 String unit = jsonUtils1.getString("unit");
-                                if(!StringUtils.isEmpty(unit)){
-                                    if(unit.contains("矿币")){
-                                        unit = unit.replaceAll("矿币","");
-                                    }else{
+                                if (!StringUtils.isEmpty(unit)) {
+                                    if (unit.contains("矿币")) {
+                                        unit = unit.replaceAll("矿币", "");
+                                    } else {
                                         item.findViewById(R.id.layout_rule_item_img_3).setVisibility(View.GONE);
                                     }
                                 }
 
-                                ((TextView)item.findViewById(R.id.layout_rule_item_tv_name)).setText(jsonUtils1.getString("name"));
-                                ((TextView)item.findViewById(R.id.act_user_tv_num)).setText(jsonUtils1.getString("award"));
-                                ((TextView)item.findViewById(R.id.layout_rule_item_tv_unit)).setText(unit);
+                                ((TextView) item.findViewById(R.id.layout_rule_item_tv_name)).setText(jsonUtils1.getString("name"));
+                                ((TextView) item.findViewById(R.id.act_user_tv_num)).setText(jsonUtils1.getString("award"));
+                                ((TextView) item.findViewById(R.id.layout_rule_item_tv_unit)).setText(unit);
 
                                 layInvite.addView(item);
                             }
@@ -247,7 +268,7 @@ public class UserActivity extends BaseActivity {
             layBg_2.setBackgroundColor(getResources().getColor(R.color.night_black_2));
             layBg_3.setBackgroundColor(getResources().getColor(R.color.night_black_2));
             layBg_4.setBackgroundColor(getResources().getColor(R.color.night_black_2));
-        }else{
+        } else {
             layBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
             layTitleBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
             layBg_2.setBackgroundColor(getResources().getColor(R.color.gray_bg));

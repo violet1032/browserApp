@@ -104,7 +104,17 @@
     <string name="setting_text_4">启动时打开上次页面</string>
     <string name="setting_text_5">翻页方式</string>
     <string name="setting_text_6">搜索发现</string>
-    <string name="setting_text_7">搜索时展现搜索模块</string>
+    <string name="setting_text_7">搜索时展现搜索发现模块</string>
     <string name="setting_text_8">大家都在搜</string>
     <string name="setting_text_9">浏览网页时，展示智能推荐“大家都在搜”</string>
+    <string name="setting_text_10">检查更新</string>
+    <string name="title_activity_account">AccountActivity</string>
+
+    <string name="account_text_1">账户管理</string>
+    <string name="account_text_2">头像</string>
+    <string name="account_text_3">昵称：</string>
+    <string name="account_text_4">性别</string>
+    <string name="account_text_5">修改密码</string>
+    <string name="account_text_6">我的积分：</string>
+    <string name="account_text_7">退出登录</string>
 </resources>

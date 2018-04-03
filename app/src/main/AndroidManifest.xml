@@ -35,6 +35,9 @@
             android:name=".ui.dialog.MenuDialog"
             android:theme="@style/CustomDialogDay" />
         <activity
+            android:name=".ui.dialog.EditInfoDialog"
+            android:theme="@style/CustomDialogDay" />
+        <activity
             android:name=".ui.dialog.VersionUpdateDialog"
             android:theme="@style/CustomDialogDay" />
         <activity
@@ -100,6 +103,10 @@
         <activity
             android:name=".ui.SettingActivity"
             android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name=".ui.AccountActivity"
+            android:label="@string/title_activity_account" >
         </activity>
     </application>
 

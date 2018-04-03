@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p/>
+ * <p>
  * 描述:
- * <p/>
+ * <p>
  * 作者:Administrator
- * <p/>
+ * <p>
  * 时间:2018/2/5 15:09
- * <p/>
+ * <p>
  * 版本:
  */
 public class ApiUser {
@@ -102,6 +102,7 @@ public class ApiUser {
 
         AppContext.http.get(url, params, callBack, false, false);
     }
+
     public static void shareAward(FHttpCallBack callBack) {
         // 参数设置
         Map<String, Object> params = new HashMap<>();
@@ -110,6 +111,7 @@ public class ApiUser {
 
         AppContext.http.get(url, params, callBack, false, false);
     }
+
     public static void getInviteInfo(FHttpCallBack callBack) {
         // 参数设置
         Map<String, Object> params = new HashMap<>();
@@ -118,11 +120,23 @@ public class ApiUser {
 
         AppContext.http.get(url, params, callBack, false, false);
     }
+
     public static void getRegisterAward(FHttpCallBack callBack) {
         // 参数设置
         Map<String, Object> params = new HashMap<>();
         // 地址
         String url = URLs.getRegisterAward;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
+
+    public static void editInfo(String name, String content, FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        params.put("content", content);
+        // 地址
+        String url = URLs.editInfo;
 
         AppContext.http.get(url, params, callBack, false, false);
     }

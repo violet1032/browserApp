@@ -104,6 +104,9 @@ public class LoginActivity extends BaseActivity {
 
         tvTitle.setText("手机号登录");
 
+        edtPhone.setText(AppConfig.getInstance().getmPre().getString("phone",""));
+        edtPassword.setText(AppConfig.getInstance().getmPre().getString("password",""));
+
         changeStyle();
     }
 
@@ -146,6 +149,7 @@ public class LoginActivity extends BaseActivity {
                     // 缓存信息
                     AppConfig.getInstance().mPreSet("phone", phone);
                     AppConfig.getInstance().mPreSet("password", password);
+                    AppConfig.getInstance().mPreSet("autoLogin", true);
 
                     MainActivity.startActivity(LoginActivity.this);
                     finish();

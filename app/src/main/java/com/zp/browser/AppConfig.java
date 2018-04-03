@@ -522,4 +522,28 @@ public class AppConfig {
     public String getGameList(int cate) {
         return gameList.get(cate);
     }
+
+    public boolean isLast(){
+        return mPre.getBoolean("isLast",false);
+    }
+
+    public void setLast(boolean b){
+        mPreSet("isLast",b);
+    }
+
+    public boolean isFaxian(){
+        return mPre.getBoolean("isFaxian", false);
+    }
+
+    public void setFaxian(boolean b){
+        mPreSet("isFaxian",b);
+    }
+
+    public boolean isDouzaisou(){
+        return mPre.getBoolean("isDouzaisou", false);
+    }
+
+    public void setDouzaisou(boolean b){
+        mPreSet("isDouzaisou",b);
+    }
 }

@@ -171,7 +171,7 @@ public class WebviewFragment extends BaseFragment {
 
         webView.setWebChromeClient(webChromeClient);
 
-        LogUtil.logError(WebviewFragment.class, "进入webviewfragment,加载网址:" + url);
+        AppConfig.getInstance().mPreSet("lastUrl",url);
 
         webView.loadUrl(url);
     }

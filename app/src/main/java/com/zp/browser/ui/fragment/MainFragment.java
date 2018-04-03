@@ -152,6 +152,8 @@ public class MainFragment extends BaseFragment {
                         // 更新积分
                         if (AppContext.user.getId() > 0)
                             txCoin.setText(AppContext.user.getCoin().toString());
+                        else
+                            txCoin.setText("登录");
                         countDown();
                         break;
                     case 109:

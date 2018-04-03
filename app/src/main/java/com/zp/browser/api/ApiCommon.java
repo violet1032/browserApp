@@ -1,19 +1,17 @@
 package com.zp.browser.api;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.zp.browser.AppConfig;
 import com.zp.browser.AppContext;
 import com.zp.browser.R;
-import com.zp.browser.utils.ImageUtils;
 import com.zp.browser.utils.StringUtils;
-import com.zp.browser.utils.UIHelper;
 
 import org.kymjs.kjframe.bitmap.BitmapCallBack;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p/>
@@ -80,10 +78,10 @@ public class ApiCommon {
      */
     public static void uploadPicture(File file, String RequestURL, String key, FHttpCallBack
             httpCallBack) {
-        Bitmap bitmap = ImageUtils.getCompressBitmap(file.getPath());
-        File fileTemporary = new File(AppConfig.getSaveImagePath() + "pic.png");
-        UIHelper.compressBmpToFile(bitmap, fileTemporary);
-        FileImageUpload.uploadFile(fileTemporary, RequestURL, key, httpCallBack);
+//        Bitmap bitmap = ImageUtils.getCompressBitmap(file.getPath());
+//        File fileTemporary = new File(AppConfig.getSaveImagePath() + "pic.png");
+//        UIHelper.compressBmpToFile(bitmap, fileTemporary);
+        FileImageUpload.uploadFile(file, RequestURL, key, httpCallBack);
     }
 
     /**
@@ -93,7 +91,13 @@ public class ApiCommon {
      * @param httpCallBack 上传后的回调函数
      */
     public static void uploadPicture(File file, FHttpCallBack httpCallBack) {
-        uploadPicture(file, URLs.IMG_UPLOAD, "avatar", httpCallBack);
+        uploadPicture(file, URLs.IMG_UPLOAD, "picture", httpCallBack);
+    }
+
+    public static void postFile(File file, FHttpCallBack httpCallBack) {
+        Map<String, Object> params = new HashMap<>();
+//        uploadPicture(file, URLs.IMG_UPLOAD, "picture", httpCallBack);
+        AppContext.http.postFile(URLs.IMG_UPLOAD,params,file,httpCallBack);
     }
 
 

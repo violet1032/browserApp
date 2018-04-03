@@ -225,6 +225,22 @@ public class MainActivity extends BaseActivity {
         searchUrl();
 
         getVersion();
+
+        if (AppConfig.getInstance().isLast()) {
+            // 打开上次页面
+            final String url = AppConfig.getInstance().getmPre().getString("lastUrl", "");
+            if (!StringUtils.isEmpty(url)) {
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Message message = new Message();
+                        message.what = 102;
+                        message.obj = url;
+                        handler.sendMessage(message);
+                    }
+                }, 1000);
+            }
+        }
     }
 
     @Override
@@ -373,6 +389,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.act_main_lay_home:
                 current = 0;
+                AppConfig.getInstance().mPreSet("lastUrl", "");
                 changeFragment(R.id.act_main_fragment, fragmentLinkedList.get(current));
                 break;
         }
@@ -471,6 +488,8 @@ public class MainActivity extends BaseActivity {
 
             lvSearchHistory.setVisibility(View.GONE);
 
+            AppConfig.getInstance().mPreSet("lastUrl", ((WebviewFragment) fragmentLinkedList.get(current)).getUrl());
+
             laySearchShow.setVisibility(View.VISIBLE);
             laySearchInput.setVisibility(View.GONE);
             lvSearchHistory.setVisibility(View.GONE);
@@ -493,6 +512,8 @@ public class MainActivity extends BaseActivity {
 
             if (current == 0) {
                 layTop.setVisibility(View.GONE);
+
+                AppConfig.getInstance().mPreSet("lastUrl", "");
             } else {
                 edtUrl.setText(((WebviewFragment) fragmentLinkedList.get(current)).getUrl());
                 tvTitle.setText(((WebviewFragment) fragmentLinkedList.get(current)).getTitle());
@@ -502,6 +523,8 @@ public class MainActivity extends BaseActivity {
                 laySearchShow.setVisibility(View.VISIBLE);
                 laySearchInput.setVisibility(View.GONE);
                 lvSearchHistory.setVisibility(View.GONE);
+
+                AppConfig.getInstance().mPreSet("lastUrl", ((WebviewFragment) fragmentLinkedList.get(current)).getUrl());
             }
 
             arrowHandle();
@@ -594,7 +617,7 @@ public class MainActivity extends BaseActivity {
         String phone = AppConfig.getInstance().getmPre().getString("phone", null);
         String password = AppConfig.getInstance().getmPre().getString("password", null);
 
-        if (!StringUtils.isEmpty(phone) && !StringUtils.isEmpty(password)) {
+        if (!StringUtils.isEmpty(phone) && !StringUtils.isEmpty(password) && AppConfig.getInstance().getmPre().getBoolean("autoLogin",false)) {
             FHttpCallBack callBack = new FHttpCallBack() {
 
                 @Override
@@ -760,11 +783,12 @@ public class MainActivity extends BaseActivity {
                 super.onSuccess(headers, t);
                 String str = new String(t);
                 Result result = new Result().parse(str);
+                if(result.isOk())
                 try {
                     JsonUtils j = new JsonUtils(str);
                     JsonUtils jsonUtils = j.getJSONUtils("version");
 
-                    if(jsonUtils.getString("version").compareTo(AppContext.versionName) > 0) {
+                    if (jsonUtils.getString("version").compareTo(AppContext.versionName) > 0) {
                         VersionUpdateDialog.startActivity(MainActivity.this, jsonUtils.getString("version"),
                                 jsonUtils.getString("content"), jsonUtils.getBoolean("must"), jsonUtils.getString("url"));
                     }
