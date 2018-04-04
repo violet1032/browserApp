@@ -156,11 +156,11 @@ public class MenuDialog extends BaseActivity {
                 break;
             case R.id.dialog_menu_img_share:
                 // 分享
-                if (AppContext.user.getId() == 0) {
-                    LoginActivity.startActivity(MenuDialog.this);
-                } else {
+//                if (AppContext.user.getId() == 0) {
+//                    LoginActivity.startActivity(MenuDialog.this);
+//                } else {
                     ShareDialog.startActivity(MenuDialog.this, 0);
-                }
+//                }
                 finish();
                 break;
             case R.id.dialog_menu_lay_day:

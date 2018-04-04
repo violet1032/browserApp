@@ -122,7 +122,12 @@ public class ShareDialog extends BaseActivity {
                             // 邀请好友
                             ImageCreateUtil.createInviteImage(AppContext.user.getShareLink(), AppContext.user.getInvite_bg(), handler, registerAward);
                         } else {
-                            ImageCreateUtil.createShareImage(AppContext.user.getShareLink(), AppContext.user.getShare_news_bg(),
+                            String link;
+                            if (AppContext.user.getId() > 0)
+                                link = AppContext.user.getShareLink();
+                            else
+                                link = shareLink;
+                            ImageCreateUtil.createShareImage(link, AppContext.user.getShare_news_bg(),
                                     handler, news, ShareDialog.this, textContent, registerAward);
                         }
                         break;
@@ -204,6 +209,7 @@ public class ShareDialog extends BaseActivity {
     }
 
     private String registerAward = "0";
+    private String shareLink;
 
     public void getRegisterAward() {
         FHttpCallBack callBack = new FHttpCallBack() {
@@ -216,6 +222,7 @@ public class ShareDialog extends BaseActivity {
                     try {
                         JsonUtils jsonUtils = new JsonUtils(str);
                         registerAward = jsonUtils.getString("data");
+                        shareLink = jsonUtils.getString("share");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -241,7 +248,7 @@ public class ShareDialog extends BaseActivity {
                 super.onSuccess(headers, t);
                 String str = new String(t);
                 Result result = new Result().parse(str);
-                if (result.isOk()){
+                if (result.isOk()) {
                     UIHelper.ToastMessage("已成功获得奖励");
                 }
             }

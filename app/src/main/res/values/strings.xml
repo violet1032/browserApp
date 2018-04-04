@@ -70,6 +70,7 @@
 
     <string name="share_text_1">此二维码已包含邀请“邀请下级”等功能</string>
     <string name="share_text_2">二维码获取中……</string>
+    <string name="share_text_3">如未登录，将不能获得奖励</string>
     <string name="title_activity_invite_friends">InviteFriendsActivity</string>
 
     <string name="invite_text_1">邀请好友拿佣金</string>

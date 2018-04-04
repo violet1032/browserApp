@@ -805,7 +805,6 @@ public class MainActivity extends BaseActivity {
                     UIHelper.ToastMessage("再按一次退出程序");
                     exitTime = System.currentTimeMillis();
                 } else {
-                    finish();
                     System.exit(0);
                 }
             }
