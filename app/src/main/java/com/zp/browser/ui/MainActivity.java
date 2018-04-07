@@ -119,7 +119,7 @@ public class MainActivity extends BaseActivity {
 
     private int pageNumber = 0;
     private boolean isLast;
-    @BindView(id = R.id.act_main_scrollview)
+    @BindView(id = R.id.act_main_scrollview,click = true)
     private MyScrollView scrollView;
 
     public static Map<String, Integer> urlMap = new HashMap<>();

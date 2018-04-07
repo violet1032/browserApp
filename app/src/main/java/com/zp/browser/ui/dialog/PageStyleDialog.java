@@ -25,8 +25,8 @@ public class PageStyleDialog extends BaseActivity {
 
     @BindView(id = R.id.dialog_clear_cbox_1)
     private CheckBox cbox1;
-    @BindView(id = R.id.dialog_clear_cbox_2)
-    private CheckBox cbox2;
+//    @BindView(id = R.id.dialog_clear_cbox_2)
+//    private CheckBox cbox2;
     @BindView(id = R.id.dialog_clear_cbox_3)
     private CheckBox cbox3;
 
@@ -54,7 +54,7 @@ public class PageStyleDialog extends BaseActivity {
         super.initWidget();
 
         cbox1.setChecked(AppConfig.getInstance().getmPre().getBoolean("page_1", false));
-        cbox2.setChecked(AppConfig.getInstance().getmPre().getBoolean("page_2", false));
+//        cbox2.setChecked(AppConfig.getInstance().getmPre().getBoolean("page_2", false));
         cbox3.setChecked(AppConfig.getInstance().getmPre().getBoolean("page_3", false));
 
         changeStyle();
@@ -81,7 +81,7 @@ public class PageStyleDialog extends BaseActivity {
 
     private void set(){
         AppConfig.getInstance().mPreSet("page_1",cbox1.isChecked());
-        AppConfig.getInstance().mPreSet("page_2",cbox2.isChecked());
+//        AppConfig.getInstance().mPreSet("page_2",cbox2.isChecked());
         AppConfig.getInstance().mPreSet("page_3", cbox3.isChecked());
     }
 

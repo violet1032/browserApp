@@ -120,7 +120,18 @@ public class ShareDialog extends BaseActivity {
 
                         if (type == 0) {
                             // 邀请好友
-                            ImageCreateUtil.createInviteImage(AppContext.user.getShareLink(), AppContext.user.getInvite_bg(), handler, registerAward);
+                            String link;
+                            if (AppContext.user.getId() > 0)
+                                link = AppContext.user.getShareLink();
+                            else
+                                link = shareLink;
+
+                            String bg;
+                            if (AppContext.user.getId() > 0)
+                                bg = AppContext.user.getInvite_bg();
+                            else
+                                bg = inviteBg;
+                            ImageCreateUtil.createInviteImage(link, bg, handler, registerAward);
                         } else {
                             String link;
                             if (AppContext.user.getId() > 0)
@@ -210,6 +221,7 @@ public class ShareDialog extends BaseActivity {
 
     private String registerAward = "0";
     private String shareLink;
+    private String inviteBg;
 
     public void getRegisterAward() {
         FHttpCallBack callBack = new FHttpCallBack() {
@@ -223,6 +235,7 @@ public class ShareDialog extends BaseActivity {
                         JsonUtils jsonUtils = new JsonUtils(str);
                         registerAward = jsonUtils.getString("data");
                         shareLink = jsonUtils.getString("share");
+                        inviteBg = jsonUtils.getString("invite_bg");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
