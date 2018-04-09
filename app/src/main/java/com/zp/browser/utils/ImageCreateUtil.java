@@ -103,10 +103,14 @@ public class ImageCreateUtil {
                     Bitmap bg = ImageUtils.getBitmapByPath(path).copy(Bitmap.Config.ARGB_8888, true);
 
 
+                    // 重新设定文本宽度
+
+
                     // 获取新闻内容图片
                     Bitmap content = ImageUtils.getViewBitmap(textView);
+                    float f =  (float)bg.getWidth() * 7f / ((float)content.getWidth() * 9f);
                     Matrix matrix2 = new Matrix();
-                    matrix2.postScale(0.65f, 0.65f);
+                    matrix2.postScale(f, f);
                     // 得到新的图片
                     Bitmap contentnew = Bitmap.createBitmap(content, 0, 0, content.getWidth(), content.getHeight(), matrix2, true);
 
@@ -147,18 +151,18 @@ public class ImageCreateUtil {
                     canvas.drawBitmap(bg, 0, 0, null);
 
 
-                    canvas.drawText("totalWidth:" + totalWidth, 0, 20, paint1);
-                    canvas.drawText("totalHeight:" + totalHeight, 0, 40, paint1);
-                    canvas.drawText("contentnew.getWidth:"+contentnew.getWidth(), 0, 60, paint1);
-                    canvas.drawText("contentnew.getHeight:"+contentnew.getHeight(), 0, 80, paint1);
-                    canvas.drawText("backgroud.getWidth:"+backgroud.getWidth(), 0, 100, paint1);
-                    canvas.drawText("backgroud.getHeight:"+backgroud.getHeight(), 0, 120, paint1);
-                    canvas.drawText("canvas.getHeight:"+canvas.getHeight(), 0, 140, paint1);
-                    canvas.drawText("canvas.getWidth:"+canvas.getWidth(), 0, 160, paint1);
-                    canvas.drawText("bg.getHeight:"+bg.getHeight(), 0, 180, paint1);
-                    canvas.drawText("bg.getWidth:"+bg.getWidth(), 0, 200, paint1);
-                    canvas.drawText("scaleX:"+scaleX, 0, 220, paint1);
-                    canvas.drawText("scaleY:"+scaleY, 0, 240, paint1);
+                    canvas.drawText("density:" + AppContext.appContext.getResources().getDisplayMetrics().density, 0, 20, paint1);
+//                    canvas.drawText("totalHeight:" + totalHeight, 0, 40, paint1);
+//                    canvas.drawText("contentnew.getWidth:"+contentnew.getWidth(), 0, 60, paint1);
+//                    canvas.drawText("contentnew.getHeight:"+contentnew.getHeight(), 0, 80, paint1);
+//                    canvas.drawText("backgroud.getWidth:"+backgroud.getWidth(), 0, 100, paint1);
+//                    canvas.drawText("backgroud.getHeight:"+backgroud.getHeight(), 0, 120, paint1);
+//                    canvas.drawText("canvas.getHeight:"+canvas.getHeight(), 0, 140, paint1);
+//                    canvas.drawText("canvas.getWidth:"+canvas.getWidth(), 0, 160, paint1);
+//                    canvas.drawText("bg.getHeight:"+bg.getHeight(), 0, 180, paint1);
+//                    canvas.drawText("bg.getWidth:"+bg.getWidth(), 0, 200, paint1);
+//                    canvas.drawText("scaleX:"+scaleX, 0, 220, paint1);
+//                    canvas.drawText("scaleY:"+scaleY, 0, 240, paint1);
 
 
                     // 添加时间

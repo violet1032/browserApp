@@ -353,10 +353,8 @@ public class MainFragment extends BaseFragment {
             tvCountDown.setText(str2);
             if (str2.equals("已结束")) {
                 layItem.findViewById(R.id.listitem_news_lay_countdown).setVisibility(View.GONE);
-                ((TextView) layItem.findViewById(R.id.listitem_news_tv_share)).setText("分享");
             } else {
                 layItem.findViewById(R.id.listitem_news_lay_countdown).setVisibility(View.VISIBLE);
-                ((TextView) layItem.findViewById(R.id.listitem_news_tv_share)).setText("分享挖矿");
             }
 
 
