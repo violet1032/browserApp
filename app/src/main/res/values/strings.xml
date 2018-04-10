@@ -13,7 +13,6 @@
     <string name="action_settings">Settings</string>
 
     <string name="text_default">--</string>
-    <string name="loading_eg">Loading</string>
 
     <!-- login -->
     <string name="login_text_1">请输入手机号</string>
@@ -141,4 +140,5 @@
     <string name="clear_text_13">翻页按钮（点击按钮翻页）</string>
     <string name="clear_text_14">触屏翻页（触摸屏幕翻页）</string>
     <string name="clear_text_15">音量键翻页（音量键+-）</string>
+    <string name="title_activity_award_history">AwardHistoryActivity</string>
 </resources>

@@ -23,6 +23,7 @@ import com.zp.browser.ui.common.BaseActivity;
 import org.kymjs.kjframe.ui.BindView;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -32,7 +33,7 @@ public class CollectHistoryActivity extends BaseActivity {
     private ImageView imgBack;
 
     @BindView(id = R.id.act_collect_history_bg)
-    private LinearLayout layBg;
+    private RelativeLayout layBg;
     @BindView(id = R.id.umeng_banner_lay_bg)
     private RelativeLayout layTitleBg;
 
@@ -55,6 +56,18 @@ public class CollectHistoryActivity extends BaseActivity {
 
     private Handler handler;
     private static Handler mainHandler;
+
+    @BindView(id=R.id.act_collect_history_bottom)
+    private LinearLayout layBottom;
+
+    @BindView(id=R.id.act_collect_history_tv_cancel,click = true)
+    private TextView tvCancel;
+    @BindView(id=R.id.act_collect_history_tv_all,click = true)
+    private TextView tvAll;
+    @BindView(id=R.id.act_collect_history_tv_delete,click = true)
+    private TextView tvDel;
+    @BindView(id=R.id.act_collect_history_tv_down,click = true)
+    private TextView tvDown;
 
     public static void startActivity(Context context,Handler mainHandler) {
         Intent intent = new Intent();
@@ -113,6 +126,9 @@ public class CollectHistoryActivity extends BaseActivity {
 
                         finish();
                         break;
+                    case 3:
+                        layBottom.setVisibility(View.VISIBLE);
+                        break;
                 }
                 return false;
             }
@@ -133,6 +149,44 @@ public class CollectHistoryActivity extends BaseActivity {
                 break;
             case R.id.act_collect_history_tv_title_2:
                 change(1);
+                break;
+            case R.id.act_collect_history_tv_down:
+                layBottom.setVisibility(View.GONE);
+
+                collectHistoryListAdapter.isEdit = false;
+                collectHistoryListAdapter.notifyDataSetChanged();
+
+                historyListAdapter.isEdit = false;
+                historyListAdapter.notifyDataSetChanged();
+                break;
+            case R.id.act_collect_history_tv_all:
+                collectHistoryListAdapter.isAll = true;
+                collectHistoryListAdapter.notifyDataSetChanged();
+
+                historyListAdapter.isAll = true;
+                historyListAdapter.notifyDataSetChanged();
+                break;
+            case R.id.act_collect_history_tv_cancel:
+                collectHistoryListAdapter.isAll = false;
+                collectHistoryListAdapter.notifyDataSetChanged();
+
+                historyListAdapter.isAll = false;
+                historyListAdapter.notifyDataSetChanged();
+                break;
+            case R.id.act_collect_history_tv_delete:
+                Map<Integer,Integer> map = collectHistoryListAdapter.getChecked();
+                for (Integer key :
+                        map.keySet()) {
+                    AppContext.dBHelper.deleteById(Collect.class, key);
+                }
+
+                Map<Integer,Integer> map2 = historyListAdapter.getChecked();
+                for (Integer key :
+                        map2.keySet()) {
+                    AppContext.dBHelper.deleteById(ScanHistory.class, key);
+                }
+
+                getList();
                 break;
         }
     }
@@ -157,6 +211,13 @@ public class CollectHistoryActivity extends BaseActivity {
 
             lvHistory.setBackgroundColor(getResources().getColor(R.color.night_black_2));
             lvCollect.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+
+            layBottom.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+
+            tvAll.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            tvCancel.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            tvDel.setBackgroundColor(getResources().getColor(R.color.night_black_2));
+            tvDown.setBackgroundColor(getResources().getColor(R.color.night_black_2));
         } else {
             layBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));
             layTitleBg.setBackgroundColor(getResources().getColor(R.color.main_skyblue));

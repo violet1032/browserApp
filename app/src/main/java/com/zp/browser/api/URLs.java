@@ -26,6 +26,7 @@ public class URLs {
     public final static String editInfo = APP_STORE_HOST + "user/editInfo"; // 修改信息
     public final static String editPassword = APP_STORE_HOST + "user/editPassword"; // 修改密码
     public final static String forgot = APP_STORE_HOST + "user/forgot"; // 修改密码
+    public final static String getAwardHistory = APP_STORE_HOST + "user/getAwardHistory"; // 获取收益记录
 
     public final static String searchUrl = APP_STORE_HOST + "search/searchUrl"; // 获取搜索引擎地址
 

@@ -8,8 +8,8 @@ android {
         applicationId "com.zp.browser"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 5
-        versionName "1.2.1"
+        versionCode 6
+        versionName "1.2.2"
     }
     buildTypes {
         release {
@@ -54,4 +54,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':kjframe')
     compile(name: 'album_v2.4', ext: 'aar')
+    compile(name: 'refreshlistview_v1.4', ext: 'aar')
 }

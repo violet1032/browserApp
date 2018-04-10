@@ -16,6 +16,7 @@
     <color name="night_black_3">#13161d</color>
     <color name="night_black_4">#232730</color>
     <color name="night_text_1">#595c63</color>
+    <color name="frenchgrey_3">#f999</color>
 
     <!-- 下拉刷新时，颜色值 -->
     <color name="swiperefresh_color1">#ff00ddff</color>

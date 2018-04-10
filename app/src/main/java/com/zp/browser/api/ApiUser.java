@@ -166,4 +166,14 @@ public class ApiUser {
         AppContext.http.get(url, params, callBack, false, false);
     }
 
+    public static void getAwardHistory(int page, FHttpCallBack callBack) {
+        // 参数设置
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", page);
+        // 地址
+        String url = URLs.getAwardHistory;
+
+        AppContext.http.get(url, params, callBack, false, false);
+    }
+
 }

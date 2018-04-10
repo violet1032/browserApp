@@ -70,6 +70,11 @@ public class UserActivity extends BaseActivity {
     @BindView(id = R.id.act_user_lay_bg_4)
     private LinearLayout layBg_4;
 
+    @BindView(id=R.id.act_user_lay_1,click = true)
+    private LinearLayout lay1;
+    @BindView(id=R.id.act_user_lay_2,click = true)
+    private RelativeLayout lay2;
+
     private Handler handler;
 
     public static void startActivity(Context context) {
@@ -130,6 +135,12 @@ public class UserActivity extends BaseActivity {
                 break;
             case R.id.act_user_tv_account:
                 AccountActivity.startActivity(this, handler);
+                break;
+            case R.id.act_user_lay_1:
+                AwardHistoryActivity.startActivity(this);
+                break;
+            case R.id.act_user_lay_2:
+                AwardHistoryActivity.startActivity(this);
                 break;
         }
     }

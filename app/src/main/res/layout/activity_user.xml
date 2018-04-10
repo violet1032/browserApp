@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/act_user_lay_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_skyblue"
     android:clipToPadding="true"
-    android:id="@+id/act_user_lay_bg"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.zp.browser.ui.UserActivity">
@@ -12,9 +12,9 @@
     <include layout="@layout/common_banner" />
 
     <LinearLayout
+        android:id="@+id/act_user_lay_bg_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/act_user_lay_bg_2"
         android:background="@color/gray_bg"
         android:orientation="vertical">
 
@@ -29,9 +29,9 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/act_user_lay_bg_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/act_user_lay_bg_3"
                     android:background="@color/white"
                     android:padding="@dimen/space_20">
 
@@ -50,9 +50,9 @@
                         android:src="@drawable/arrow_right_gray_2" />
 
                     <TextView
+                        android:id="@+id/act_user_tv_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/act_user_tv_account"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/act_user_img_1"
                         android:padding="@dimen/space_10"
@@ -100,16 +100,18 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/act_user_lay_bg_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/act_user_lay_bg_4"
                     android:background="@color/gray_6"
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/act_user_lay_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/click_transparent"
                         android:orientation="vertical"
                         android:padding="@dimen/space_15">
 
@@ -138,9 +140,11 @@
                         android:background="@color/gray_2" />
 
                     <RelativeLayout
+                        android:id="@+id/act_user_lay_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/click_transparent"
                         android:gravity="right">
 
                         <LinearLayout

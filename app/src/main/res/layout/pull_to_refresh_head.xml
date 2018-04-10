@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#444449"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/head_contentLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dip"
+        android:paddingTop="10dip" >
+
+        <ImageView
+            android:id="@+id/head_arrowImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/space_50"
+            android:layout_toLeftOf="@+id/head_tipsTextView"
+            android:src="@drawable/pull_icon_big" />
+
+        <ProgressBar
+            android:id="@+id/head_progressBar"
+            android:layout_width="@dimen/text_size_20"
+            android:layout_height="@dimen/text_size_20"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/space_10"
+            android:layout_toLeftOf="@+id/head_tipsTextView"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateDrawable="@drawable/loading_rotate_white"
+            android:indeterminateOnly="true" />
+
+        <ImageView
+            android:id="@+id/head_img_down"
+            android:layout_width="@dimen/text_size_20"
+            android:layout_height="@dimen/text_size_20"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/space_10"
+            android:layout_toLeftOf="@+id/head_tipsTextView"
+            android:src="@drawable/refresh_succeed" />
+
+        <TextView
+            android:id="@+id/head_tipsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/pull_to_refresh"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14" />
+    </RelativeLayout>
+
+</LinearLayout>

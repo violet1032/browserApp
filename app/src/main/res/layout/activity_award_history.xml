@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/act_award_history_lay_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_skyblue"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.zp.browser.ui.AwardHistoryActivity">
+
+    <include layout="@layout/common_banner" />
+
+    <com.zp.browser.widget.MyScrollView
+        android:id="@+id/act_award_history_lay_bg_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <com.zp.browser.widget.ListviewScroll
+            android:id="@+id/act_award_history_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+        </com.zp.browser.widget.ListviewScroll>
+
+    </com.zp.browser.widget.MyScrollView>
+
+</LinearLayout>

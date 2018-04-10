@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="pullup_to_load">上拉加载更多</string>
+    <string name="release_to_refresh">松开刷新</string>
+    <string name="refreshing">刷新中…</string>
+    <string name="list_has_non_data">没有找到数据，下拉试试</string>
+    <string name="loading_eg">loading……</string>
+    <string name="refresh_succeed">刷新成功</string>
+    <string name="refresh_fail">刷新失败</string>
+    <string name="click_to_refresh">点击刷新</string>
+</resources>

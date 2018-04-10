@@ -118,8 +118,11 @@
             android:name=".ui.ChangePasswordActivity"
             android:label="@string/title_activity_change_password" >
         </activity>
+        <activity android:name=".ui.ForgotActivity" >
+        </activity>
         <activity
-            android:name=".ui.ForgotActivity">
+            android:name=".ui.AwardHistoryActivity"
+            android:label="@string/title_activity_award_history" >
         </activity>
     </application>
 
