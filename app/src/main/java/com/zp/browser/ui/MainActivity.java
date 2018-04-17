@@ -232,7 +232,7 @@ public class MainActivity extends BaseActivity {
                     autoGetUserInfo();
                 }
             };
-//            timer.schedule(timerTask, 5000, 5000);
+            timer.schedule(timerTask, 5000, 5000);
         }
 
         // 获取搜索引擎地址
