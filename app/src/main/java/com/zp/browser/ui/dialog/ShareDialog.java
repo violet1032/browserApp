@@ -32,6 +32,7 @@ import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.utils.ImageCreateUtil;
 import com.zp.browser.utils.ImageUtils;
 import com.zp.browser.utils.JsonUtils;
+import com.zp.browser.utils.LogUtil;
 import com.zp.browser.utils.StringUtils;
 import com.zp.browser.utils.UIHelper;
 
@@ -192,20 +193,24 @@ public class ShareDialog extends BaseActivity {
                     shareAction.setCallback(new UMShareListener() {
                         @Override
                         public void onStart(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class,"QQ:onStart");
                         }
 
                         @Override
                         public void onResult(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class, "QQ:onResult");
                             if (AppContext.user.getId() > 0 && type == 1)
                                 shareAward();
                         }
 
                         @Override
                         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                            LogUtil.logError(ShareDialog.class,"QQ:onError");
                         }
 
                         @Override
                         public void onCancel(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class,"QQ:onCancel");
                         }
 
                     });
@@ -225,20 +230,24 @@ public class ShareDialog extends BaseActivity {
                     shareAction.setCallback(new UMShareListener() {
                         @Override
                         public void onStart(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class,"QZONE:onCancel");
                         }
 
                         @Override
                         public void onResult(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class, "QZONE:onResult");
                             if (AppContext.user.getId() > 0 && type == 1)
                                 shareAward();
                         }
 
                         @Override
                         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                            LogUtil.logError(ShareDialog.class,"QZONE:onError");
                         }
 
                         @Override
                         public void onCancel(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class,"QZONE:onCancel");
                         }
 
                     });
@@ -258,20 +267,24 @@ public class ShareDialog extends BaseActivity {
                     shareAction.setCallback(new UMShareListener() {
                         @Override
                         public void onStart(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class,"WEIXIN:onStart");
                         }
 
                         @Override
                         public void onResult(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class, "WEIXIN:onResult");
                             if (AppContext.user.getId() > 0 && type == 1)
                                 shareAward();
                         }
 
                         @Override
                         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                            LogUtil.logError(ShareDialog.class,"WEIXIN:onError");
                         }
 
                         @Override
                         public void onCancel(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class,"WEIXIN:onCancel");
                         }
 
                     });
@@ -291,20 +304,24 @@ public class ShareDialog extends BaseActivity {
                     shareAction.setCallback(new UMShareListener() {
                         @Override
                         public void onStart(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class,"WEIXIN_CIRCLE:onStart");
                         }
 
                         @Override
                         public void onResult(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class,"WEIXIN_CIRCLE:onResult");
                             if (AppContext.user.getId() > 0 && type == 1)
                                 shareAward();
                         }
 
                         @Override
                         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                            LogUtil.logError(ShareDialog.class,"WEIXIN_CIRCLE:onError");
                         }
 
                         @Override
                         public void onCancel(SHARE_MEDIA share_media) {
+                            LogUtil.logError(ShareDialog.class,"WEIXIN_CIRCLE:onCancel");
                         }
 
                     });

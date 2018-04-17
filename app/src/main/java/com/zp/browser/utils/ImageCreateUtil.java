@@ -151,7 +151,7 @@ public class ImageCreateUtil {
                     canvas.drawBitmap(bg, 0, 0, null);
 
 
-                    canvas.drawText("density:" + AppContext.appContext.getResources().getDisplayMetrics().density, 0, 20, paint1);
+//                    canvas.drawText("density:" + AppContext.appContext.getResources().getDisplayMetrics().density, 0, 20, paint1);
 //                    canvas.drawText("totalHeight:" + totalHeight, 0, 40, paint1);
 //                    canvas.drawText("contentnew.getWidth:"+contentnew.getWidth(), 0, 60, paint1);
 //                    canvas.drawText("contentnew.getHeight:"+contentnew.getHeight(), 0, 80, paint1);
