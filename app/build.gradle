@@ -8,26 +8,16 @@ android {
         applicationId "com.zp.browser"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 6
-        versionName "1.2.2"
+        versionCode 7
+        versionName "1.2.3"
     }
-    buildTypes {
-        release {
-            // 是否进行混淆
-            minifyEnabled false
-            // 混淆文件的位置
-            signingConfig signingConfigs.debug
-            proguardFiles 'proguard-rules.pro'
-        }
-
-        debug {
-            minifyEnabled false
-            signingConfig signingConfigs.debug
-            proguardFiles 'proguard-rules.pro'
-        }
-    }
-
     signingConfigs {
+        release {
+            storeFile file('zipeng.jks')
+            storePassword 'qu7198330'
+            keyAlias 'zipeng'
+            keyPassword 'qu7198330'
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword "android"
@@ -35,6 +25,21 @@ android {
             keyPassword "android"
         }
     }
+    buildTypes {
+        release {
+            // 是否进行混淆
+            minifyEnabled false
+            // 混淆文件的位置
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles 'proguard-rules.pro'
+        }
+    }
+
     repositories {
         flatDir {
             dirs 'libs'
@@ -49,7 +54,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     testCompile 'junit:junit:4.12'
     compile project(':kjframe')
