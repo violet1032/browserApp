@@ -350,11 +350,17 @@ public class MainFragment extends BaseFragment {
             tvTime.setText(StringUtils.getDateHM(StringUtils.date_fromat_change_4(news.getDateline())));
             tvContent.setText(Html.fromHtml(stringBuffer.toString().replaceAll("background-color:", "")));
             String str2 = getCoundDown(news.getDateline(), news.getHours());
-            tvCountDown.setText(str2);
             if (str2.equals("已结束")) {
-                layItem.findViewById(R.id.listitem_news_lay_countdown).setVisibility(View.GONE);
+                tvCountDown.setTag(1);
+                tvCountDown.setText(StringUtils.getDateYMD(StringUtils.date_fromat_change_4(news.getDateline())));
+                ((TextView)layItem.findViewById(R.id.listitem_news_tv_share)).setText("分享");
+//                layItem.findViewById(R.id.listitem_news_lay_countdown).setVisibility(View.GONE);
             } else {
-                layItem.findViewById(R.id.listitem_news_lay_countdown).setVisibility(View.VISIBLE);
+                tvCountDown.setTag(0);
+                tvCountDown.setText(str2);
+//                layItem.findViewById(R.id.listitem_news_lay_countdown).setVisibility(View.VISIBLE);
+                ((TextView)layItem.findViewById(R.id.listitem_news_tv_share)).setTextColor(getResources().getColor(R.color.red));
+
             }
 
 
@@ -464,7 +470,7 @@ public class MainFragment extends BaseFragment {
         for (int i = 0; i < layList.getChildCount(); i++) {
             TextView textView = layList.getChildAt(i).findViewById(R.id.listitem_news_tv_countdown);
             String str = textView.getText().toString();
-            if (str.equals("已结束")) {
+            if (Integer.parseInt(textView.getTag().toString()) == 1) {
                 continue;
             } else {
                 long l = StringUtils.getTimeHMS(str);

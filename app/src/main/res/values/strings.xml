@@ -37,7 +37,7 @@
 
     <!-- main -->
     <string name="main_text_1">空气</string>
-    <string name="main_text_2">用户积分</string>
+    <string name="main_text_2">当前数量</string>
     <string name="main_text_3">搜索或输入网址</string>
     <string name="main_text_4">分享挖矿</string>
     <string name="main_text_5">收藏网址</string>
@@ -59,9 +59,9 @@
     <string name="user_text_1">个人中心</string>
     <string name="user_text_2">区块号：</string>
     <string name="user_text_3">账号设置</string>
-    <string name="user_text_4">BX糖果挖矿获利次数</string>
-    <string name="user_text_5">已获得BX糖果个数</string>
-    <string name="user_text_6">如何挖矿获得BX糖果</string>
+    <string name="user_text_4">BBK挖矿获利次数</string>
+    <string name="user_text_5">已获得BBK糖果数量</string>
+    <string name="user_text_6">如何挖矿获得BBK糖果</string>
     <string name="user_text_7">分享快讯将获得</string>
     <string name="user_text_8">去分享</string>
     <string name="user_text_9">邀请好友将获得</string>
@@ -81,7 +81,7 @@
     <string name="invite_text_7">活动开始时间：</string>
     <string name="invite_text_8">邀请记录</string>
     <string name="invite_text_9">累计获得：</string>
-    <string name="invite_text_10">BX糖果</string>
+    <string name="invite_text_10">BBK糖果</string>
     <string name="invite_text_11">邀请层级</string>
     <string name="invite_text_12">一次性奖励</string>
     <string name="invite_text_13">后续收益</string>

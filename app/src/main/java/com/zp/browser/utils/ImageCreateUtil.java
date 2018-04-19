@@ -193,7 +193,7 @@ public class ImageCreateUtil {
                         final int color4 = 0xff555555;
                         paint4.setColor(color4);
                         paint4.setTextSize(32);
-                        canvas.drawText("BX糖果", 30 + qrcode.getWidth() + 120, 340 + contentnew.getHeight() + 120, paint4);
+                        canvas.drawText("BBK糖果", 30 + qrcode.getWidth() + 120, 340 + contentnew.getHeight() + 120, paint4);
 
                         TextPaint paint5 = new TextPaint();
                         paint5.setAntiAlias(true);
