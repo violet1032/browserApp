@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -119,7 +120,7 @@ public class MainActivity extends BaseActivity {
 
     private int pageNumber = 0;
     private boolean isLast;
-    @BindView(id = R.id.act_main_scrollview,click = true)
+    @BindView(id = R.id.act_main_scrollview, click = true)
     private MyScrollView scrollView;
 
     public static Map<String, Integer> urlMap = new HashMap<>();
@@ -130,6 +131,12 @@ public class MainActivity extends BaseActivity {
     private ImageView imgPageUp;
     @BindView(id = R.id.act_main_img_page_down, click = true)
     private ImageView imgPageDown;
+
+    @BindView(id = R.id.act_main_lay_refresh)
+    private SwipeRefreshLayout layRefresh;
+
+    @BindView(id = R.id.act_main_tv_unread, click = true)
+    private TextView tvNotRead;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent();
@@ -260,6 +267,16 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initWidget() {
         super.initWidget();
+
+        layRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (current == 0) {
+                    mainFragment.reload();
+                }
+                layRefresh.setRefreshing(false);
+            }
+        });
 
         addFragment(mainFragment);
 
@@ -426,6 +443,12 @@ public class MainActivity extends BaseActivity {
             case R.id.act_main_img_page_down:
                 scrollView.scrollBy(0, AppContext.screenHeight - 300);
                 break;
+            case R.id.act_main_tv_unread:
+                notRead = 0;
+                if (current == 0)
+                    mainFragment.reload();
+                hideNotRead();
+                break;
         }
     }
 
@@ -507,6 +530,9 @@ public class MainActivity extends BaseActivity {
             tvTitle.setText(((WebviewFragment) fragment).getTitle());
         }
 
+        if(current > 0)
+            hideNotRead();
+
         arrowHandle();
     }
 
@@ -529,6 +555,8 @@ public class MainActivity extends BaseActivity {
             lvSearchHistory.setVisibility(View.GONE);
 
             arrowHandle();
+
+            hideNotRead();
         } else
             current--;
     }
@@ -545,6 +573,8 @@ public class MainActivity extends BaseActivity {
             changeFragment(R.id.act_main_fragment, fragmentLinkedList.get(current));
 
             if (current == 0) {
+                showNotRead(notRead);
+
                 layTop.setVisibility(View.GONE);
 
                 AppConfig.getInstance().mPreSet("lastUrl", "");
@@ -845,5 +875,19 @@ public class MainActivity extends BaseActivity {
             }
         };
         ApiMain.getVersion(callBack);
+    }
+
+    int notRead = 0;
+
+    public void showNotRead(int count) {
+        notRead = count;
+        if (current == 0 && count > 0) {
+            tvNotRead.setText("↑" + count + "条新快讯");
+            tvNotRead.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideNotRead(){
+        tvNotRead.setVisibility(View.GONE);
     }
 }

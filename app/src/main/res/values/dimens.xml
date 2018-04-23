@@ -64,6 +64,8 @@
     <dimen name="radius_m">6dip</dimen>
     <dimen name="radius_h">8dip</dimen>
     <dimen name="radius_xh">10dip</dimen>
+    <dimen name="radius_xxh">13dip</dimen>
+    <dimen name="radius_xxxh">15dip</dimen>
     <dimen name="radius_btn">17dip</dimen>
 
     <dimen name="text_size_l">9sp</dimen>

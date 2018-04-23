@@ -50,9 +50,9 @@
                             android:textSize="@dimen/text_size_9" />
 
                         <TextView
+                            android:id="@+id/fg_main_tv_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/fg_main_tv_2"
                             android:layout_marginLeft="@dimen/space_5"
                             android:text="@string/main_text_1"
                             android:textColor="@color/white"
@@ -95,8 +95,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
                 android:id="@+id/fg_main_lay_wakuang"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:orientation="horizontal">
@@ -109,9 +109,9 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/fg_main_tv_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/fg_main_tv_3"
                         android:text="@string/main_text_2"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_14" />
@@ -129,8 +129,8 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="wrap_content"
                     android:id="@+id/fg_main_img_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_5"
                     android:src="@drawable/main_person" />
@@ -149,14 +149,14 @@
             android:padding="@dimen/space_10">
 
             <ImageView
+                android:id="@+id/fg_main_img_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/fg_main_img_1"
                 android:src="@drawable/icon_search_white" />
 
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/fg_main_tv_1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_5"
                 android:text="@string/main_text_3"
@@ -187,7 +187,6 @@
         android:listSelector="@color/transparent">
 
     </com.zp.browser.widget.ListviewScroll>-->
-
     <LinearLayout
         android:id="@+id/act_main_lay_list"
         android:layout_width="match_parent"

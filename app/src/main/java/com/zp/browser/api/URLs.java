@@ -36,6 +36,7 @@ public class URLs {
     public final static String sendIdentifyingCode = APP_STORE_HOST + "sms/sendIdentifyingCode"; // 获取手机号
     public final static String getAdvertList = APP_STORE_HOST + "advert/list"; // 获取首页外链列表
     public final static String getNewsList = APP_STORE_HOST + "news/list"; // 获取快讯列表
+    public final static String getUnReadNum = APP_STORE_HOST + "news/getUnReadNum"; // 获取未读快讯数量
 
     public final static String LOGOUT = APP_STORE_HOST + "user/logout"; // 退出登录
     public final static String IMG_UPLOAD =  HTTP + HOST + URL_SPLITTER + "file/upload/pictureUpload";// 图片上传

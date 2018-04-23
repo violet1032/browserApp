@@ -36,6 +36,7 @@ import com.zp.browser.ui.MainActivity;
 import com.zp.browser.ui.UserActivity;
 import com.zp.browser.ui.common.BaseFragment;
 import com.zp.browser.ui.dialog.ShareDialog;
+import com.zp.browser.utils.JsonUtils;
 import com.zp.browser.utils.StringUtils;
 import com.zp.browser.utils.UIHelper;
 import com.zp.browser.utils.WeatherUtil;
@@ -76,6 +77,8 @@ public class MainFragment extends BaseFragment {
 
     private Timer timer;
     private TimerTask timerTask;
+    private Timer timer2;
+    private TimerTask timerTask2;
 
     @BindView(id = R.id.act_main_tv_coin)
     private TextView txCoin;
@@ -136,6 +139,14 @@ public class MainFragment extends BaseFragment {
             timerTask.cancel();
             timerTask = null;
         }
+        if (timer2 != null) {
+            timer2.cancel();
+            timer2 = null;
+        }
+        if (timerTask2 != null) {
+            timerTask2.cancel();
+            timerTask2 = null;
+        }
     }
 
     @Override
@@ -191,6 +202,18 @@ public class MainFragment extends BaseFragment {
                 }
             };
             timer.schedule(timerTask, 1000, 1000);
+        }
+
+        if (timer2 == null)
+            timer2 = new Timer();
+        if (timerTask2 == null) {
+            timerTask2 = new TimerTask() {
+                @Override
+                public void run() {
+                    getNotReadNewsNum();
+                }
+            };
+            timer2.schedule(timerTask2, 5000, 5000);
         }
 
         getPersimmions();
@@ -257,9 +280,10 @@ public class MainFragment extends BaseFragment {
 
     private int pageNumber;
     private boolean isLast;
+    private int firstId;
 
     public void getNewsList() {
-        if(!isLast) {
+        if (!isLast) {
             pageNumber++;
             FHttpCallBack callBack = new FHttpCallBack() {
                 @Override
@@ -276,8 +300,8 @@ public class MainFragment extends BaseFragment {
                                 isLast = true;
                             }
 
-                            if(newsList.getList().size() > 0)
-                            addNews(newsList);
+                            if (newsList.getList().size() > 0)
+                                addNews(newsList);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             UIHelper.ToastMessage("外链数据解析错误");
@@ -301,11 +325,20 @@ public class MainFragment extends BaseFragment {
         }
     }
 
+    public void reload() {
+        pageNumber = 0;
+        isLast = false;
+        layList.removeAllViews();
+        getNewsList();
+    }
+
     @TargetApi(24)
     private void addNews(NewsList newsList) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         for (int i = 0; i < newsList.getList().size(); i++) {
             final News news = newsList.getList().get(i);
+            if (news.getId() > firstId)
+                firstId = news.getId();
             LinearLayout layItem = (LinearLayout) inflater.inflate(R.layout.listitem_news, null);
             TextView tvTime = layItem.findViewById(R.id.listitem_news_tv_time);
             final TextView tvContent = layItem.findViewById(R.id.listitem_news_tv_content);
@@ -323,10 +356,10 @@ public class MainFragment extends BaseFragment {
                 layTime.setVisibility(View.GONE);
             }
 
-            if(news.getCoinNum().compareTo(new BigDecimal(0)) > 0){
+            if (news.getCoinNum().compareTo(new BigDecimal(0)) > 0) {
                 layCoinNum.setVisibility(View.VISIBLE);
                 tvCoinNum.setText(news.getCoinNum().toString());
-            }else{
+            } else {
                 layCoinNum.setVisibility(View.GONE);
             }
 
@@ -363,13 +396,13 @@ public class MainFragment extends BaseFragment {
             if (str2.equals("已结束")) {
                 tvCountDown.setTag(1);
                 tvCountDown.setText(StringUtils.getDateYMD(StringUtils.date_fromat_change_4(news.getDateline())));
-                ((TextView)layItem.findViewById(R.id.listitem_news_tv_share)).setText("分享");
+                ((TextView) layItem.findViewById(R.id.listitem_news_tv_share)).setText("分享");
 //                layItem.findViewById(R.id.listitem_news_lay_countdown).setVisibility(View.GONE);
             } else {
                 tvCountDown.setTag(0);
                 tvCountDown.setText(str2);
 //                layItem.findViewById(R.id.listitem_news_lay_countdown).setVisibility(View.VISIBLE);
-                ((TextView)layItem.findViewById(R.id.listitem_news_tv_share)).setTextColor(getResources().getColor(R.color.red));
+                ((TextView) layItem.findViewById(R.id.listitem_news_tv_share)).setTextColor(getResources().getColor(R.color.red));
 
             }
 
@@ -640,5 +673,27 @@ public class MainFragment extends BaseFragment {
                 layList.getChildAt(i).findViewById(R.id.listitem_news_tv_time).setBackgroundResource(R.drawable.arrow_box_gray);
             }
         }
+    }
+
+    public void getNotReadNewsNum() {
+        FHttpCallBack callBack = new FHttpCallBack() {
+            @Override
+            public void onSuccess(Map<String, String> headers, byte[] t) {
+                super.onSuccess(headers, t);
+                String str = new String(t);
+                Result result = new Result().parse(str);
+                if(result.isOk()) {
+                    try {
+                        JsonUtils jsonUtils = new JsonUtils(str);
+                        int count = jsonUtils.getInt("count");
+                        ((MainActivity)getActivity()).showNotRead(count);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        if (firstId > 0)
+            ApiUser.getUnReadNum(firstId, callBack);
     }
 }
