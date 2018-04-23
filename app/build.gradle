@@ -10,6 +10,18 @@ android {
         targetSdkVersion 26
         versionCode 7
         versionName "1.2.3"
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.zp.browser",
+                JPUSH_APPKEY : "a124c9fefd65836db29932ec", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
     signingConfigs {
         release {
@@ -60,4 +72,6 @@ dependencies {
     compile project(':kjframe')
     compile(name: 'album_v2.4', ext: 'aar')
     compile(name: 'refreshlistview_v1.4', ext: 'aar')
+    compile 'cn.jiguang.sdk:jpush:3.1.1'  // 此处以JPush 3.1.1 版本为例
+    compile 'cn.jiguang.sdk:jcore:1.1.9'
 }

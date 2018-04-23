@@ -193,7 +193,7 @@ public class ShareDialog extends BaseActivity {
                     shareAction.setCallback(new UMShareListener() {
                         @Override
                         public void onStart(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class,"QQ:onStart");
+                            LogUtil.logError(ShareDialog.class, "QQ:onStart");
                         }
 
                         @Override
@@ -205,12 +205,12 @@ public class ShareDialog extends BaseActivity {
 
                         @Override
                         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                            LogUtil.logError(ShareDialog.class,"QQ:onError");
+                            LogUtil.logError(ShareDialog.class, "QQ:onError");
                         }
 
                         @Override
                         public void onCancel(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class,"QQ:onCancel");
+                            LogUtil.logError(ShareDialog.class, "QQ:onCancel");
                         }
 
                     });
@@ -230,7 +230,7 @@ public class ShareDialog extends BaseActivity {
                     shareAction.setCallback(new UMShareListener() {
                         @Override
                         public void onStart(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class,"QZONE:onCancel");
+                            LogUtil.logError(ShareDialog.class, "QZONE:onCancel");
                         }
 
                         @Override
@@ -242,12 +242,12 @@ public class ShareDialog extends BaseActivity {
 
                         @Override
                         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                            LogUtil.logError(ShareDialog.class,"QZONE:onError");
+                            LogUtil.logError(ShareDialog.class, "QZONE:onError");
                         }
 
                         @Override
                         public void onCancel(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class,"QZONE:onCancel");
+                            LogUtil.logError(ShareDialog.class, "QZONE:onCancel");
                         }
 
                     });
@@ -267,7 +267,7 @@ public class ShareDialog extends BaseActivity {
                     shareAction.setCallback(new UMShareListener() {
                         @Override
                         public void onStart(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class,"WEIXIN:onStart");
+                            LogUtil.logError(ShareDialog.class, "WEIXIN:onStart");
                         }
 
                         @Override
@@ -279,12 +279,12 @@ public class ShareDialog extends BaseActivity {
 
                         @Override
                         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                            LogUtil.logError(ShareDialog.class,"WEIXIN:onError");
+                            LogUtil.logError(ShareDialog.class, "WEIXIN:onError");
                         }
 
                         @Override
                         public void onCancel(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class,"WEIXIN:onCancel");
+                            LogUtil.logError(ShareDialog.class, "WEIXIN:onCancel");
                         }
 
                     });
@@ -304,24 +304,24 @@ public class ShareDialog extends BaseActivity {
                     shareAction.setCallback(new UMShareListener() {
                         @Override
                         public void onStart(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class,"WEIXIN_CIRCLE:onStart");
+                            LogUtil.logError(ShareDialog.class, "WEIXIN_CIRCLE:onStart");
                         }
 
                         @Override
                         public void onResult(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class,"WEIXIN_CIRCLE:onResult");
+                            LogUtil.logError(ShareDialog.class, "WEIXIN_CIRCLE:onResult");
                             if (AppContext.user.getId() > 0 && type == 1)
                                 shareAward();
                         }
 
                         @Override
                         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                            LogUtil.logError(ShareDialog.class,"WEIXIN_CIRCLE:onError");
+                            LogUtil.logError(ShareDialog.class, "WEIXIN_CIRCLE:onError");
                         }
 
                         @Override
                         public void onCancel(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class,"WEIXIN_CIRCLE:onCancel");
+                            LogUtil.logError(ShareDialog.class, "WEIXIN_CIRCLE:onCancel");
                         }
 
                     });
@@ -385,9 +385,10 @@ public class ShareDialog extends BaseActivity {
                 Result result = new Result().parse(str);
                 if (result.isOk()) {
                     UIHelper.ToastMessage("已成功获得奖励");
-                }
+                } else
+                    UIHelper.ToastMessage(result.getMsg());
             }
         };
-        ApiUser.shareAward(callBack);
+        ApiUser.shareAward(news.getId(), callBack);
     }
 }

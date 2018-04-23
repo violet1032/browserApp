@@ -103,9 +103,10 @@ public class ApiUser {
         AppContext.http.get(url, params, callBack, false, false);
     }
 
-    public static void shareAward(FHttpCallBack callBack) {
+    public static void shareAward(int id,FHttpCallBack callBack) {
         // 参数设置
         Map<String, Object> params = new HashMap<>();
+        params.put("id",id);
         // 地址
         String url = URLs.shareAward;
 

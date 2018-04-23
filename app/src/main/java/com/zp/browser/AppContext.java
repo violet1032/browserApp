@@ -36,6 +36,8 @@ import org.kymjs.kjframe.KJDB;
 import org.kymjs.kjframe.bitmap.BitmapConfig;
 import org.kymjs.kjframe.http.HttpConfig;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * @author kymjs (https://www.kymjs.com/)
  * @since 2015-3
@@ -112,6 +114,10 @@ public class AppContext extends Application {
 
         // 数据库实例化
         dBHelper = DBHelper.getInstance(applicationContext);
+
+        // 推送实例化
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     public static boolean isGrantExternalRW(Activity activity) {

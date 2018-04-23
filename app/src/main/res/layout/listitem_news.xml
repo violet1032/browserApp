@@ -85,10 +85,10 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/listitem_news_lay_countdown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:id="@+id/listitem_news_lay_countdown"
                     android:orientation="horizontal"
                     android:paddingBottom="@dimen/space_10"
                     android:paddingLeft="@dimen/space_20"
@@ -109,6 +109,41 @@
                         android:textSize="@dimen/text_size_11" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/listitem_news_lay_coin_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/space_10"
+                    android:paddingLeft="@dimen/space_20"
+                    android:paddingTop="@dimen/space_10">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_5"
+                        android:text="@string/main_text_12"
+                        android:textColor="@color/black_3"
+                        android:textSize="@dimen/text_size_11" />
+
+                    <TextView
+                        android:id="@+id/listitem_news_tv_coin_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_default"
+                        android:textColor="@color/black_3"
+                        android:textSize="@dimen/text_size_11" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:padding="@dimen/space_2"
+                        android:layout_height="16dp"
+                        android:layout_marginLeft="@dimen/space_3"
+                        android:src="@drawable/gold" />
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/listitem_news_lay_share"
@@ -126,9 +161,9 @@
                         android:src="@drawable/icon_share" />
 
                     <TextView
+                        android:id="@+id/listitem_news_tv_share"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/listitem_news_tv_share"
                         android:layout_marginLeft="@dimen/space_5"
                         android:text="@string/main_text_4"
                         android:textColor="@color/black_3"

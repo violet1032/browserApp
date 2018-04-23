@@ -44,6 +44,7 @@ import com.zp.browser.widget.GridViewScroll;
 import org.json.JSONException;
 import org.kymjs.kjframe.ui.BindView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -311,6 +312,8 @@ public class MainFragment extends BaseFragment {
             TextView tvCountDown = layItem.findViewById(R.id.listitem_news_tv_countdown);
             TextView tvTimeTitle = layItem.findViewById(R.id.listitem_news_tv_time_tile);
             LinearLayout layTime = layItem.findViewById(R.id.listitem_news_lay_time);
+            TextView tvCoinNum = layItem.findViewById(R.id.listitem_news_tv_coin_num);
+            LinearLayout layCoinNum = layItem.findViewById(R.id.listitem_news_lay_coin_num);
 
             String date = time(news.getDateline(), i);
             if (!StringUtils.isEmpty(date)) {
@@ -318,6 +321,13 @@ public class MainFragment extends BaseFragment {
                 tvTimeTitle.setText(date);
             } else {
                 layTime.setVisibility(View.GONE);
+            }
+
+            if(news.getCoinNum().compareTo(new BigDecimal(0)) > 0){
+                layCoinNum.setVisibility(View.VISIBLE);
+                tvCoinNum.setText(news.getCoinNum().toString());
+            }else{
+                layCoinNum.setVisibility(View.GONE);
             }
 
             int start = 0;

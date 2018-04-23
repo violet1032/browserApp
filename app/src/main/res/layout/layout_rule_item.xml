@@ -24,7 +24,7 @@
         android:layout_height="15dp"
         android:layout_marginLeft="@dimen/space_5"
         android:layout_toLeftOf="@+id/layout_rule_item_tv_unit"
-        android:src="@drawable/gold" />
+        android:src="@drawable/beike" />
 
     <TextView
         android:id="@+id/act_user_tv_num"

@@ -221,8 +221,7 @@ public class UserActivity extends BaseActivity {
                                 JsonUtils jsonUtils1 = new JsonUtils(jsonArray.getString(i));
                                 String unit = jsonUtils1.getString("unit");
                                 if (!StringUtils.isEmpty(unit)) {
-                                    if (unit.contains("酷币")) {
-                                        unit = unit.replaceAll("酷币", "");
+                                    if (unit.contains("贝壳")) {
                                     } else {
                                         item.findViewById(R.id.layout_rule_item_img_3).setVisibility(View.GONE);
                                     }
@@ -242,8 +241,7 @@ public class UserActivity extends BaseActivity {
                                 JsonUtils jsonUtils1 = new JsonUtils(jsonArray2.getString(i));
                                 String unit = jsonUtils1.getString("unit");
                                 if (!StringUtils.isEmpty(unit)) {
-                                    if (unit.contains("酷币")) {
-                                        unit = unit.replaceAll("酷币", "");
+                                    if (unit.contains("贝壳")) {
                                     } else {
                                         item.findViewById(R.id.layout_rule_item_img_3).setVisibility(View.GONE);
                                     }

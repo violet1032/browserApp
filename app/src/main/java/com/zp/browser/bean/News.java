@@ -5,6 +5,7 @@ import com.zp.browser.utils.JsonUtils;
 import org.json.JSONException;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * Created by Administrator on 2018/3/19 0019.
@@ -13,6 +14,7 @@ public class News implements Serializable {
     private int id;
     private String content;
     private String dateline;
+    private BigDecimal coinNum;
     private int hours;
 
     public News parse(String json) throws JSONException {
@@ -21,6 +23,7 @@ public class News implements Serializable {
         setContent(jsonUtils.getString("content"));
         setDateline(jsonUtils.getString("dateline"));
         setHours(jsonUtils.getInt("hours"));
+        setCoinNum(new BigDecimal(jsonUtils.getInt("coin_num")));
         return this;
     }
 
@@ -54,5 +57,13 @@ public class News implements Serializable {
 
     public void setHours(int hours) {
         this.hours = hours;
+    }
+
+    public BigDecimal getCoinNum() {
+        return coinNum;
+    }
+
+    public void setCoinNum(BigDecimal coinNum) {
+        this.coinNum = coinNum;
     }
 }
