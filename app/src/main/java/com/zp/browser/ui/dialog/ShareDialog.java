@@ -1,6 +1,7 @@
 package com.zp.browser.ui.dialog;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -32,9 +33,9 @@ import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.utils.ImageCreateUtil;
 import com.zp.browser.utils.ImageUtils;
 import com.zp.browser.utils.JsonUtils;
-import com.zp.browser.utils.LogUtil;
 import com.zp.browser.utils.StringUtils;
 import com.zp.browser.utils.UIHelper;
+import com.zp.browser.widget.CustomDialog;
 
 import org.json.JSONException;
 import org.kymjs.kjframe.ui.BindView;
@@ -184,148 +185,28 @@ public class ShareDialog extends BaseActivity {
                 if (StringUtils.isEmpty(path)) {
                     UIHelper.ToastMessage("请等待二维码生成");
                 } else {
-                    File file = new File(path);
-                    UMImage image = new UMImage(ShareDialog.this, file);//本地文件
-                    image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
-                    image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
-                    ShareAction shareAction = new ShareAction(ShareDialog.this).withText("区块浏览器");
-                    shareAction.setPlatform(SHARE_MEDIA.QQ);
-                    shareAction.setCallback(new UMShareListener() {
-                        @Override
-                        public void onStart(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "QQ:onStart");
-                        }
-
-                        @Override
-                        public void onResult(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "QQ:onResult");
-                            if (AppContext.user.getId() > 0 && type == 1)
-                                shareAward();
-                        }
-
-                        @Override
-                        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                            LogUtil.logError(ShareDialog.class, "QQ:onError");
-                        }
-
-                        @Override
-                        public void onCancel(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "QQ:onCancel");
-                        }
-
-                    });
-                    shareAction.withMedia(image).share();
+                    share(SHARE_MEDIA.QQ);
                 }
                 break;
             case R.id.dialog_share_img_qqzone:
                 if (StringUtils.isEmpty(path)) {
                     UIHelper.ToastMessage("请等待二维码生成");
                 } else {
-                    File file = new File(path);
-                    UMImage image = new UMImage(ShareDialog.this, file);//本地文件
-                    image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
-                    image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
-                    ShareAction shareAction = new ShareAction(ShareDialog.this).withText("区块浏览器");
-                    shareAction.setPlatform(SHARE_MEDIA.QZONE);
-                    shareAction.setCallback(new UMShareListener() {
-                        @Override
-                        public void onStart(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "QZONE:onCancel");
-                        }
-
-                        @Override
-                        public void onResult(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "QZONE:onResult");
-                            if (AppContext.user.getId() > 0 && type == 1)
-                                shareAward();
-                        }
-
-                        @Override
-                        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                            LogUtil.logError(ShareDialog.class, "QZONE:onError");
-                        }
-
-                        @Override
-                        public void onCancel(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "QZONE:onCancel");
-                        }
-
-                    });
-                    shareAction.withMedia(image).share();
+                    share(SHARE_MEDIA.QZONE);
                 }
                 break;
             case R.id.dialog_share_img_wechat:
                 if (StringUtils.isEmpty(path)) {
                     UIHelper.ToastMessage("请等待二维码生成");
                 } else {
-                    File file = new File(path);
-                    UMImage image = new UMImage(ShareDialog.this, file);//本地文件
-                    image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
-                    image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
-                    ShareAction shareAction = new ShareAction(ShareDialog.this).withText("区块浏览器");
-                    shareAction.setPlatform(SHARE_MEDIA.WEIXIN);
-                    shareAction.setCallback(new UMShareListener() {
-                        @Override
-                        public void onStart(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "WEIXIN:onStart");
-                        }
-
-                        @Override
-                        public void onResult(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "WEIXIN:onResult");
-                            if (AppContext.user.getId() > 0 && type == 1)
-                                shareAward();
-                        }
-
-                        @Override
-                        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                            LogUtil.logError(ShareDialog.class, "WEIXIN:onError");
-                        }
-
-                        @Override
-                        public void onCancel(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "WEIXIN:onCancel");
-                        }
-
-                    });
-                    shareAction.withMedia(image).share();
+                    share(SHARE_MEDIA.WEIXIN);
                 }
                 break;
             case R.id.dialog_share_img_wechat_friends:
                 if (StringUtils.isEmpty(path)) {
                     UIHelper.ToastMessage("请等待二维码生成");
                 } else {
-                    File file = new File(path);
-                    UMImage image = new UMImage(ShareDialog.this, file);//本地文件
-                    image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
-                    image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
-                    ShareAction shareAction = new ShareAction(ShareDialog.this).withText("区块浏览器");
-                    shareAction.setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE);
-                    shareAction.setCallback(new UMShareListener() {
-                        @Override
-                        public void onStart(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "WEIXIN_CIRCLE:onStart");
-                        }
-
-                        @Override
-                        public void onResult(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "WEIXIN_CIRCLE:onResult");
-                            if (AppContext.user.getId() > 0 && type == 1)
-                                shareAward();
-                        }
-
-                        @Override
-                        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                            LogUtil.logError(ShareDialog.class, "WEIXIN_CIRCLE:onError");
-                        }
-
-                        @Override
-                        public void onCancel(SHARE_MEDIA share_media) {
-                            LogUtil.logError(ShareDialog.class, "WEIXIN_CIRCLE:onCancel");
-                        }
-
-                    });
-                    shareAction.withMedia(image).share();
+                    share(SHARE_MEDIA.WEIXIN_CIRCLE);
                 }
                 break;
         }
@@ -390,5 +271,87 @@ public class ShareDialog extends BaseActivity {
             }
         };
         ApiUser.shareAward(news.getId(), callBack);
+    }
+
+    public void share(final SHARE_MEDIA share_media){
+        if(AppConfig.getInstance().getmPre().getBoolean("firstShare",true) && type == 1){
+            CustomDialog.Builder builder = new CustomDialog.Builder (ShareDialog.this);
+            builder.setShowSuccess(true)
+                    .setTitle("分享后需要返回区块浏览器才能得到奖励")
+                    .setShowNotice(false)
+                    .setShowSuccess(false)
+                    .setOnTouchOutside(false)//设置点击周围不退回
+                            //设置监听
+                    .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .setNegativeButton("分享", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+
+                            AppConfig.getInstance().mPreSet("firstShare", false);
+                            File file = new File(path);
+                            UMImage image = new UMImage(ShareDialog.this, file);//本地文件
+                            image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+                            image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
+                            ShareAction shareAction = new ShareAction(ShareDialog.this).withText("区块浏览器");
+                            shareAction.setPlatform(share_media);
+                            shareAction.setCallback(new UMShareListener() {
+                                @Override
+                                public void onStart(SHARE_MEDIA share_media) {
+                                }
+
+                                @Override
+                                public void onResult(SHARE_MEDIA share_media) {
+                                    if (AppContext.user.getId() > 0 && type == 1)
+                                        shareAward();
+                                }
+
+                                @Override
+                                public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                                }
+
+                                @Override
+                                public void onCancel(SHARE_MEDIA share_media) {
+                                }
+
+                            });
+                            shareAction.withMedia(image).share();
+                        }
+                    }).create().show();
+        }else{
+            File file = new File(path);
+            UMImage image = new UMImage(ShareDialog.this, file);//本地文件
+            image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+            image.compressFormat = Bitmap.CompressFormat.PNG;//用户分享透明背景的图片可以设置这种方式，但是qq好友，微信朋友圈，不支持透明背景图片，会变成黑色
+            ShareAction shareAction = new ShareAction(ShareDialog.this).withText("区块浏览器");
+            shareAction.setPlatform(share_media);
+            shareAction.setCallback(new UMShareListener() {
+                @Override
+                public void onStart(SHARE_MEDIA share_media) {
+                }
+
+                @Override
+                public void onResult(SHARE_MEDIA share_media) {
+                    if (AppContext.user.getId() > 0 && type == 1)
+                        shareAward();
+                }
+
+                @Override
+                public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                }
+
+                @Override
+                public void onCancel(SHARE_MEDIA share_media) {
+                }
+
+            });
+            shareAction.withMedia(image).share();
+        }
+
     }
 }

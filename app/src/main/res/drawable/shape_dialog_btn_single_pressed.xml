@@ -5,6 +5,8 @@
     <!-- 填充 -->
     <solid android:color="@color/gray_3" />
     <!-- 圆角 -->
-    <corners android:bottomRightRadius="@dimen/radius_m" />
+    <corners
+        android:bottomLeftRadius="@dimen/radius_m"
+        android:bottomRightRadius="@dimen/radius_m" />
 
 </shape>

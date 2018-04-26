@@ -220,9 +220,9 @@ public class MainFragment extends BaseFragment {
 
         getAdvertList();
 
-        getNewsList();
-
         getLocation();
+
+        getSystemParam();
     }
 
     @Override
@@ -391,12 +391,13 @@ public class MainFragment extends BaseFragment {
             }
 
             tvTime.setText(StringUtils.getDateHM(StringUtils.date_fromat_change_4(news.getDateline())));
+            tvContent.setTextSize(news_font_size);
+            tvContent.setMaxLines(news_line);
             tvContent.setText(Html.fromHtml(stringBuffer.toString().replaceAll("background-color:", "")));
             String str2 = getCoundDown(news.getDateline(), news.getHours());
             if (str2.equals("已结束")) {
                 tvCountDown.setTag(1);
                 tvCountDown.setText(StringUtils.getDateYMD(StringUtils.date_fromat_change_4(news.getDateline())));
-                ((TextView) layItem.findViewById(R.id.listitem_news_tv_share)).setText("分享");
 //                layItem.findViewById(R.id.listitem_news_lay_countdown).setVisibility(View.GONE);
             } else {
                 tvCountDown.setTag(0);
@@ -412,10 +413,10 @@ public class MainFragment extends BaseFragment {
                 @Override
                 public void onClick(View view) {
                     int maxLines = tvContent.getMaxLines();
-                    if (maxLines == 5) {
+                    if (maxLines == news_line) {
                         tvContent.setMaxLines(1000);
                     } else
-                        tvContent.setMaxLines(5);
+                        tvContent.setMaxLines(news_line);
                     readAward();
                 }
             });
@@ -682,11 +683,11 @@ public class MainFragment extends BaseFragment {
                 super.onSuccess(headers, t);
                 String str = new String(t);
                 Result result = new Result().parse(str);
-                if(result.isOk()) {
+                if (result.isOk()) {
                     try {
                         JsonUtils jsonUtils = new JsonUtils(str);
                         int count = jsonUtils.getInt("count");
-                        ((MainActivity)getActivity()).showNotRead(count);
+                        ((MainActivity) getActivity()).showNotRead(count);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -696,4 +697,42 @@ public class MainFragment extends BaseFragment {
         if (firstId > 0)
             ApiUser.getUnReadNum(firstId, callBack);
     }
+
+    public int news_line = 5;
+    public int news_font_size = 16;
+
+    public void getSystemParam() {
+        FHttpCallBack callBack = new FHttpCallBack() {
+            @Override
+            public void onSuccess(Map<String, String> headers, byte[] t) {
+                super.onSuccess(headers, t);
+                String str = new String(t);
+                Result result = new Result();
+                result.parse(str);
+                if (result.isOk()) {
+                    try {
+                        JsonUtils jsonUtils = new JsonUtils(str);
+                        news_line = jsonUtils.getInt("news_line");
+                        news_font_size = jsonUtils.getInt("news_font_size");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        UIHelper.ToastMessage("规则数据解析错误");
+                    }
+                }
+            }
+
+            @Override
+            public void onSuccess(String t) {
+                super.onSuccess(t);
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                getNewsList();
+            }
+        };
+        ApiUser.getSystemParam(callBack);
+    }
+
 }
