@@ -33,6 +33,8 @@ import java.util.Map;
 public class UserActivity extends BaseActivity {
     @BindView(id = R.id.umeng_banner_title)
     private TextView tvTitle;
+    @BindView(id = R.id.umeng_banner_tv_right)
+    private TextView tvRight;
     @BindView(id = R.id.umeng_banner_img_left, click = true)
     private ImageView imgBack;
 
@@ -58,6 +60,10 @@ public class UserActivity extends BaseActivity {
     private TextView tvGoInvite;
     @BindView(id = R.id.act_user_tv_account, click = true)
     private TextView tvAccount;
+    @BindView(id = R.id.act_user_tv_difficulty, click = true)
+    private TextView tvDifficulty;
+    @BindView(id = R.id.act_user_tv_cost, click = true)
+    private TextView tvCost;
 
     @BindView(id = R.id.act_user_lay_bg)
     private LinearLayout layBg;
@@ -70,9 +76,9 @@ public class UserActivity extends BaseActivity {
     @BindView(id = R.id.act_user_lay_bg_4)
     private LinearLayout layBg_4;
 
-    @BindView(id=R.id.act_user_lay_1,click = true)
+    @BindView(id = R.id.act_user_lay_1, click = true)
     private LinearLayout lay1;
-    @BindView(id=R.id.act_user_lay_2,click = true)
+    @BindView(id = R.id.act_user_lay_2, click = true)
     private RelativeLayout lay2;
 
     private Handler handler;
@@ -95,6 +101,12 @@ public class UserActivity extends BaseActivity {
 
         tvTitle.setText("个人中心");
 
+        if (AppContext.user.getId() > 0) {
+            tvRight.setVisibility(View.VISIBLE);
+            tvRight.setText(getString(R.string.user_text_13) + AppContext.user.getCost());
+            tvRight.setTextColor(getResources().getColor(R.color.red));
+        }
+
         changeStyle();
     }
 
@@ -107,8 +119,8 @@ public class UserActivity extends BaseActivity {
             public boolean handleMessage(Message message) {
                 if (message.what == 0) {
                     finish();
-                }else if (message.what == 1){
-                    ApiCommon.getNetBitmap((String)message.obj,imgHead,false);
+                } else if (message.what == 1) {
+                    ApiCommon.getNetBitmap((String) message.obj, imgHead, false);
                 }
                 return false;
             }
@@ -175,6 +187,9 @@ public class UserActivity extends BaseActivity {
                         tvCode.setText(AppContext.user.getInvitation_code());
                         tvCount.setText(AppContext.user.getCount() + "");
                         tvCoin.setText(AppContext.user.getCoin().toString());
+
+                        tvDifficulty.setText(AppContext.user.getDifficulty()+"");
+                        tvCost.setText("$ " + AppContext.user.getCost());
                     }
                 }
 

@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -279,6 +280,32 @@ public class MainActivity extends BaseActivity {
         });
 
         addFragment(mainFragment);
+
+        edtUrl.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    String content = edtUrl.getText().toString().trim();
+                    //完成自己的事件
+                    if (content.startsWith("http")) {
+                        webviewStart(content);
+                    } else {
+                        List<SearchHistory> searchHistorys = AppContext.dBHelper.findAllByWhere(SearchHistory.class, "content='" + content + "'");
+                        if (searchHistorys.size() == 0) {
+                            SearchHistory searchHistory = new SearchHistory();
+                            searchHistory.setContent(content);
+                            searchHistory.setDateline(System.currentTimeMillis());
+                            AppContext.dBHelper.save(searchHistory);
+                        }
+
+                        // 获取搜索引擎，跳转搜索
+                        String url = AppConfig.getInstance().getmPre().getString("searchUrl", "https://www.baidu.com/s?wd=") + content;
+                        webviewStart(url);
+                    }
+                }
+                return false;
+            }
+        });
 
         edtUrl.addTextChangedListener(new TextWatcher() {
             @Override

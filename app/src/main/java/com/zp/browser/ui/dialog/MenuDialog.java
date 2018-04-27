@@ -77,6 +77,8 @@ public class MenuDialog extends BaseActivity {
     private ImageView imgSetting;
     @BindView(id=R.id.dialog_menu_tv_refresh)
     private TextView tvRefresh;
+    @BindView(id=R.id.text_curr_cost)
+    private TextView tvCost;
 
     private static Handler mainHandler;
 
@@ -133,6 +135,10 @@ public class MenuDialog extends BaseActivity {
         }
 
         changeStyle();
+
+        if(AppContext.user.getId()>0){
+            tvCost.setText("当前价值 " + getString(R.string.user_text_13)+ AppContext.user.getCost());
+        }
     }
 
     @Override

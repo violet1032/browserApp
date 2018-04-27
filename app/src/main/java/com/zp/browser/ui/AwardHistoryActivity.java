@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zp.browser.AppConfig;
+import com.zp.browser.AppContext;
 import com.zp.browser.R;
 import com.zp.browser.adapter.AwardHistoryAdapter;
 import com.zp.browser.api.ApiUser;
@@ -32,6 +33,8 @@ import java.util.Map;
 public class AwardHistoryActivity extends BaseActivity {
     @BindView(id = R.id.umeng_banner_title)
     private TextView tvTitle;
+    @BindView(id = R.id.umeng_banner_tv_right)
+    private TextView tvRight;
     @BindView(id = R.id.umeng_banner_img_left, click = true)
     private ImageView imgBack;
 
@@ -83,6 +86,12 @@ public class AwardHistoryActivity extends BaseActivity {
         });
 
         changeStyle();
+
+        if(AppContext.user.getId()>0){
+            tvRight.setVisibility(View.VISIBLE);
+            tvRight.setText(getString(R.string.user_text_13) + AppContext.user.getCost());
+            tvRight.setTextColor(getResources().getColor(R.color.red));
+        }
     }
 
     @Override

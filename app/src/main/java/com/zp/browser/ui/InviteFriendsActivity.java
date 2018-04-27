@@ -34,6 +34,8 @@ import java.util.Map;
 public class InviteFriendsActivity extends BaseActivity {
     @BindView(id = R.id.umeng_banner_title)
     private TextView tvTitle;
+    @BindView(id = R.id.umeng_banner_tv_right)
+    private TextView tvRight;
     @BindView(id = R.id.umeng_banner_img_left, click = true)
     private ImageView imgBack;
 
@@ -79,6 +81,12 @@ public class InviteFriendsActivity extends BaseActivity {
         tvTitle.setText("邀请好友拿佣金");
 
         tvUrl.setText(AppContext.user.getShareLink());
+
+        if(AppContext.user.getId()>0){
+            tvRight.setVisibility(View.VISIBLE);
+            tvRight.setText(getString(R.string.user_text_13) + AppContext.user.getCost());
+            tvRight.setTextColor(getResources().getColor(R.color.red));
+        }
 
         changeStyle();
     }

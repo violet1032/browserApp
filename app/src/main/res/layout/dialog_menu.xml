@@ -10,14 +10,14 @@
         android:id="@+id/dialog_menu_lay_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="28dp"
         android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_40"
+            android:layout_marginTop="45dp"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/space_10">
 
@@ -212,4 +212,14 @@
         android:layout_height="60dp"
         android:layout_marginLeft="@dimen/space_20"
         android:src="@drawable/default_head" />
+
+    <TextView
+        android:id="@+id/text_curr_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_10"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/dialog_menu_img_head"
+        android:textColor="@color/red"
+        android:textSize="@dimen/text_size_15" />
 </RelativeLayout>

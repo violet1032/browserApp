@@ -31,6 +31,8 @@ public class CollectHistoryActivity extends BaseActivity {
 
     @BindView(id = R.id.umeng_banner_img_left, click = true)
     private ImageView imgBack;
+    @BindView(id = R.id.umeng_banner_tv_right)
+    private TextView tvRight;
 
     @BindView(id = R.id.act_collect_history_bg)
     private RelativeLayout layBg;
@@ -86,6 +88,12 @@ public class CollectHistoryActivity extends BaseActivity {
     @Override
     public void initWidget() {
         super.initWidget();
+
+        if(AppContext.user.getId()>0){
+            tvRight.setVisibility(View.VISIBLE);
+            tvRight.setText(getString(R.string.user_text_13) + AppContext.user.getCost());
+            tvRight.setTextColor(getResources().getColor(R.color.red));
+        }
     }
 
     @Override

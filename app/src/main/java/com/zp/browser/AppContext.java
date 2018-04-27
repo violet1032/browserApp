@@ -72,6 +72,9 @@ public class AppContext extends Application {
     // db
     public static KJDB dBHelper;
 
+    public static int share_font_size = 16;
+    public static String short_name = "BBK";
+
     @Override
     public void onCreate() {
         super.onCreate();

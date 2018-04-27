@@ -186,6 +186,18 @@ public class MainFragment extends BaseFragment {
                             ((MainActivity) getActivity()).wakuang();
                         }
                         break;
+                    case 105:
+                        for (int i = 0; i < layList.getChildCount(); i++) {
+                            TextView tvContent = layList.getChildAt(i).findViewById(R.id.listitem_news_tv_content);
+                            TextView tvMore = layList.getChildAt(i).findViewById(R.id.listitem_news_tv_more);
+
+                            if(tvContent.getLineCount() > news_line){
+                                tvMore.setVisibility(View.VISIBLE);
+                            }else{
+                                tvMore.setVisibility(View.GONE);
+                            }
+                        }
+                        break;
                 }
                 return false;
             }
@@ -302,6 +314,8 @@ public class MainFragment extends BaseFragment {
 
                             if (newsList.getList().size() > 0)
                                 addNews(newsList);
+
+                            handler.sendEmptyMessage(105);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             UIHelper.ToastMessage("外链数据解析错误");
@@ -346,6 +360,7 @@ public class MainFragment extends BaseFragment {
             TextView tvTimeTitle = layItem.findViewById(R.id.listitem_news_tv_time_tile);
             LinearLayout layTime = layItem.findViewById(R.id.listitem_news_lay_time);
             TextView tvCoinNum = layItem.findViewById(R.id.listitem_news_tv_coin_num);
+            final TextView tvMore = layItem.findViewById(R.id.listitem_news_tv_more);
             LinearLayout layCoinNum = layItem.findViewById(R.id.listitem_news_lay_coin_num);
 
             String date = time(news.getDateline(), i);
@@ -407,7 +422,6 @@ public class MainFragment extends BaseFragment {
 
             }
 
-
             layItem.findViewById(R.id.listitem_news_lay_content).setOnClickListener(new View.OnClickListener() {
                 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                 @Override
@@ -415,8 +429,14 @@ public class MainFragment extends BaseFragment {
                     int maxLines = tvContent.getMaxLines();
                     if (maxLines == news_line) {
                         tvContent.setMaxLines(1000);
-                    } else
+                        tvMore.setVisibility(View.GONE);
+                    } else {
                         tvContent.setMaxLines(news_line);
+
+                        if(tvContent.getLineCount() > news_line){
+                            tvMore.setVisibility(View.VISIBLE);
+                        }
+                    }
                     readAward();
                 }
             });

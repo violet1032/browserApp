@@ -60,7 +60,7 @@ public class JsonUtils {
     public BigDecimal getBigDecimal(String str){
         try {
             if (jsonObject != null && jsonObject.has(str) && jsonObject.get(str) != null && !StringUtils.isEmpty(jsonObject.get(str).toString())) {
-                return new BigDecimal(jsonObject.getDouble(str));
+                return new BigDecimal(jsonObject.getString(str));
             }
         } catch (JSONException e) {
             e.printStackTrace();

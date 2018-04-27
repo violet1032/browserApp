@@ -118,7 +118,23 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="@string/user_text_11"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_size_14" />
+
+                        <TextView
+                            android:id="@+id/act_user_tv_difficulty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_4"
+                            android:text="@string/text_default"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_size_14" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/user_text_4"
+                            android:layout_marginTop="@dimen/space_5"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/text_size_14" />
 
@@ -126,7 +142,7 @@
                             android:id="@+id/act_user_tv_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/space_10"
+                            android:layout_marginTop="@dimen/space_4"
                             android:text="@string/text_default"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/text_size_14" />
@@ -156,15 +172,32 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="@string/user_text_12"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/text_size_14" />
+
+                            <TextView
+                                android:id="@+id/act_user_tv_cost"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_4"
+                                android:text="@string/text_default"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/text_size_14" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:text="@string/user_text_5"
                                 android:textColor="@color/gray"
+                                android:layout_marginTop="@dimen/space_5"
                                 android:textSize="@dimen/text_size_14" />
 
                             <TextView
                                 android:id="@+id/act_user_tv_coin"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/space_10"
+                                android:layout_marginTop="@dimen/space_4"
                                 android:text="@string/text_default"
                                 android:textColor="@color/gray"
                                 android:textSize="@dimen/text_size_14" />
@@ -176,17 +209,21 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="@dimen/space_15">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_15"
+                        android:layout_marginLeft="@dimen/space_15"
+                        android:layout_marginRight="@dimen/space_15"
                         android:text="@string/user_text_6"
                         android:textSize="@dimen/text_size_18" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
+                        android:layout_marginLeft="@dimen/space_15"
+                        android:layout_marginRight="@dimen/space_15"
                         android:layout_height="wrap_content">
 
                         <ImageView
@@ -220,6 +257,8 @@
                     <LinearLayout
                         android:id="@+id/act_user_lay_share"
                         android:layout_width="match_parent"
+                        android:layout_marginLeft="@dimen/space_15"
+                        android:layout_marginRight="@dimen/space_15"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"></LinearLayout>
 
@@ -227,10 +266,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:layout_marginTop="@dimen/space_5"
+                        android:layout_marginLeft="@dimen/space_15"
+                        android:layout_marginRight="@dimen/space_15"
                         android:background="@color/gray_2" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
+                        android:background="@color/main_skyblue"
+                        android:paddingLeft="@dimen/space_15"
+                        android:paddingRight="@dimen/space_15"
                         android:layout_height="wrap_content">
 
                         <ImageView
@@ -249,20 +293,24 @@
                             android:layout_toLeftOf="@+id/act_user_img_4"
                             android:padding="@dimen/space_10"
                             android:text="@string/user_text_10"
-                            android:textColor="@color/black_3"
-                            android:textSize="@dimen/text_size_14" />
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/text_size_16" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textStyle="bold"
                             android:layout_centerVertical="true"
                             android:text="@string/user_text_9"
-                            android:textColor="@color/black_3"
-                            android:textSize="@dimen/text_size_14" />
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_16" />
                     </RelativeLayout>
 
                     <LinearLayout
                         android:id="@+id/act_user_lay_invite"
+                        android:layout_marginLeft="@dimen/space_15"
+                        android:layout_marginRight="@dimen/space_15"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"></LinearLayout>

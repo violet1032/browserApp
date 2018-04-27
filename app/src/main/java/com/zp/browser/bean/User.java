@@ -31,6 +31,8 @@ public class User implements Serializable {
     private String share_news_bg;
     private int count;
     private String invitation_code;
+    private BigDecimal cost;
+    private int difficulty;
 
     public User parse(String jsonData) {
         try {
@@ -41,16 +43,34 @@ public class User implements Serializable {
             setNickname(jsonUtils1.getString("nickname"));
             setAvatar(jsonUtils1.getString("avatar"));
             setCoin(jsonUtils1.getBigDecimal("coin"));
+            setCost(jsonUtils1.getBigDecimal("cost"));
             setShareLink(jsonUtils1.getString("share"));
             setPhone(jsonUtils1.getString("telephone"));
             setInvite_bg(jsonUtils1.getString("invite_bg"));
             setShare_news_bg(jsonUtils1.getString("share_news_bg"));
             setCount(jsonUtils1.getInt("count"));
+            setDifficulty(jsonUtils1.getInt("difficulty"));
             setInvitation_code(jsonUtils1.getString("invitation_code"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return this;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public BigDecimal getCost() {
+        return cost;
+    }
+
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
     }
 
     public String getInvitation_code() {

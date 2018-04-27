@@ -22,6 +22,14 @@
             android:layout_height="@dimen/banner_height"
             android:padding="10dp"
             android:src="@drawable/click_btn_banner_back_white" />
+        <TextView
+            android:id="@+id/umeng_banner_tv_right"
+            android:layout_marginRight="@dimen/space_10"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/banner_height"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/click_btn_banner_back_white" />
 
         <LinearLayout
             android:layout_width="wrap_content"
