@@ -437,7 +437,7 @@ public class MainFragment extends BaseFragment {
                             tvMore.setVisibility(View.VISIBLE);
                         }
                     }
-                    readAward();
+//                    readAward();
                 }
             });
 
@@ -468,17 +468,17 @@ public class MainFragment extends BaseFragment {
         }
     }
 
-    public void readAward() {
-        if (AppContext.user.getId() > 0) {
-            FHttpCallBack callBack = new FHttpCallBack() {
-                @Override
-                public void onSuccess(Map<String, String> headers, byte[] t) {
-                    super.onSuccess(headers, t);
-                }
-            };
-            ApiUser.readAward(callBack);
-        }
-    }
+//    public void readAward() {
+//        if (AppContext.user.getId() > 0) {
+//            FHttpCallBack callBack = new FHttpCallBack() {
+//                @Override
+//                public void onSuccess(Map<String, String> headers, byte[] t) {
+//                    super.onSuccess(headers, t);
+//                }
+//            };
+//            ApiUser.readAward(callBack);
+//        }
+//    }
 
     private Map<String, Integer> map = new HashMap<>();
 
@@ -734,6 +734,8 @@ public class MainFragment extends BaseFragment {
                         JsonUtils jsonUtils = new JsonUtils(str);
                         news_line = jsonUtils.getInt("news_line");
                         news_font_size = jsonUtils.getInt("news_font_size");
+                        AppContext.share_font_size = jsonUtils.getInt("share_font_size");
+                        AppContext.short_name = jsonUtils.getString("short_name");
                     } catch (JSONException e) {
                         e.printStackTrace();
                         UIHelper.ToastMessage("规则数据解析错误");

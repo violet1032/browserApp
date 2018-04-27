@@ -193,7 +193,7 @@ public class ImageCreateUtil {
                         final int color4 = 0xff555555;
                         paint4.setColor(color4);
                         paint4.setTextSize(32);
-                        canvas.drawText("BBK糖果", 30 + qrcode.getWidth() + 120, 340 + contentnew.getHeight() + 120, paint4);
+                        canvas.drawText(AppContext.short_name+"糖果", 30 + qrcode.getWidth() + 120, 340 + contentnew.getHeight() + 120, paint4);
 
                         TextPaint paint5 = new TextPaint();
                         paint5.setAntiAlias(true);
@@ -203,7 +203,7 @@ public class ImageCreateUtil {
                         canvas.drawText("长按识别二维码", 30 + qrcode.getWidth(), 340 + contentnew.getHeight() + 150, paint5);
 
                         Bitmap candy = ImageUtils.drawableToBitmap(AppContext.appContext.getResources().getDrawable(R.drawable.candy, null), 0.5f);
-                        canvas.drawBitmap(candy, 30 + qrcode.getWidth() + 230, 340 + contentnew.getHeight() + 90, null);
+                        canvas.drawBitmap(candy, 30 + qrcode.getWidth() +120+ getTextWidth(paint4,AppContext.short_name+"糖果"), 340 + contentnew.getHeight() + 90, null);
                     }
 
 
@@ -225,5 +225,18 @@ public class ImageCreateUtil {
             }
         };
         AppContext.bitmap.saveImage(AppContext.applicationContext, imgUrl, AppConfig.SAVE_IMAGE_PATH + filename, true, httpCallBack);
+    }
+
+    public static int getTextWidth(Paint paint, String str) {
+        int iRet = 0;
+        if (str != null && str.length() > 0) {
+            int len = str.length();
+            float[] widths = new float[len];
+            paint.getTextWidths(str, widths);
+            for (int j = 0; j < len; j++) {
+                iRet += (int) Math.ceil(widths[j]);
+            }
+        }
+        return iRet;
     }
 }

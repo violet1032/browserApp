@@ -132,6 +132,7 @@
                             android:textSize="@dimen/text_size_14" />
                         <TextView
                             android:layout_width="wrap_content"
+                            android:id="@+id/act_user_tv_1"
                             android:layout_height="wrap_content"
                             android:text="@string/user_text_4"
                             android:layout_marginTop="@dimen/space_5"
@@ -188,6 +189,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/act_user_tv_2"
                                 android:text="@string/user_text_5"
                                 android:textColor="@color/gray"
                                 android:layout_marginTop="@dimen/space_5"
@@ -214,6 +216,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/act_user_tv_3"
                         android:layout_marginTop="@dimen/space_15"
                         android:layout_marginLeft="@dimen/space_15"
                         android:layout_marginRight="@dimen/space_15"

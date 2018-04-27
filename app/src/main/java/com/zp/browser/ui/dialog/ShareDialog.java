@@ -159,6 +159,7 @@ public class ShareDialog extends BaseActivity {
 
         if (type == 1) {
             news = (News) getIntent().getSerializableExtra("news");
+            textContent.setTextSize(AppContext.share_font_size);
             textContent.setText(Html.fromHtml(news.getContent()));
         }
 

@@ -52,6 +52,8 @@ public class InviteFriendsActivity extends BaseActivity {
     private TextView tvCoin;
     @BindView(id = R.id.act_invite_friends_tv_rule, click = true)
     private TextView tvRule;
+    @BindView(id = R.id.act_invite_friends_tv_2, click = true)
+    private TextView tv2;
     @BindView(id = R.id.act_invite_friends_lay_record)
     private TableLayout layHistory;
 
@@ -81,6 +83,7 @@ public class InviteFriendsActivity extends BaseActivity {
         tvTitle.setText("邀请好友拿佣金");
 
         tvUrl.setText(AppContext.user.getShareLink());
+        tv2.setText(AppContext.short_name+"糖果");
 
         if(AppContext.user.getId()>0){
             tvRight.setVisibility(View.VISIBLE);

@@ -64,6 +64,12 @@ public class UserActivity extends BaseActivity {
     private TextView tvDifficulty;
     @BindView(id = R.id.act_user_tv_cost, click = true)
     private TextView tvCost;
+    @BindView(id = R.id.act_user_tv_1, click = true)
+    private TextView tv1;
+    @BindView(id = R.id.act_user_tv_2, click = true)
+    private TextView tv2;
+    @BindView(id = R.id.act_user_tv_3, click = true)
+    private TextView tv3;
 
     @BindView(id = R.id.act_user_lay_bg)
     private LinearLayout layBg;
@@ -106,6 +112,10 @@ public class UserActivity extends BaseActivity {
             tvRight.setText(getString(R.string.user_text_13) + AppContext.user.getCost());
             tvRight.setTextColor(getResources().getColor(R.color.red));
         }
+
+        tv1.setText(AppContext.short_name+"挖矿获利次数");
+        tv2.setText("已获得"+AppContext.short_name+"糖果数量");
+        tv3.setText("如何挖矿获得"+AppContext.short_name+"糖果");
 
         changeStyle();
     }
