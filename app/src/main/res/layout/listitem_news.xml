@@ -82,10 +82,10 @@
                 android:id="@+id/listitem_news_tv_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_5"
                 android:layout_marginTop="@dimen/space_5"
                 android:text="@string/main_text_13"
-                android:textColor="@color/black_3"
-                android:layout_gravity="center_horizontal"
+                android:textColor="#1f61be"
                 android:textSize="@dimen/text_size_13"></TextView>
 
             <LinearLayout

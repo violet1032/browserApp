@@ -25,8 +25,7 @@
         android:maxWidth="220dp"
         android:textColor="@color/black_3"
         android:textSize="@dimen/text_size_14"
-        android:text="了三等奖否偶奇偶围绕绝配哦飞机配件费我婆家分街覅看见了卡返利金额飞蛾
-        三等奖费了收到了封口胶了刷卡机的佛瑟吉欧飞机哦覅额击飞老司机付了款世纪东方了三康的"
+        android:lineSpacingExtra="@dimen/space_5"
         android:layout_marginLeft="-1000dp"
         android:visibility="visible" />
 
