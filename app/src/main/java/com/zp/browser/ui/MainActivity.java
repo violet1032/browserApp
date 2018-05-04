@@ -1,5 +1,6 @@
 package com.zp.browser.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,6 +31,7 @@ import com.zp.browser.api.FHttpCallBack;
 import com.zp.browser.bean.Result;
 import com.zp.browser.db.Model.Collect;
 import com.zp.browser.db.Model.SearchHistory;
+import com.zp.browser.receiver.MsgReceiver;
 import com.zp.browser.ui.common.BaseActivity;
 import com.zp.browser.ui.dialog.MenuDialog;
 import com.zp.browser.ui.dialog.VersionUpdateDialog;
@@ -138,6 +140,8 @@ public class MainActivity extends BaseActivity {
 
     @BindView(id = R.id.act_main_tv_unread, click = true)
     private TextView tvNotRead;
+
+    private MsgReceiver msgReceiver;
 
     public static void startActivity(Context context) {
         Intent intent = new Intent();
@@ -383,6 +387,7 @@ public class MainActivity extends BaseActivity {
         changeStyle(true);
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void widgetClick(View v) {
         super.widgetClick(v);
@@ -506,12 +511,20 @@ public class MainActivity extends BaseActivity {
             }
         };
         registerReceiver(broadcastReceiver, new IntentFilter("android.intent.style_change"));
+
+
+        msgReceiver = new MsgReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction("com.zp.browser.MESSAGE_RECEIVED_ACTION");
+        registerReceiver(msgReceiver, filter);
     }
 
     @Override
     public void unRegisterBroadcast() {
         super.unRegisterBroadcast();
         unregisterReceiver(broadcastReceiver);
+        unregisterReceiver(msgReceiver);
     }
 
     public void webviewStart(String url) {
@@ -917,4 +930,6 @@ public class MainActivity extends BaseActivity {
     public void hideNotRead(){
         tvNotRead.setVisibility(View.GONE);
     }
+
+
 }

@@ -16,6 +16,7 @@
 package com.zp.browser;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -75,6 +76,8 @@ public class AppContext extends Application {
     public static int share_font_size = 16;
     public static String short_name = "BBK";
 
+
+    @SuppressLint("NewApi")
     @Override
     public void onCreate() {
         super.onCreate();
