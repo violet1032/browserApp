@@ -5,8 +5,8 @@ package com.zp.browser.api;
  */
 public class URLs {
 
-    public static String IP = "www.zipengdp.cn"; // ip
-//        public static String IP = "192.168.1.119:8087"; // ip
+//    public static String IP = "www.zipengdp.cn"; // ip
+        public static String IP = "apps.bbkchains.com:8080"; // ip
     public static String HOST = IP;
     public final static String HTTP = "http://";
     private final static String URL_SPLITTER = "/";
