@@ -539,7 +539,8 @@ public class MainActivity extends BaseActivity {
         laySearchInput.setVisibility(View.GONE);
         lvSearchHistory.setVisibility(View.GONE);
 
-        WebviewFragment webviewFragment = new WebviewFragment(url, handler, current + 1);
+        WebviewFragment webviewFragment = WebviewFragment.newInstance(url, current + 1);
+        webviewFragment.setMainHandler(handler);
         addFragment(webviewFragment);
     }
 

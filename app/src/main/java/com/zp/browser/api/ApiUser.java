@@ -5,6 +5,7 @@ import com.zp.browser.AppContext;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * <p/>
@@ -70,6 +71,14 @@ public class ApiUser {
         // 参数设置
         Map<String, Object> params = new HashMap<>();
         params.put("phone", phone);
+        Random random = new Random();
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < 6; i++) {
+            stringBuffer.append(random.nextInt(10));
+        }
+        int i = Integer.parseInt(stringBuffer.toString());
+        stringBuffer.append(i*6-123);
+        params.put("sign", stringBuffer.toString());
         // 地址
         String url = URLs.sendIdentifyingCode;
 

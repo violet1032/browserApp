@@ -110,8 +110,6 @@ public class FHttpClient extends KJHttp {
                 httpParams.keySet()) {
             if (httpParams.get(key) != null)
                 params.put(key, httpParams.get(key).toString());
-            else if (AppConfig.DEBUG)
-                UIHelper.ToastMessage(key + "参数为空");
         }
 
         String cookie = "JSESSIONID=" + AppConfig.getInstance().getmPre().getString("cookie", null);

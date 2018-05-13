@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,10 +62,24 @@ public class WebviewFragment extends BaseFragment {
     private boolean hasGetReward = false;
     private boolean hasRemove = false;
 
-    public WebviewFragment(String url, Handler handler, int current) {
-        this.url = url;
-        mainHandler = handler;
-        this.current = current;
+    public static final WebviewFragment newInstance(String url, int current) {
+        WebviewFragment fragment = new WebviewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("url", url);
+        bundle.putInt("current", current);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        url = getArguments().getString("url");
+        current = getArguments().getInt("current");
+    }
+
+    public void setMainHandler(Handler mainHandler) {
+        this.mainHandler = mainHandler;
     }
 
     public WebviewFragment() {
@@ -171,7 +186,7 @@ public class WebviewFragment extends BaseFragment {
 
         webView.setWebChromeClient(webChromeClient);
 
-        AppConfig.getInstance().mPreSet("lastUrl",url);
+        AppConfig.getInstance().mPreSet("lastUrl", url);
 
         webView.loadUrl(url);
     }
@@ -290,6 +305,18 @@ public class WebviewFragment extends BaseFragment {
                     + "var style = document.createElement('style');" + "style.type = 'text/css';"
                     + "style.innerHTML = window.atob('" + code + "');"
                     + "parent.appendChild(style)" + "})();");
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            if (webView != null)
+                webView.onPause();
+        }else {
+            if (webView != null)
+                webView.onResume();
         }
     }
 }
