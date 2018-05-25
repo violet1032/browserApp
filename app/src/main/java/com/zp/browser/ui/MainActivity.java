@@ -430,6 +430,8 @@ public class MainActivity extends BaseActivity {
                 if (str.equals("搜索")) {
                     if (content.startsWith("http")) {
                         webviewStart(content);
+                    } else if(content.startsWith("www")){
+                        webviewStart("http://"+content);
                     } else {
                         List<SearchHistory> searchHistorys = AppContext.dBHelper.findAllByWhere(SearchHistory.class, "content='" + content + "'");
                         if (searchHistorys.size() == 0) {

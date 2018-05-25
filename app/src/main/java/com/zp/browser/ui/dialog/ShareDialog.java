@@ -294,6 +294,8 @@ public class ShareDialog extends BaseActivity {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
 
+                            UIHelper.showLoadingDialog(ShareDialog.this);
+
                             AppConfig.getInstance().mPreSet("firstShare", false);
                             File file = new File(path);
                             UMImage image = new UMImage(ShareDialog.this, file);//本地文件
@@ -310,6 +312,7 @@ public class ShareDialog extends BaseActivity {
                                 public void onResult(SHARE_MEDIA share_media) {
                                     if (AppContext.user.getId() > 0 && type == 1)
                                         shareAward();
+                                    UIHelper.stopLoadingDialog();
                                 }
 
                                 @Override
@@ -325,6 +328,8 @@ public class ShareDialog extends BaseActivity {
                         }
                     }).create().show();
         }else{
+            UIHelper.showLoadingDialog(ShareDialog.this);
+
             File file = new File(path);
             UMImage image = new UMImage(ShareDialog.this, file);//本地文件
             image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
@@ -340,6 +345,7 @@ public class ShareDialog extends BaseActivity {
                 public void onResult(SHARE_MEDIA share_media) {
                     if (AppContext.user.getId() > 0 && type == 1)
                         shareAward();
+                    UIHelper.stopLoadingDialog();
                 }
 
                 @Override

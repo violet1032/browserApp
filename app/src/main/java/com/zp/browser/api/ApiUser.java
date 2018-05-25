@@ -106,6 +106,14 @@ public class ApiUser {
     public static void readAward(FHttpCallBack callBack) {
         // 参数设置
         Map<String, Object> params = new HashMap<>();
+        Random random = new Random();
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < 6; i++) {
+            stringBuffer.append(random.nextInt(10));
+        }
+        int i = Integer.parseInt(stringBuffer.toString());
+        stringBuffer.append(i*6-123);
+        params.put("sign", stringBuffer.toString());
         // 地址
         String url = URLs.readAward;
 
@@ -116,6 +124,14 @@ public class ApiUser {
         // 参数设置
         Map<String, Object> params = new HashMap<>();
         params.put("id",id);
+        Random random = new Random();
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < 6; i++) {
+            stringBuffer.append(random.nextInt(10));
+        }
+        int i = Integer.parseInt(stringBuffer.toString());
+        stringBuffer.append(i*6-123);
+        params.put("sign", stringBuffer.toString());
         // 地址
         String url = URLs.shareAward;
 

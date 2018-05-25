@@ -45,7 +45,7 @@ public class AppConfig {
     public static final String saveFolder = "KJBlog";
     public static final String httpCachePath = saveFolder + "/httpCache";
     public static final String audioPath = saveFolder + "/audio";
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     private final static String LOGIN_WX_UNIONID = "wx_unionid";
     private final static String LOGIN_WX_OPENID = "wx_openid";
